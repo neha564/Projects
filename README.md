@@ -4,6 +4,7 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 
 ## Table of Contents
 - [Features](#features)
+- [Live Deployment](#live-deployment)
 - [UI Screenshots](#ui-screenshots)
 - [Tech Stack](#tech-stack)
 - [File Structure](#file-structure)
@@ -21,6 +22,12 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 - **Quick Notes**: Take and store quick notes for your studies.
 - **Daily Motivation**: Receive motivational quotes to keep you going.
 - **User Authentication**: Register and login to access personalized features.
+
+## Live Deployment
+
+The app is currently live at [https://study-sync-app.vercel.app/](https://study-sync-app.vercel.app/). You can explore the various features and functionalities of the app, including the Pomodoro timer, music recommendations, weather checks, and AI chat assistance.
+
+The backend API is hosted on Render at [https://studysync-study-buddy-app.onrender.com](https://studysync-study-buddy-app.onrender.com/). The frontend is hosted on Vercel and communicates with the backend API for data retrieval and storage.
 
 ## UI Screenshots
 
@@ -199,9 +206,9 @@ StudySync-Study-Buddy-App/
 │   ├── package.json                    # Frontend dependencies
 │   └── package-lock.json               # Lock file for frontend dependencies
 │
-├── .env                                 # Environment variables for API keys and secrets
-├── README.md                            # This README file
-└── package.json                         # Root package.json file for the entire project
+├── .env                                # Environment variables for API keys and secrets
+├── README.md                           # This README file
+└── package.json                        # Root package.json file for the entire project
 ```
 
 ## API Documentation
