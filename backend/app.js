@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
-const routes = require('./routes');
+const routes = require('./routes/routes');
 const cors = require('cors');
 
 // Load environment variables at the start

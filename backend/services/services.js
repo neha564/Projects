@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const axios = require('axios');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const { User, Group } = require('./models');
+const { User, Group } = require('../models/models');
 require('dotenv').config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_TOKEN);

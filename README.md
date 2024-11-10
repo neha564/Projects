@@ -1,0 +1,214 @@
+# StudySync - A Productivity and Study Companion App
+
+Welcome to **StudySync**! StudySync is a productivity and study tool designed to help users stay organized and efficient. It includes a variety of features such as Pomodoro timers, music recommendations, weather checks, flashcards, to-do lists, and AI chat assistance. It integrates third-party services like Spotify for music and OpenWeather for weather data.
+
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [File Structure](#file-structure)
+- [API Documentation](#api-documentation)
+- [UI Screenshots](#ui-screenshots)
+- [Setup Instructions](#setup-instructions)
+- [Contributors](#creators)
+
+## Features
+- **Pomodoro Timer**: A built-in timer for Pomodoro study sessions.
+- **Music Recommendations**: Get music suggestions based on mood using Spotify.
+- **Flashcards**: Create, manage, and study flashcards.
+- **To-Do List**: Track study tasks and assignments.
+- **AI Chat**: Chat with an AI assistant for study tips, help, and queries.
+- **Weather Check**: Check the weather for any city using OpenWeather.
+- **Quick Notes**: Take and store quick notes for your studies.
+- **Daily Motivation**: Receive motivational quotes to keep you going.
+
+## Tech Stack
+- **Frontend**:
+    - Vue.js (JavaScript Framework)
+    - Vuetify (Material Design Components)
+    - Axios (HTTP Requests)
+    - Vuex (State Management)
+    - Markdown Rendering with `marked` (for AI-generated responses)
+
+- **Backend**:
+    - Node.js with Express.js
+    - MongoDB (Database)
+    - JWT (Authentication)
+    - Spotify API (for music recommendations)
+    - OpenWeather API (for weather data)
+
+- **Others**:
+    - GitHub for version control
+    - Google Gemini (for AI chat functionality)
+
+## File Structure
+
+```plaintext
+StudySync/
+│
+├── backend/                       # Backend (Node.js + Express)
+│   ├── config/                    # Database and configuration files
+│   │   └── db.js                  # Database connection
+│   ├── controllers/               # Controllers handling requests
+│   │   ├── controllers.js         # Main controller file
+│   ├── middleware/                # Middleware for authentication
+│   │   └── middleware.js          # Auth middleware to protect routes
+│   ├── models/                    # Mongoose models (User, Group)
+│   │   └── models.js              # Mongoose models
+│   ├── routes/                    # API Routes for endpoints
+│   │   └── routes.js              # Route definitions
+│   ├── services/                  # External services (AI, Weather, Spotify)
+│   │   └── services.js            # Helper functions for services
+│   ├── views/                     # Views (if using any templating engines)
+│   ├── .env                       # Environment variables for sensitive data
+│   ├── app.js                     # Main backend application file
+│   ├── package.json               # Backend dependencies
+│   └── package-lock.json          # Lock file for backend dependencies
+│
+├── frontend/                      # Frontend (Vue.js + Vuetify)
+│   ├── public/                    # Static files (favicon, index.html)
+│   │   ├── favicon.ico            # App favicon
+│   │   ├── index.html             # HTML template
+│   ├── src/                       # Source code for frontend
+│   │   ├── assets/                # Static assets (images, logos, etc.)
+│   │   │   ├── logo.png           # App logo
+│   │   │   └── logo.svg           # SVG logo
+│   │   ├── components/            # Reusable Vue components
+│   │   │   ├── ChatAI.vue         # AI Chat component
+│   │   │   ├── FooterComponent.vue# Footer component
+│   │   │   ├── MusicRecommendation.vue # Music recommendation component
+│   │   │   ├── NavbarComponent.vue# Navbar component
+│   │   │   ├── SearchProfiles.vue# Search profiles component
+│   │   │   └── StudyGroup.vue     # Study group component
+│   │   ├── store/                 # Vuex store for global state management
+│   │   │   └── index.js           # Vuex store setup
+│   │   ├── router/                # Vue Router for page navigation
+│   │   │   └── index.js           # Router setup
+│   │   ├── App.vue                # Main Vue component
+│   ├── package.json               # Frontend dependencies
+│   ├── package-lock.json          # Lock file for frontend dependencies
+│
+├── .env                            # Environment variables for API keys and secrets
+├── README.md                      # This README file
+└── package.json                   # Root package.json file for the entire project
+```
+
+## API Documentation
+
+### Table of API Endpoints
+
+| **API Endpoint**            | **Method** | **Description**                                            |
+|-----------------------------|------------|------------------------------------------------------------|
+| `/auth/register`            | POST       | Registers a new user with name, email, and password.       |
+| `/auth/login`               | POST       | Authenticates the user and returns a JWT token.            |
+| `/profile/:userId?`         | GET        | Retrieves the profile data of the authenticated user.      |
+| `/profile`                  | PUT        | Updates the profile information of the authenticated user. |
+| `/search`                   | GET        | Searches for user profiles based on the query.             |
+| `/weather`                  | GET        | Fetches weather data for a given city.                     |
+| `/groups`                   | POST       | Creates a new study group.                                 |
+| `/groups/:groupId/sessions` | POST       | Creates a new study session for the group.                 |
+| `/cities`                   | GET        | Provides city suggestions based on a query.                |
+| `/music`                    | GET        | Fetches music recommendations based on a mood.             |
+| `/ai-chat`                  | POST       | Allows users to chat with the AI for study assistance.     |
+
+### Example of calling the Music Recommendation API
+```javascript
+axios.get('http://localhost:5000/api/music?emotion=happy', {
+  headers: {
+    Authorization: `Bearer ${your_token}`,
+  }
+}).then(response => {
+  console.log(response.data.recommendations);  // Process music recommendations
+}).catch(error => {
+  console.error('Error fetching music:', error);
+});
+```
+
+### Authentication
+All API endpoints require JWT authentication. Include the token in the `Authorization` header as follows:
+```plaintext
+Authorization: Bearer <your-jwt-token>
+```
+
+## UI Screenshots
+
+Here are some placeholder UI images for the app:
+
+1. **Home Page (Dashboard)**
+   ![Home Page](https://via.placeholder.com/800x600.png?text=Home+Page+Placeholder)
+
+2. **Pomodoro Timer**
+   ![Pomodoro Timer](https://via.placeholder.com/800x600.png?text=Pomodoro+Timer+Placeholder)
+
+3. **Music Recommendations**
+   ![Music Recommendations](https://via.placeholder.com/800x600.png?text=Music+Recommendations+Placeholder)
+
+4. **Weather Check**
+   ![Weather Check](https://via.placeholder.com/800x600.png?text=Weather+Check+Placeholder)
+
+5. **Flashcards**
+   ![Flashcards](https://via.placeholder.com/800x600.png?text=Flashcards+Placeholder)
+
+6. **AI Chat**
+   ![AI Chat](https://via.placeholder.com/800x600.png?text=AI+Chat+Placeholder)
+
+## Setup Instructions
+
+### Backend Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/studysync.git
+   cd studysync
+   cd backend
+   ```
+
+2. Install backend dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables by creating a `.env` file:
+   ```
+   SPOTIFY_CLIENT_ID=<your-spotify-client-id>
+   SPOTIFY_CLIENT_SECRET=<your-spotify-client-secret>
+   OPENWEATHER_API_KEY=<your-openweather-api-key>
+   JWT_SECRET=<your-jwt-secret>
+   GEMINI_API_TOKEN=<your-gemini-api-token>
+   ```
+
+4. Start the backend server:
+   ```bash
+   npm start
+   ```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install frontend dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up the frontend `.env` file with the API base URL:
+   ```
+   VUE_APP_API_URL=http://localhost:5000/api
+   ```
+
+4. Start the frontend development server:
+   ```bash
+   npm run serve
+   ```
+
+5. Open your browser and go to `http://localhost:8080` to view the app.
+
+## Creators
+
+- [Son Nguyen](https://github.com/hoangsonww)
+
+---
+
+We hope you enjoy using **StudySync**! For any issues or feature requests, feel free to open an issue on the repository. Happy studying!
