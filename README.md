@@ -49,22 +49,27 @@ Here are some placeholder UI images for the app:
      <img src="img/tools_ui.png" alt="Pomodoro Timer UI" width="100%">
    </p>
 
-3. **Login Page**
+3. **Profile Page**
+   <p align="center">
+     <img src="img/profile_ui.png" alt="Profile Page UI" width="100%">
+   </p>
+
+4. **Login Page**
    <p align="center">
      <img src="img/login_ui.png" alt="Music Recommendations UI" width="100%">
    </p>
 
-4. **Register Page**
+5. **Register Page**
     <p align="center">
       <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
     </p>
 
-5. **404 Page**
+6. **404 Page**
    <p align="center">
      <img src="img/404_ui.png" alt="404 Page UI" width="100%">
    </p>
 
-6. **Footer**
+7. **Footer**
    <p align="center">
      <img src="img/footer_ui.png" alt="Footer UI" width="100%">
    </p>
