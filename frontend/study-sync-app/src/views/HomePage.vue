@@ -416,8 +416,7 @@ export default {
     },
     async fetchUsername() {
       try {
-        // Get the token from localStorage or Vuex store (whichever applies in your setup)
-        const token = this.token || localStorage.getItem("token");
+        const token = this.token;
         if (!token) {
           console.error("Authorization token not found.");
           this.username = "Guest";
@@ -1349,7 +1348,7 @@ h2 {
 }
 
 .date-time-card:hover {
-  transform: translateY(-8px) scale(1.02); /* Slight scaling for emphasis */
+  transform: translateY(-5px);
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3); /* Smoother shadow transition */
 }
 
