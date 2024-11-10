@@ -1,6 +1,6 @@
 # StudySync - A Productivity and Study Companion App
 
-Welcome to **StudySync**! StudySync is a productivity and study tool designed to help users stay organized and efficient. It includes a variety of features such as Pomodoro timers, music recommendations, weather checks, flashcards, to-do lists, and AI chat assistance. It integrates third-party services like Spotify for music and OpenWeather for weather data.
+Welcome to **StudySync**! StudySync is a productivity and study tool designed to help users stay organized and efficient, built with **Vue and Express**. It includes a variety of features such as Pomodoro timers, music recommendations, weather checks, flashcards, to-do lists, and AI chat assistance. It integrates third-party services like Spotify for music and OpenWeather for weather data.
 
 ## Table of Contents
 
@@ -51,20 +51,20 @@ Here are some placeholder UI images for the app:
      <img src="img/tools_ui.png" alt="Pomodoro Timer UI" width="100%">
    </p>
 
-3. **Profile Page**
-   <p align="center">
-     <img src="img/profile_ui.png" alt="Profile Page UI" width="100%">
-   </p>
-
-4. **Login Page**
+3. **Login Page**
    <p align="center">
      <img src="img/login_ui.png" alt="Music Recommendations UI" width="100%">
    </p>
 
-5. **Register Page**
+4. **Register Page**
     <p align="center">
       <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
     </p>
+
+5. **Profile Page**
+   <p align="center">
+     <img src="img/profile_ui.png" alt="Profile Page UI" width="100%">
+   </p>
 
 6. **404 Page**
    <p align="center">
