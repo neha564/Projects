@@ -10,25 +10,28 @@
 </template>
 
 <script>
-import api from '../api';
+import api from "../api";
 
 export default {
   data() {
     return {
-      message: '',
+      message: "",
       response: null,
-      sessionId: 'unique-session-id' // Replace with an actual unique identifier if needed
+      sessionId: "unique-session-id", // Replace with an actual unique identifier if needed
     };
   },
   methods: {
     async sendMessage() {
       try {
-        const res = await api.post('/ai-chat', { sessionId: this.sessionId, message: this.message });
+        const res = await api.post("/ai-chat", {
+          sessionId: this.sessionId,
+          message: this.message,
+        });
         this.response = res.data.response;
       } catch (error) {
         console.error("Error sending message:", error);
       }
-    }
-  }
+    },
+  },
 };
 </script>

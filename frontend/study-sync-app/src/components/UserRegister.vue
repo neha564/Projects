@@ -9,41 +9,43 @@
           <v-card-text>
             <v-form @submit.prevent="submitRegister">
               <v-text-field
-                  label="Name"
-                  v-model="name"
-                  prepend-icon="mdi-account"
-                  outlined
-                  dense
-                  required
+                label="Name"
+                v-model="name"
+                prepend-icon="mdi-account"
+                outlined
+                dense
+                required
               />
               <v-text-field
-                  label="Email"
-                  v-model="email"
-                  prepend-icon="mdi-email"
-                  outlined
-                  dense
-                  required
+                label="Email"
+                v-model="email"
+                prepend-icon="mdi-email"
+                outlined
+                dense
+                required
               />
               <v-text-field
-                  label="Password"
-                  v-model="password"
-                  prepend-icon="mdi-lock"
-                  type="password"
-                  outlined
-                  dense
-                  required
+                label="Password"
+                v-model="password"
+                prepend-icon="mdi-lock"
+                type="password"
+                outlined
+                dense
+                required
               />
               <v-btn
-                  color="primary"
-                  class="mt-4 register-btn"
-                  block
-                  type="submit"
-                  elevation="2"
-                  style="font-size: 16px"
+                color="primary"
+                class="mt-4 register-btn"
+                block
+                type="submit"
+                elevation="2"
+                style="font-size: 16px"
               >
                 Register
               </v-btn>
-              <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+              <p v-if="errorMessage" class="error-message">
+                {{ errorMessage }}
+              </p>
             </v-form>
           </v-card-text>
         </v-card>
@@ -79,7 +81,11 @@ export default {
         this.$router.push("/login");
       } catch (error) {
         // Handle error: Display the message from the backend
-        if (error.response && error.response.data && error.response.data.message) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
           this.errorMessage = error.response.data.message;
         } else {
           // If no error message is provided, use a default message

@@ -15,17 +15,17 @@
 </template>
 
 <script>
-import api from '../api';
+import api from "../api";
 
 export default {
   data() {
-    return { mood: 'study', tracks: [] };
+    return { mood: "study", tracks: [] };
   },
   methods: {
     async fetchMusic() {
       const response = await api.get(`/music?mood=${this.mood}`);
       this.tracks = response.data;
-    }
-  }
+    },
+  },
 };
 </script>

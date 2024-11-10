@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://studysync-study-buddy-app.onrender.com/api',
-  headers: { 'Content-Type': 'application/json' },
+  baseURL: "https://studysync-study-buddy-app.onrender.com/api",
+  headers: { "Content-Type": "application/json" },
 });
 
-api.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

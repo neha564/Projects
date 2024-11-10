@@ -3,7 +3,10 @@
     <div class="content">
       <h1 class="error-code">404</h1>
       <h2>Oops! The page you're looking for doesn't exist.</h2>
-      <p>It seems the page you are trying to access is not available or you have typed the wrong URL.</p>
+      <p>
+        It seems the page you are trying to access is not available or you have
+        typed the wrong URL.
+      </p>
       <router-link to="/" class="go-home-button">GO BACK TO HOME</router-link>
     </div>
   </div>
@@ -11,12 +14,12 @@
 
 <script>
 export default {
-  name: 'NotFound',
+  name: "NotFound",
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 .not-found {
   display: flex;

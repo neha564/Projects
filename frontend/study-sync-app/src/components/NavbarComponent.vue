@@ -6,76 +6,181 @@
         <v-row align="center" no-gutters class="d-flex align-center">
           <!-- Logo and Title -->
           <v-col class="d-flex align-center">
-            <v-icon class="logo-icon mr-2" style="font-family: 'Poppins', sans-serif; font-size: 24px">mdi-school</v-icon>
-            <v-toolbar-title class="title" style="font-family: 'Poppins', sans-serif; font-size: 24px" @click="goHome">StudySync</v-toolbar-title>
+            <v-icon
+              class="logo-icon mr-2"
+              style="
+                font-family: &quot;Poppins&quot;, sans-serif;
+                font-size: 24px;
+              "
+              >mdi-school</v-icon
+            >
+            <v-toolbar-title
+              class="title"
+              style="
+                font-family: &quot;Poppins&quot;, sans-serif;
+                font-size: 24px;
+              "
+              @click="goHome"
+              >StudySync</v-toolbar-title
+            >
           </v-col>
 
           <!-- Desktop Navigation Links -->
           <v-col class="d-none d-md-flex justify-end align-center">
-            <v-btn text to="/" class="nav-btn" :class="{ 'active-link': $route.path === '/' }" style="font-family: 'Poppins', sans-serif; font-size: 16px">
+            <v-btn
+              text
+              to="/"
+              class="nav-btn"
+              :class="{ 'active-link': $route.path === '/' }"
+              style="
+                font-family: &quot;Poppins&quot;, sans-serif;
+                font-size: 16px;
+              "
+            >
               <v-icon class="nav-icon">mdi-home</v-icon> Home
             </v-btn>
-            <v-btn text to="/register" class="nav-btn" :class="{ 'active-link': $route.path === '/register' }" style="font-family: 'Poppins', sans-serif; font-size: 16px">
+            <v-btn
+              text
+              to="/register"
+              class="nav-btn"
+              :class="{ 'active-link': $route.path === '/register' }"
+              style="
+                font-family: &quot;Poppins&quot;, sans-serif;
+                font-size: 16px;
+              "
+            >
               <v-icon class="nav-icon">mdi-account-plus</v-icon> Register
             </v-btn>
-            <v-btn v-if="!isAuthenticated" text to="/login" class="nav-btn" :class="{ 'active-link': $route.path === '/login' }" style="font-family: 'Poppins', sans-serif; font-size: 16px">
+            <v-btn
+              v-if="!isAuthenticated"
+              text
+              to="/login"
+              class="nav-btn"
+              :class="{ 'active-link': $route.path === '/login' }"
+              style="
+                font-family: &quot;Poppins&quot;, sans-serif;
+                font-size: 16px;
+              "
+            >
               <v-icon class="nav-icon">mdi-login</v-icon> Login
             </v-btn>
-            <v-btn v-if="isAuthenticated" text @click="logout" class="nav-btn" style="font-family: 'Poppins', sans-serif; font-size: 16px; color: red">
+            <v-btn
+              v-if="isAuthenticated"
+              text
+              @click="logout"
+              class="nav-btn"
+              style="
+                font-family: &quot;Poppins&quot;, sans-serif;
+                font-size: 16px;
+                color: red;
+              "
+            >
               <v-icon class="nav-icon">mdi-logout</v-icon> Logout
             </v-btn>
           </v-col>
 
           <!-- Mobile Menu Icon -->
           <v-col class="d-flex d-md-none justify-end">
-            <v-app-bar-nav-icon class="mobile-menu-icon" @click="drawer = !drawer" />
+            <v-app-bar-nav-icon
+              class="mobile-menu-icon"
+              @click="drawer = !drawer"
+            />
           </v-col>
         </v-row>
       </v-container>
     </v-app-bar>
 
     <!-- Mobile Drawer for Navigation -->
-    <v-navigation-drawer v-model="drawer" temporary fixed left width="250" overlay class="indigo darken-3">
+    <v-navigation-drawer
+      v-model="drawer"
+      temporary
+      fixed
+      left
+      width="250"
+      overlay
+      class="indigo darken-3"
+    >
       <v-list dense>
         <v-list-item to="/" @click="closeDrawer" class="mobile-nav-item">
           <v-list-item-icon>
             <v-icon class="mobile-nav-icon">mdi-home</v-icon>
           </v-list-item-icon>
-          <v-list-item-content style="font-family: 'Poppins', sans-serif; font-size: 16px">Home</v-list-item-content>
+          <v-list-item-content
+            style="
+              font-family: &quot;Poppins&quot;, sans-serif;
+              font-size: 16px;
+            "
+            >Home</v-list-item-content
+          >
         </v-list-item>
 
-        <v-list-item to="/register" @click="closeDrawer" class="mobile-nav-item">
+        <v-list-item
+          to="/register"
+          @click="closeDrawer"
+          class="mobile-nav-item"
+        >
           <v-list-item-icon>
             <v-icon class="mobile-nav-icon">mdi-account-plus</v-icon>
           </v-list-item-icon>
-          <v-list-item-content style="font-family: 'Poppins', sans-serif; font-size: 16px">Register</v-list-item-content>
+          <v-list-item-content
+            style="
+              font-family: &quot;Poppins&quot;, sans-serif;
+              font-size: 16px;
+            "
+            >Register</v-list-item-content
+          >
         </v-list-item>
 
-        <v-list-item v-if="!isAuthenticated" to="/login" @click="closeDrawer" class="mobile-nav-item">
+        <v-list-item
+          v-if="!isAuthenticated"
+          to="/login"
+          @click="closeDrawer"
+          class="mobile-nav-item"
+        >
           <v-list-item-icon>
             <v-icon class="mobile-nav-icon">mdi-login</v-icon>
           </v-list-item-icon>
-          <v-list-item-content style="font-family: 'Poppins', sans-serif; font-size: 16px">Login</v-list-item-content>
+          <v-list-item-content
+            style="
+              font-family: &quot;Poppins&quot;, sans-serif;
+              font-size: 16px;
+            "
+            >Login</v-list-item-content
+          >
         </v-list-item>
 
-        <v-list-item v-if="isAuthenticated" @click="logoutAndCloseDrawer" class="mobile-nav-item" style="color: red">
+        <v-list-item
+          v-if="isAuthenticated"
+          @click="logoutAndCloseDrawer"
+          class="mobile-nav-item"
+          style="color: red"
+        >
           <v-list-item-icon>
-            <v-icon class="mobile-nav-icon" style="color: red">mdi-logout</v-icon>
+            <v-icon class="mobile-nav-icon" style="color: red"
+              >mdi-logout</v-icon
+            >
           </v-list-item-icon>
-          <v-list-item-content style="font-family: 'Poppins', sans-serif; font-size: 16px">Logout</v-list-item-content>
+          <v-list-item-content
+            style="
+              font-family: &quot;Poppins&quot;, sans-serif;
+              font-size: 16px;
+            "
+            >Logout</v-list-item-content
+          >
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <!-- Main Content Area -->
     <v-main class="main-content">
-      <router-view /> <!-- Ensure only one router-view here -->
+      <router-view />
+      <!-- Ensure only one router-view here -->
     </v-main>
   </v-app>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
@@ -84,13 +189,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(["isAuthenticated"]),
   },
   methods: {
     goHome() {
-      this.$router.push('/'); // Use this.$router to navigate to home
+      this.$router.push("/"); // Use this.$router to navigate to home
     },
-    ...mapActions(['logout']),
+    ...mapActions(["logout"]),
     closeDrawer() {
       this.drawer = false;
     },
@@ -103,7 +208,7 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 .title:hover {
   color: #ffeb3b;
@@ -131,8 +236,10 @@ export default {
   text-transform: uppercase;
   margin: 0 10px;
   padding: 6px 10px;
-  font-family: 'Poppins', sans-serif;
-  transition: color 0.3s ease, transform 0.2s ease;
+  font-family: "Poppins", sans-serif;
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
   display: flex;
   align-items: center;
 }

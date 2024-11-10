@@ -1,12 +1,15 @@
 {
-  "name": "studysync",
+  "name": "studysync-app",
   "version": "1.0.0",
   "description": "StudySync is a suite of tools that help students study more effectively.",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cd frontend/study-sync-app && npm run serve",
+    "dev": "cd frontend/study-sync-app && npm run serve",
+    "format": "prettier --write .",
+    "test": "cd frontend/study-sync-app && npm run serve",
+    "frontend": "cd frontend/study-sync-app && npm run serve",
+    "backend": "cd backend && npm start"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1",
     "nodemon": "^3.1.7",
+    "prettier": "^3.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   }

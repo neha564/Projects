@@ -11,15 +11,31 @@
       <!-- Music Recommendation Tool -->
       <div class="tool-card music-card">
         <h3>Music Recommendations</h3>
-        <input v-model="mood" type="text" placeholder="Enter mood or search a song..." @keyup.enter="getMusicRecommendations" />
-        <button @click="getMusicRecommendations" class="action-button">Get Recommendations</button>
+        <input
+          v-model="mood"
+          type="text"
+          placeholder="Enter mood or search a song..."
+          @keyup.enter="getMusicRecommendations"
+        />
+        <button @click="getMusicRecommendations" class="action-button">
+          Get Recommendations
+        </button>
         <div v-if="musicRecommendations.length" class="music-list">
-          <div class="music-track" v-for="(track, index) in musicRecommendations" :key="index">
+          <div
+            class="music-track"
+            v-for="(track, index) in musicRecommendations"
+            :key="index"
+          >
             <img :src="track.image_url" alt="Track Image" class="music-image" />
             <div class="track-info">
               <h4>{{ track.name }}</h4>
               <p>{{ track.artist }}</p>
-              <a :href="track.spotify_url" target="_blank" class="spotify-button">Listen on Spotify</a>
+              <a
+                :href="track.spotify_url"
+                target="_blank"
+                class="spotify-button"
+                >Listen on Spotify</a
+              >
             </div>
           </div>
         </div>
@@ -31,13 +47,26 @@
         <div class="pomodoro">
           <div class="timer-circle">
             <!-- SVG Progress Circle -->
-            <svg width="120" height="120" viewBox="0 0 120 120" class="progress-circle">
+            <svg
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+              class="progress-circle"
+            >
               <circle cx="60" cy="60" r="54" class="background-circle" />
-              <circle cx="60" cy="60" r="54" class="progress-bar" :style="{ strokeDashoffset: progress }" />
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
+                class="progress-bar"
+                :style="{ strokeDashoffset: progress }"
+              />
             </svg>
             <p>{{ timeLeft }}</p>
           </div>
-          <button @click="toggleTimer">{{ isTimerRunning ? 'Pause' : 'Start' }}</button>
+          <button @click="toggleTimer">
+            {{ isTimerRunning ? "Pause" : "Start" }}
+          </button>
           <button @click="resetTimer">Reset</button>
         </div>
       </div>
@@ -45,7 +74,12 @@
       <!-- To-Do List -->
       <div class="tool-card todo-card">
         <h3>To-Do List</h3>
-        <input @keyup.enter="addTask" v-model="newTask" type="text" placeholder="Enter task" />
+        <input
+          @keyup.enter="addTask"
+          v-model="newTask"
+          type="text"
+          placeholder="Enter task"
+        />
         <button @click="addTask" class="action-button">Add Task</button>
         <ul>
           <li v-for="(task, index) in tasks" :key="index" class="task-item">
@@ -58,8 +92,15 @@
       <!-- Flashcards -->
       <div class="tool-card flashcard-card">
         <h3>Flashcards</h3>
-        <div v-for="(flashcard, index) in flashcards" :key="index" class="flashcard" @click="toggleFlashcard(index)">
-          <div :class="['flashcard-inner', flashcard.revealed ? 'revealed' : '']">
+        <div
+          v-for="(flashcard, index) in flashcards"
+          :key="index"
+          class="flashcard"
+          @click="toggleFlashcard(index)"
+        >
+          <div
+            :class="['flashcard-inner', flashcard.revealed ? 'revealed' : '']"
+          >
             <div class="flashcard-front">
               <p>{{ flashcard.question }}</p>
             </div>
@@ -68,9 +109,21 @@
             </div>
           </div>
         </div>
-        <input v-model="flashcardQuestion" placeholder="Enter question" @keyup.enter="addFlashcard" required />
-        <input v-model="flashcardAnswer" placeholder="Enter answer" @keyup.enter="addFlashcard" required />
-        <button @click="addFlashcard" class="action-button">Add Flashcard</button>
+        <input
+          v-model="flashcardQuestion"
+          placeholder="Enter question"
+          @keyup.enter="addFlashcard"
+          required
+        />
+        <input
+          v-model="flashcardAnswer"
+          placeholder="Enter answer"
+          @keyup.enter="addFlashcard"
+          required
+        />
+        <button @click="addFlashcard" class="action-button">
+          Add Flashcard
+        </button>
       </div>
 
       <!-- Full Calculator UI -->
@@ -105,8 +158,12 @@
       <!-- Random Study Tip Generator -->
       <div class="tool-card tip-card">
         <h3>Random Study Tip</h3>
-        <button @click="generateStudyTip" class="action-button">Get Study Tip</button>
-        <p v-if="studyTip" style="margin-top: 10px; font-size: 18px">{{ studyTip }}</p>
+        <button @click="generateStudyTip" class="action-button">
+          Get Study Tip
+        </button>
+        <p v-if="studyTip" style="margin-top: 10px; font-size: 18px">
+          {{ studyTip }}
+        </p>
       </div>
 
       <!-- Chat with AI Tool -->
@@ -115,16 +172,23 @@
         <div class="card-content">
           <div class="chat-box">
             <div
-                v-for="(message, index) in chatMessages"
-                :key="index"
-                :class="['chat-message', message.isUser ? 'user-message' : 'ai-message']"
+              v-for="(message, index) in chatMessages"
+              :key="index"
+              :class="[
+                'chat-message',
+                message.isUser ? 'user-message' : 'ai-message',
+              ]"
             >
               <p v-if="message.isUser">{{ message.text }}</p>
               <p v-else v-html="message.htmlText"></p>
             </div>
           </div>
         </div>
-        <input @keyup.enter="sendMessage" v-model="userMessage" placeholder="Type your message..." />
+        <input
+          @keyup.enter="sendMessage"
+          v-model="userMessage"
+          placeholder="Type your message..."
+        />
         <button @click="sendMessage" class="action-button">Send</button>
       </div>
 
@@ -133,20 +197,20 @@
         <div class="input-suggestions-container">
           <!-- Input Field for City -->
           <input
-              v-model="city"
-              type="text"
-              placeholder="Enter city"
-              @input="fetchCitySuggestions"
-              @keyup.enter="getWeather"
-              required
+            v-model="city"
+            type="text"
+            placeholder="Enter city"
+            @input="fetchCitySuggestions"
+            @keyup.enter="getWeather"
+            required
           />
 
           <!-- City Suggestions Dropdown -->
           <ul v-if="citySuggestions.length" class="suggestions-list">
             <li
-                v-for="(suggestion, index) in citySuggestions"
-                :key="index"
-                @click="selectCity(suggestion)"
+              v-for="(suggestion, index) in citySuggestions"
+              :key="index"
+              @click="selectCity(suggestion)"
             >
               {{ suggestion.displayName }}
             </li>
@@ -171,78 +235,100 @@
 
       <div class="tool-card notes-card">
         <h3>Quick Notes</h3>
-        <textarea v-model="noteContent" placeholder="Type your note here..." @keyup.enter="saveNote"></textarea>
+        <textarea
+          v-model="noteContent"
+          placeholder="Type your note here..."
+          @keyup.enter="saveNote"
+        ></textarea>
         <button @click="saveNote" class="action-button">Save Note</button>
         <div class="saved-notes" v-if="savedNotes.length">
           <h4>Saved Notes:</h4>
-          <div class="note-item" v-for="(note, index) in savedNotes" :key="index">
+          <div
+            class="note-item"
+            v-for="(note, index) in savedNotes"
+            :key="index"
+          >
             <p>{{ note }}</p>
-            <button @click="deleteNote(index)" class="delete-note-button">Delete</button>
+            <button @click="deleteNote(index)" class="delete-note-button">
+              Delete
+            </button>
           </div>
         </div>
       </div>
 
       <div class="tool-card motivation-card">
         <h3>Daily Motivation</h3>
-        <p style="margin-top: 10px" v-if="motivationalQuote">{{ motivationalQuote }}</p>
+        <p style="margin-top: 10px" v-if="motivationalQuote">
+          {{ motivationalQuote }}
+        </p>
         <button @click="getMotivation" class="action-button">New Quote</button>
       </div>
     </div>
 
     <!-- Thank you message -->
     <div class="thank-you">
-      <p style="text-align: center; margin-top: 2em; font-weight: bold">Thank you for using our productivity tools! More features coming soon. 🚀</p>
+      <p style="text-align: center; margin-top: 2em; font-weight: bold">
+        Thank you for using our productivity tools! More features coming soon.
+        🚀
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import api from '../api';
+import axios from "axios";
+import api from "../api";
 import { mapState } from "vuex";
-import { marked } from 'marked';
-import { mdiWeatherSunny, mdiWeatherRainy, mdiWeatherCloudy, mdiWeatherSnowy, mdiWeatherLightning,
-  mdiWeatherFog, mdiWeatherPartlyCloudy } from '@mdi/js';
+import { marked } from "marked";
+import {
+  mdiWeatherSunny,
+  mdiWeatherRainy,
+  mdiWeatherCloudy,
+  mdiWeatherSnowy,
+  mdiWeatherLightning,
+  mdiWeatherFog,
+  mdiWeatherPartlyCloudy,
+} from "@mdi/js";
 
 export default {
   data() {
     return {
-      username: '',
-      currentDateTime: '', // For displaying current date and time
-      timerInterval: null,  // To manage the interval for updating date and time
-      mood: '',
+      username: "",
+      currentDateTime: "", // For displaying current date and time
+      timerInterval: null, // To manage the interval for updating date and time
+      mood: "",
       citySuggestions: [],
       musicRecommendations: [],
       isTimerRunning: false,
-      timeLeft: '25:00',
+      timeLeft: "25:00",
       interval: null,
       minutes: 25,
       seconds: 0,
       totalTime: 25 * 60, // Total time in seconds for 25 minutes
-      elapsed: 0,          // Time elapsed in seconds
-      progress: 339.292,   // Full circumference of the circle
-      newTask: '',
+      elapsed: 0, // Time elapsed in seconds
+      progress: 339.292, // Full circumference of the circle
+      newTask: "",
       tasks: [],
-      flashcardQuestion: '',
-      flashcardAnswer: '',
+      flashcardQuestion: "",
+      flashcardAnswer: "",
       flashcards: [],
-      calcDisplay: '',
-      studyTip: '',
-      userMessage: '',
+      calcDisplay: "",
+      studyTip: "",
+      userMessage: "",
       chatMessages: [], // Initialize chatMessages as an empty array
-      sessionId: '1',    // Use a unique session ID if needed
-      motivationalQuote: '',
+      sessionId: "1", // Use a unique session ID if needed
+      motivationalQuote: "",
       weather: null,
       savedNotes: [],
     };
   },
   computed: {
-    ...mapState(['token']), // Map the token from Vuex store
+    ...mapState(["token"]), // Map the token from Vuex store
     progressCircleOffset() {
       const remainingTime = this.minutes * 60 + this.seconds;
       const progressPercent = remainingTime / this.totalTime;
       return 339.292 * (1 - progressPercent); // 339.292 is the circumference
-    }
+    },
   },
   created() {
     this.fetchUsername();
@@ -250,17 +336,17 @@ export default {
     this.timerInterval = setInterval(this.updateDateTime, 1000);
     if (!this.token) {
       alert("You need to log in first!");
-      this.$router.push('/login');
+      this.$router.push("/login");
     }
   },
   beforeRouteEnter(to, from, next) {
     // Use the next callback with a function to ensure the alert is shown before the redirect
-    next(vm => {
+    next((vm) => {
       if (!vm.token) {
-        alert("You need to log in first!");  // Show alert
-        vm.$router.push('/login');           // Then redirect
+        alert("You need to log in first!"); // Show alert
+        vm.$router.push("/login"); // Then redirect
       } else {
-        next();  // Proceed to the route if authenticated
+        next(); // Proceed to the route if authenticated
       }
     });
   },
@@ -272,8 +358,12 @@ export default {
       const now = new Date();
 
       // Get day of the week, month, day with ordinal suffix, year, and time
-      const dayOfWeek = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(now);
-      const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(now);
+      const dayOfWeek = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+      }).format(now);
+      const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
+        now,
+      );
       const day = now.getDate();
       const year = now.getFullYear();
 
@@ -281,18 +371,22 @@ export default {
       const getOrdinalSuffix = (day) => {
         if (day > 3 && day < 21) return `${day}th`; // Special case for teens
         switch (day % 10) {
-          case 1: return `${day}st`;
-          case 2: return `${day}nd`;
-          case 3: return `${day}rd`;
-          default: return `${day}th`;
+          case 1:
+            return `${day}st`;
+          case 2:
+            return `${day}nd`;
+          case 3:
+            return `${day}rd`;
+          default:
+            return `${day}th`;
         }
       };
 
       // Format time as hh:mm:ss AM/PM
       const hours = now.getHours();
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const seconds = now.getSeconds().toString().padStart(2, '0');
-      const amPm = hours >= 12 ? 'PM' : 'AM';
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const seconds = now.getSeconds().toString().padStart(2, "0");
+      const amPm = hours >= 12 ? "PM" : "AM";
       const formattedTime = `${hours % 12 || 12}:${minutes}:${seconds} ${amPm}`;
 
       // Format the full date and time string
@@ -304,9 +398,11 @@ export default {
         return;
       }
       try {
-        const response = await axios.get(`https://studysync-study-buddy-app.onrender.com/api/cities?query=${this.city}`);
+        const response = await axios.get(
+          `https://studysync-study-buddy-app.onrender.com/api/cities?query=${this.city}`,
+        );
         this.citySuggestions = response.data.cities.map((city) => ({
-          displayName: `${city.name}, ${city.state ? city.state + ', ' : ''}${city.country}`,
+          displayName: `${city.name}, ${city.state ? city.state + ", " : ""}${city.country}`,
           fullCity: city,
         }));
       } catch (error) {
@@ -321,30 +417,33 @@ export default {
     async fetchUsername() {
       try {
         // Get the token from localStorage or Vuex store (whichever applies in your setup)
-        const token = this.token || localStorage.getItem('token');
+        const token = this.token || localStorage.getItem("token");
         if (!token) {
           console.error("Authorization token not found.");
-          this.username = 'Guest';
+          this.username = "Guest";
           return;
         }
 
         // Make an API request to get the user's profile
-        const response = await axios.get('https://studysync-study-buddy-app.onrender.com/api/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await axios.get(
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         // Check if response is successful and contains the user object
         if (response.data.success && response.data.user) {
-          this.username = response.data.user.name || 'Guest';
+          this.username = response.data.user.name || "Guest";
         } else {
           console.error("Failed to retrieve user profile");
-          this.username = 'Guest';
+          this.username = "Guest";
         }
       } catch (error) {
         console.error("Error fetching user profile:", error.message);
-        this.username = 'Guest';
+        this.username = "Guest";
       }
     },
     async sendMessage() {
@@ -355,9 +454,9 @@ export default {
         try {
           // Make the API call to get the AI's response
           const response = await api.post(
-              '/ai-chat',
-              { sessionId: this.sessionId, message: this.userMessage },
-              { headers: { Authorization: `Bearer ${this.token}` } }
+            "/ai-chat",
+            { sessionId: this.sessionId, message: this.userMessage },
+            { headers: { Authorization: `Bearer ${this.token}` } },
           );
 
           // If the API response is successful, parse the response as markdown
@@ -365,16 +464,26 @@ export default {
             const markdownText = response.data.response;
             const htmlText = marked(markdownText); // Parse markdown to HTML
 
-            this.chatMessages.push({ text: markdownText, htmlText, isUser: false }); // Store both raw and HTML formats
+            this.chatMessages.push({
+              text: markdownText,
+              htmlText,
+              isUser: false,
+            }); // Store both raw and HTML formats
           } else {
-            this.chatMessages.push({ text: "I'm sorry, I couldn't get a response from the AI.", isUser: false });
+            this.chatMessages.push({
+              text: "I'm sorry, I couldn't get a response from the AI.",
+              isUser: false,
+            });
           }
         } catch (error) {
-          console.error('Error fetching AI response:', error.message);
-          this.chatMessages.push({ text: "Error: Could not connect to the AI service.", isUser: false });
+          console.error("Error fetching AI response:", error.message);
+          this.chatMessages.push({
+            text: "Error: Could not connect to the AI service.",
+            isUser: false,
+          });
         }
 
-        this.userMessage = ''; // Clear input after sending
+        this.userMessage = ""; // Clear input after sending
       }
     },
     toggleTimer() {
@@ -391,7 +500,7 @@ export default {
         if (this.seconds === 0 && this.minutes === 0) {
           clearInterval(this.interval);
           this.isTimerRunning = false;
-          alert('Pomodoro session is complete!');
+          alert("Pomodoro session is complete!");
         } else {
           if (this.seconds === 0) {
             this.seconds = 59;
@@ -402,7 +511,7 @@ export default {
 
           // Update the timeLeft and progress dynamically
           this.timeLeft = `${this.formatTime(this.minutes)}:${this.formatTime(this.seconds)}`;
-          this.progress = this.progressCircleOffset;  // Update the progress value
+          this.progress = this.progressCircleOffset; // Update the progress value
         }
       }, 1000);
     },
@@ -414,14 +523,14 @@ export default {
       this.isTimerRunning = false;
       this.minutes = 25;
       this.seconds = 0;
-      this.timeLeft = '25:00';
+      this.timeLeft = "25:00";
       this.elapsed = 0;
-      this.progress = 339.292;  // Reset progress to full circumference
+      this.progress = 339.292; // Reset progress to full circumference
     },
     addTask() {
       if (this.newTask.trim()) {
         this.tasks.push(this.newTask);
-        this.newTask = '';
+        this.newTask = "";
       }
     },
     removeTask(index) {
@@ -429,9 +538,13 @@ export default {
     },
     addFlashcard() {
       if (this.flashcardQuestion.trim() && this.flashcardAnswer.trim()) {
-        this.flashcards.push({ question: this.flashcardQuestion, answer: this.flashcardAnswer, revealed: false });
-        this.flashcardQuestion = '';
-        this.flashcardAnswer = '';
+        this.flashcards.push({
+          question: this.flashcardQuestion,
+          answer: this.flashcardAnswer,
+          revealed: false,
+        });
+        this.flashcardQuestion = "";
+        this.flashcardAnswer = "";
       }
     },
     toggleFlashcard(index) {
@@ -439,21 +552,24 @@ export default {
     },
     async getMusicRecommendations() {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (!token) {
           console.error("No token found");
           return;
         }
-        const response = await axios.get(`https://studysync-study-buddy-app.onrender.com/api/music?searchTerm=${this.mood}`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
+        const response = await axios.get(
+          `https://studysync-study-buddy-app.onrender.com/api/music?searchTerm=${this.mood}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
         if (response.data.success) {
           this.musicRecommendations = response.data.recommendations;
         } else {
-          console.error('Failed to fetch recommendations');
+          console.error("Failed to fetch recommendations");
         }
       } catch (error) {
-        console.error('Error fetching music recommendations:', error);
+        console.error("Error fetching music recommendations:", error);
       }
     },
     getWeatherIcon(condition) {
@@ -473,16 +589,18 @@ export default {
     async getWeather() {
       try {
         if (!this.city) {
-          alert('Please enter a city name');
+          alert("Please enter a city name");
           return;
         }
 
         // Call the backend API for weather data
-        const response = await axios.get(`https://studysync-study-buddy-app.onrender.com/api/weather?city=${this.city}`);
+        const response = await axios.get(
+          `https://studysync-study-buddy-app.onrender.com/api/weather?city=${this.city}`,
+        );
 
         // Check if the response was successful and contains data
         if (response.data.success && response.data.data) {
-          const {city, temp, condition} = response.data.data;
+          const { city, temp, condition } = response.data.data;
           this.weather = {
             city,
             temp: Math.round(temp), // Round temperature to nearest integer
@@ -493,13 +611,15 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching weather data:", error);
-        alert("Failed to retrieve weather data. Please check your city name and try again.");
+        alert(
+          "Failed to retrieve weather data. Please check your city name and try again.",
+        );
       }
     },
     saveNote() {
       if (this.noteContent.trim()) {
         this.savedNotes.push(this.noteContent); // Append the new note
-        this.noteContent = ''; // Clear the input
+        this.noteContent = ""; // Clear the input
       }
     },
     deleteNote(index) {
@@ -510,9 +630,10 @@ export default {
         "Believe you can and you're halfway there.",
         "Success is not final, failure is not fatal: It is the courage to continue that counts.",
         "Hardships often prepare ordinary people for an extraordinary destiny.",
-        "Don't watch the clock; do what it does. Keep going."
+        "Don't watch the clock; do what it does. Keep going.",
       ];
-      this.motivationalQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      this.motivationalQuote =
+        quotes[Math.floor(Math.random() * quotes.length)];
     },
     generateStudyTip() {
       const tips = [
@@ -520,7 +641,7 @@ export default {
         "Stay hydrated and eat healthy snacks.",
         "Practice active recall for better retention.",
         "Set realistic study goals and stick to them.",
-        "Teach what you've learned to others."
+        "Teach what you've learned to others.",
       ];
       this.studyTip = tips[Math.floor(Math.random() * tips.length)];
     },
@@ -531,22 +652,22 @@ export default {
       try {
         this.calcDisplay = eval(this.calcDisplay).toString();
       } catch (e) {
-        this.calcDisplay = 'Error';
+        this.calcDisplay = "Error";
       }
     },
     clearDisplay() {
-      this.calcDisplay = '';
+      this.calcDisplay = "";
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 .home {
   padding: 2em;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 h2 {
@@ -566,7 +687,9 @@ h2 {
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   padding: 1.5em;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   max-height: 1000px; /* Sets max height for the card */
@@ -603,7 +726,11 @@ h2 {
 
 /* Music Card */
 .music-card {
-  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
+  background: linear-gradient(
+    135deg,
+    #ff7e5f,
+    #feb47b
+  ); /* Gradient background */
   color: #fff;
   border-radius: 15px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
@@ -611,7 +738,9 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   min-height: 400px; /* Minimum height to ensure space for content */
   overflow: hidden; /* Prevent content overflow outside the card */
 }
@@ -651,7 +780,9 @@ h2 {
   padding: 1em;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .music-track:hover {
@@ -691,7 +822,9 @@ h2 {
   text-decoration: none;
   font-size: 0.9em;
   margin-top: 1em;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
 .spotify-button:hover {
@@ -967,14 +1100,23 @@ h2 {
   max-width: 100%; /* Limit AI message width */
 }
 
-.chat-message, .task-item, .music-track, .flashcard, .saved-note, .motivational-quote {
+.chat-message,
+.task-item,
+.music-track,
+.flashcard,
+.saved-note,
+.motivational-quote {
   overflow-wrap: break-word;
   word-break: break-word;
   padding: 8px;
   border-radius: 8px;
 }
 
-.chat-message p, .task-item span, .flashcard-front p, .flashcard-back p, .saved-note p {
+.chat-message p,
+.task-item span,
+.flashcard-front p,
+.flashcard-back p,
+.saved-note p {
   white-space: normal;
 }
 
@@ -1100,7 +1242,8 @@ h2 {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -1200,7 +1343,9 @@ h2 {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow */
   backdrop-filter: blur(5px); /* Glass effect */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0.0, 0.2, 1); /* Smooth animation */
+  transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth animation */
 }
 
 .date-time-card:hover {

@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const axios = require('axios');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-const { User, Group } = require('../models/models');
-require('dotenv').config();
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const axios = require("axios");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { User, Group } = require("../models/models");
+require("dotenv").config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_TOKEN);
 
@@ -17,16 +17,16 @@ const getSpotifyAccessToken = async () => {
 
   try {
     const response = await axios.post(
-        'https://accounts.spotify.com/api/token',
-        new URLSearchParams({ grant_type: 'client_credentials' }).toString(),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${Buffer.from(
-                `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-            ).toString('base64')}`,
-          },
-        }
+      "https://accounts.spotify.com/api/token",
+      new URLSearchParams({ grant_type: "client_credentials" }).toString(),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Basic ${Buffer.from(
+            `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`,
+          ).toString("base64")}`,
+        },
+      },
     );
 
     spotifyAccessToken = response.data.access_token;
@@ -34,47 +34,62 @@ const getSpotifyAccessToken = async () => {
 
     return spotifyAccessToken;
   } catch (error) {
-    console.error('Error retrieving Spotify access token:', error.message, error.response?.data || '');
-    throw new Error('Failed to retrieve Spotify access token');
+    console.error(
+      "Error retrieving Spotify access token:",
+      error.message,
+      error.response?.data || "",
+    );
+    throw new Error("Failed to retrieve Spotify access token");
   }
 };
 
 // Music recommendation service
-const getMusicRecommendation = async (searchTerm = 'study') => {
+const getMusicRecommendation = async (searchTerm = "study") => {
   try {
     const accessToken = await getSpotifyAccessToken();
 
     // Use the search endpoint to search for tracks based on the search term
-    const response = await axios.get('https://api.spotify.com/v1/search', {
+    const response = await axios.get("https://api.spotify.com/v1/search", {
       headers: { Authorization: `Bearer ${accessToken}` },
       params: {
-        q: searchTerm,    // The search term
-        type: 'track',    // Searching for tracks only
-        limit: 10,        // Limit results to 10 tracks
-      }
+        q: searchTerm, // The search term
+        type: "track", // Searching for tracks only
+        limit: 10, // Limit results to 10 tracks
+      },
     });
 
     // Process the results to match the format used earlier
-    return response.data.tracks.items.map(track => ({
+    return response.data.tracks.items.map((track) => ({
       name: track.name,
-      artist: track.artists[0]?.name,  // Get the name of the first artist
-      preview_url: track.preview_url,  // Preview URL of the track
+      artist: track.artists[0]?.name, // Get the name of the first artist
+      preview_url: track.preview_url, // Preview URL of the track
       spotify_url: track.external_urls.spotify, // Spotify track URL
-      image_url: track.album.images[0]?.url  // Album image (first image)
+      image_url: track.album.images[0]?.url, // Album image (first image)
     }));
   } catch (error) {
-    console.error('Error fetching music search results:', error.message, error.response?.data || '');
+    console.error(
+      "Error fetching music search results:",
+      error.message,
+      error.response?.data || "",
+    );
     return []; // Return empty array in case of error
   }
 };
 
 // User services
 const registerUser = async (userData) => {
-  const { name, email, password, interests = [], availableTimes = [], courses = [] } = userData;
+  const {
+    name,
+    email,
+    password,
+    interests = [],
+    availableTimes = [],
+    courses = [],
+  } = userData;
 
   // Check if required fields are provided
   if (!name || !email || !password) {
-    throw new Error('Name, email, and password are required.');
+    throw new Error("Name, email, and password are required.");
   }
 
   try {
@@ -83,19 +98,21 @@ const registerUser = async (userData) => {
       name,
       email,
       password, // Storing plain password here
-      interests,      // Optional
+      interests, // Optional
       availableTimes, // Optional
-      courses         // Optional
+      courses, // Optional
     });
 
     // Save the new user
     await user.save();
 
     // Generate a JWT token for the new user
-    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
   } catch (error) {
-    console.error('Error registering user:', error.message);
-    throw new Error('User registration failed');
+    console.error("Error registering user:", error.message);
+    throw new Error("User registration failed");
   }
 };
 
@@ -106,21 +123,23 @@ const loginUser = async (email, password) => {
 
     // If the user is not found, throw an error
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     // Compare the entered password with the stored plain text password
     if (user.password !== password) {
-      throw new Error('Invalid credentials');
+      throw new Error("Invalid credentials");
     }
 
     // If the passwords match, generate and return a JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     return token;
   } catch (error) {
-    console.error('Error logging in user:', error.message);
-    throw new Error('Login failed');
+    console.error("Error logging in user:", error.message);
+    throw new Error("Login failed");
   }
 };
 
@@ -128,8 +147,8 @@ const getUserProfile = async (userId) => {
   try {
     return await User.findById(userId);
   } catch (error) {
-    console.error('Error retrieving user profile:', error.message);
-    throw new Error('Failed to retrieve user profile');
+    console.error("Error retrieving user profile:", error.message);
+    throw new Error("Failed to retrieve user profile");
   }
 };
 
@@ -137,17 +156,17 @@ const updateUserProfile = async (userId, updateData) => {
   try {
     return await User.findByIdAndUpdate(userId, updateData, { new: true });
   } catch (error) {
-    console.error('Error updating user profile:', error.message);
-    throw new Error('Failed to update profile');
+    console.error("Error updating user profile:", error.message);
+    throw new Error("Failed to update profile");
   }
 };
 
 const searchUserProfiles = async (query) => {
   try {
-    return await User.find({ name: new RegExp(query, 'i') });
+    return await User.find({ name: new RegExp(query, "i") });
   } catch (error) {
-    console.error('Error searching user profiles:', error.message);
-    throw new Error('Failed to search user profiles');
+    console.error("Error searching user profiles:", error.message);
+    throw new Error("Failed to search user profiles");
   }
 };
 
@@ -158,8 +177,8 @@ const createGroup = async (members, course) => {
     await group.save();
     return group;
   } catch (error) {
-    console.error('Error creating group:', error.message);
-    throw new Error('Failed to create group');
+    console.error("Error creating group:", error.message);
+    throw new Error("Failed to create group");
   }
 };
 
@@ -170,18 +189,18 @@ const createStudySession = async (groupId, date, musicMood) => {
     await group.save();
     return group;
   } catch (error) {
-    console.error('Error creating study session:', error.message);
-    throw new Error('Failed to create study session');
+    console.error("Error creating study session:", error.message);
+    throw new Error("Failed to create study session");
   }
 };
 
 // AI chat service
 let sessionHistory = {};
 
-const chatWithAI = async (sessionId, message, originalText = '') => {
+const chatWithAI = async (sessionId, message, originalText = "") => {
   const model = genAI.getGenerativeModel({
-    model: 'gemini-1.5-flash',
-    systemInstruction: `${process.env.AI_INSTRUCTIONS}. Respond to the user conversationally.`
+    model: "gemini-1.5-flash",
+    systemInstruction: `${process.env.AI_INSTRUCTIONS}. Respond to the user conversationally.`,
   });
 
   if (!sessionHistory[sessionId]) {
@@ -191,25 +210,25 @@ const chatWithAI = async (sessionId, message, originalText = '') => {
   let history = sessionHistory[sessionId];
 
   if (history.length === 0 && originalText) {
-    history.push({ role: 'user', parts: [{ text: originalText }] });
+    history.push({ role: "user", parts: [{ text: originalText }] });
   }
-  history.push({ role: 'user', parts: [{ text: message }] });
+  history.push({ role: "user", parts: [{ text: message }] });
 
   try {
     const chatSession = model.startChat({ history });
     const result = await chatSession.sendMessage(message);
 
     if (!result.response || !result.response.text) {
-      throw new Error('Failed to get a response from AI.');
+      throw new Error("Failed to get a response from AI.");
     }
 
-    history.push({ role: 'model', parts: [{ text: result.response.text() }] });
+    history.push({ role: "model", parts: [{ text: result.response.text() }] });
     sessionHistory[sessionId] = history;
 
     return result.response.text();
   } catch (error) {
-    console.error('Error in AI chat:', error.message);
-    throw new Error('Failed to get AI response');
+    console.error("Error in AI chat:", error.message);
+    throw new Error("Failed to get AI response");
   }
 };
 
@@ -217,7 +236,7 @@ const clearSessionHistory = (sessionId) => {
   try {
     delete sessionHistory[sessionId];
   } catch (error) {
-    console.error('Error clearing session history:', error.message);
+    console.error("Error clearing session history:", error.message);
   }
 };
 
@@ -232,13 +251,16 @@ const getWeather = async (city) => {
     }
 
     // Make request to OpenWeather API
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
-      params: {
-        q: city,
-        appid: apiKey,
-        units: "metric", // Convert temperature to Celsius
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather`,
+      {
+        params: {
+          q: city,
+          appid: apiKey,
+          units: "metric", // Convert temperature to Celsius
+        },
       },
-    });
+    );
 
     // Extract necessary weather data from response
     const { name, main, weather } = response.data;
@@ -249,7 +271,11 @@ const getWeather = async (city) => {
       condition: weather[0].main,
     };
   } catch (error) {
-    console.error("Error fetching weather data:", error.message, error.response?.data || "");
+    console.error(
+      "Error fetching weather data:",
+      error.message,
+      error.response?.data || "",
+    );
     throw new Error("Failed to retrieve weather data");
   }
 };
@@ -264,5 +290,5 @@ module.exports = {
   createStudySession,
   getMusicRecommendation,
   chatWithAI,
-  clearSessionHistory
+  clearSessionHistory,
 };

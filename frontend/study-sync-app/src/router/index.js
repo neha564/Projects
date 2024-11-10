@@ -1,17 +1,17 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from '../views/HomePage.vue';
-import UserRegister from '../components/UserRegister.vue';
-import UserLogin from '../components/UserLogin.vue';
-import UserProfile from '../components/UserProfile.vue';
-import store from '../store';
+import { createRouter, createWebHistory } from "vue-router";
+import HomePage from "../views/HomePage.vue";
+import UserRegister from "../components/UserRegister.vue";
+import UserLogin from "../components/UserLogin.vue";
+import UserProfile from "../components/UserProfile.vue";
+import store from "../store";
 import NotFound from "@/components/NotFound.vue";
 
 const routes = [
-  { path: '/', component: HomePage, meta: { requiresAuth: true } },
-  { path: '/register', component: UserRegister },
-  { path: '/login', component: UserLogin },
-  { path: '/profile', component: UserProfile, meta: { requiresAuth: true } },
-  { path: '/:catchAll(.*)', component: NotFound },
+  { path: "/", component: HomePage, meta: { requiresAuth: true } },
+  { path: "/register", component: UserRegister },
+  { path: "/login", component: UserLogin },
+  { path: "/profile", component: UserProfile, meta: { requiresAuth: true } },
+  { path: "/:catchAll(.*)", component: NotFound },
 ];
 
 const router = createRouter({
@@ -23,9 +23,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated;
   if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login');
-  } else if (to.path === '/login' && isAuthenticated) {
-    next('/login');
+    next("/login");
+  } else if (to.path === "/login" && isAuthenticated) {
+    next("/login");
   } else {
     next();
   }

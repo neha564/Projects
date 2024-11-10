@@ -3,25 +3,31 @@
 Welcome to **StudySync**! StudySync is a productivity and study tool designed to help users stay organized and efficient. It includes a variety of features such as Pomodoro timers, music recommendations, weather checks, flashcards, to-do lists, and AI chat assistance. It integrates third-party services like Spotify for music and OpenWeather for weather data.
 
 ## Table of Contents
+
 - [Features](#features)
 - [Live Deployment](#live-deployment)
 - [UI Screenshots](#ui-screenshots)
 - [Tech Stack](#tech-stack)
 - [File Structure](#file-structure)
 - [API Documentation](#api-documentation)
-- [Setup Instructions](#setup-instructions)
 - [Contributors](#creators)
 
 ## Features
+
 - **Pomodoro Timer**: A built-in timer for Pomodoro study sessions.
 - **Music Recommendations**: Get music suggestions based on mood using Spotify.
 - **Flashcards**: Create, manage, and study flashcards.
 - **To-Do List**: Track study tasks and assignments.
+- **Calculator**: A scientific calculator for quick calculations.
 - **AI Chat**: Chat with an AI assistant for study tips, help, and queries.
 - **Weather Check**: Check the weather for any city using OpenWeather.
 - **Quick Notes**: Take and store quick notes for your studies.
 - **Daily Motivation**: Receive motivational quotes to keep you going.
+- **Study Tips**: Get study tips and advice for effective learning.
 - **User Authentication**: Register and login to access personalized features.
+- **User Profile**: Craft your profile with study interests and goals.
+- **Fully Responsive**: Works on all devices and screen sizes.
+- **And More!**: Explore the app for additional features and tools.
 
 ## Live Deployment
 
@@ -64,24 +70,39 @@ Here are some placeholder UI images for the app:
    </p>
 
 ## Tech Stack
+
 - **Frontend**:
-    - Vue.js (JavaScript Framework)
-    - Vuetify (Material Design Components)
-    - Axios (HTTP Requests)
-    - Vuex (State Management)
-    - Markdown Rendering with `marked` (for AI-generated responses)
+
+  - **Vue.js** (JavaScript Framework)
+  - **Vuetify** (Material Design Components)
+  - **Axios** (HTTP Requests)
+  - **Vuex** (State Management)
+  - Markdown Rendering with `marked` (for AI-generated responses)
+  - **Webpack** (Module Bundler)
+  - **Babel** (JavaScript Compiler)
+  - **ESLint** (Code Linter)
+  - **Prettier** (Code Formatter)
+  - **Vue Router** (Page Navigation)
+  - **Vue CLI** (Vue Command Line Interface)
 
 - **Backend**:
-    - Node.js with Express.js
-    - MongoDB (Database)
-    - JWT (Authentication)
-    - Spotify API (for music recommendations)
-    - OpenWeather API (for weather data)
+
+  - **Node.js with Express.js**
+  - **MongoDB** (Database)
+  - **JWT** (Authentication)
+  - **Spotify API** (for music recommendations)
+  - **OpenWeather API** (for weather data)
+  - **Gemini API** (for AI chat functionality)
+  - **Swagger** (API Documentation)
+  - **Nginx** (Reverse Proxy & Load Balancer)
 
 - **Others**:
-    - GitHub for version control
-    - Google Gemini (for AI chat functionality)
-    - OpenWeather API (for weather data)
+  - **Git and GitHub** for version control
+  - **Google Gemini** (for AI chat functionality)
+  - **OpenWeather API** (for weather data)
+  - **Docker** (for containerization)
+  - **Jenkins** (for CI/CD)
+  - **Vercel and Render** for deployment
 
 ## Getting Started
 
@@ -90,56 +111,60 @@ To get started with **StudySync**, you can follow the setup instructions below. 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/hoangsonww/StudySync-Study-Buddy-App.git
-    cd StudySync-Study-Buddy-App
-    ```
+   cd StudySync-Study-Buddy-App
+   ```
 2. **Set up the backend**:
-    - Navigate to the `backend` directory:
-      ```bash
-      cd backend
-      ```
-    - Install backend dependencies:
-      ```bash
-      npm install
-      ```
-    - Set up environment variables by creating a `.env` file:
-      ```
-      SPOTIFY_CLIENT_ID=<your-spotify-client-id>
-      SPOTIFY_CLIENT_SECRET=<your-spotify-client-secret>
-      OPENWEATHER_API_KEY=<your-openweather-api-key>
-      JWT_SECRET=<your-jwt-secret>
-      GEMINI_API_TOKEN=<your-gemini-api-token>
-      ```
-    - Start the backend server:
-      ```bash
-      npm start
-      ```
-      
+   - Navigate to the `backend` directory:
+     ```bash
+     cd backend
+     ```
+   - Install backend dependencies:
+     ```bash
+     npm install
+     ```
+   - Set up environment variables by creating a `.env` file:
+     ```
+     SPOTIFY_CLIENT_ID=<your-spotify-client-id>
+     SPOTIFY_CLIENT_SECRET=<your-spotify-client-secret>
+     OPENWEATHER_API_KEY=<your-openweather-api-key>
+     JWT_SECRET=<your-jwt-secret>
+     GEMINI_API_TOKEN=<your-gemini-api-token>
+     PORT=5000
+     MONGO_URI=<your-mongo-uri>
+     AI_INSTRUCTION=<your-ai-instruction>
+     ```
+   - Start the backend server:
+     ```bash
+     npm start
+     ```
+   - The backend server will start on `http://localhost:5000`.
 3. **Set up the frontend**:
-    - Navigate to the `frontend` directory:
-      ```bash
-      cd frontend
-      ```
-    - Install frontend dependencies:
-      ```bash
-      npm install
-      ```
-    - Set up the frontend `.env` file with the API base URL:
-      ```
-      VUE_APP_API_URL=http://localhost:5000/api
-      ```
-    - Start the frontend development server:
-      ```bash
-      npm run serve
-      ```
-    - Open your browser and go to `http://localhost:8081` to view the app.
+
+   - Navigate to the `frontend` directory:
+     ```bash
+     cd frontend/study-sync-app
+     ```
+   - Install frontend dependencies:
+     ```bash
+     npm install
+     ```
+   - Set up the frontend `.env` file with the API base URL:
+     ```
+     VUE_APP_API_URL=http://localhost:5000/api
+     ```
+   - Start the frontend development server:
+     ```bash
+     npm run serve
+     ```
+   - Open your browser and go to `http://localhost:8081` to view the app.
 
 4. **Explore the app**:
 
-    You can now explore the **StudySync** app by navigating through the various features and functionalities. You can use the Pomodoro timer, check the weather, get music recommendations, chat with the AI, and more.
+   You can now explore the **StudySync** app by navigating through the various features and functionalities. You can use the Pomodoro timer, check the weather, get music recommendations, chat with the AI, and more.
 
 5. **Contribute**:
 
-    If you would like to contribute to the project, feel free to fork the repository and submit a pull request with your changes. We welcome contributions from the community!
+   If you would like to contribute to the project, feel free to fork the repository and submit a pull request with your changes. We welcome contributions from the community!
 
 ## File Structure
 
@@ -240,76 +265,27 @@ The backend API documentation is available at `http://localhost:5000/api-docs` a
 ### Example of calling the Music Recommendation API
 
 ```javascript
-axios.get('http://localhost:5000/api/music?emotion=happy', {
-  headers: {
-    Authorization: `Bearer ${your_token}`,
-  }
-}).then(response => {
-  console.log(response.data.recommendations);  // Process music recommendations
-}).catch(error => {
-  console.error('Error fetching music:', error);
-});
+axios
+  .get("http://localhost:5000/api/music?emotion=happy", {
+    headers: {
+      Authorization: `Bearer ${your_token}`,
+    },
+  })
+  .then((response) => {
+    console.log(response.data.recommendations); // Process music recommendations
+  })
+  .catch((error) => {
+    console.error("Error fetching music:", error);
+  });
 ```
 
 ### Authentication
+
 All API endpoints require JWT authentication. Include the token in the `Authorization` header as follows:
+
 ```plaintext
 Authorization: Bearer <your-jwt-token>
 ```
-
-## Setup Instructions
-
-### Backend Setup
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/studysync.git
-   cd studysync
-   cd backend
-   ```
-
-2. Install backend dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Set up environment variables by creating a `.env` file:
-   ```
-   SPOTIFY_CLIENT_ID=<your-spotify-client-id>
-   SPOTIFY_CLIENT_SECRET=<your-spotify-client-secret>
-   OPENWEATHER_API_KEY=<your-openweather-api-key>
-   JWT_SECRET=<your-jwt-secret>
-   GEMINI_API_TOKEN=<your-gemini-api-token>
-   ```
-
-4. Start the backend server:
-   ```bash
-   npm start
-   ```
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install frontend dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Set up the frontend `.env` file with the API base URL:
-   ```
-   VUE_APP_API_URL=http://localhost:5000/api
-   ```
-
-4. Start the frontend development server:
-   ```bash
-   npm run serve
-   ```
-
-5. Open your browser and go to `http://localhost:8080` to view the app.
 
 ## Creators
 

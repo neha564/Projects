@@ -8,17 +8,37 @@
         </v-col>
         <!-- Social Media Icons -->
         <v-col cols="12" md="6" class="text-center footer-icons">
-          <a href="https://github.com/hoangsonww" target="_blank" class="footer-icon-link">
-            <v-icon small class="footer-icon">mdi-github</v-icon> <!-- GitHub Icon -->
+          <a
+            href="https://github.com/hoangsonww"
+            target="_blank"
+            class="footer-icon-link"
+          >
+            <v-icon small class="footer-icon">mdi-github</v-icon>
+            <!-- GitHub Icon -->
           </a>
-          <a href="https://sonnguyenhoang.com" target="_blank" class="footer-icon-link">
-            <v-icon small class="footer-icon">mdi-web</v-icon> <!-- Website Icon -->
+          <a
+            href="https://sonnguyenhoang.com"
+            target="_blank"
+            class="footer-icon-link"
+          >
+            <v-icon small class="footer-icon">mdi-web</v-icon>
+            <!-- Website Icon -->
           </a>
-          <a href="mailto:hoangson091104@gmail.com" target="_blank" class="footer-icon-link">
-            <v-icon small class="footer-icon">mdi-email</v-icon> <!-- Email Icon -->
+          <a
+            href="mailto:hoangson091104@gmail.com"
+            target="_blank"
+            class="footer-icon-link"
+          >
+            <v-icon small class="footer-icon">mdi-email</v-icon>
+            <!-- Email Icon -->
           </a>
-          <a href="https://www.linkedin.com/in/hoangsonw" target="_blank" class="footer-icon-link">
-            <v-icon small class="footer-icon">mdi-linkedin</v-icon> <!-- LinkedIn Icon -->
+          <a
+            href="https://www.linkedin.com/in/hoangsonw"
+            target="_blank"
+            class="footer-icon-link"
+          >
+            <v-icon small class="footer-icon">mdi-linkedin</v-icon>
+            <!-- LinkedIn Icon -->
           </a>
         </v-col>
       </v-row>
@@ -27,7 +47,7 @@
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 .v-footer {
   padding: 1em 0;
@@ -46,7 +66,7 @@
 .footer-text p {
   margin: 0;
   font-size: 1em;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #ffffff;
   font-weight: 500;
 }
@@ -61,7 +81,9 @@
 
 .footer-icon {
   color: #ffffff;
-  transition: color 0.3s ease, transform 0.2s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
   font-size: 1.5em;
   cursor: pointer;
 }

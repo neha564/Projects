@@ -1,8 +1,8 @@
-const { User, Group } = require('../models/models');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const { successMessages, errorMessages } = require('../views/views'); // Import messages
-const { getMusicRecommendation, chatWithAI } = require('../services/services');
+const { User, Group } = require("../models/models");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const { successMessages, errorMessages } = require("../views/views"); // Import messages
+const { getMusicRecommendation, chatWithAI } = require("../services/services");
 const { get } = require("axios");
 
 /**
@@ -103,23 +103,37 @@ exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).json({ success: false, message: errorMessages.missingRequiredFields });
+      return res
+        .status(400)
+        .json({ success: false, message: errorMessages.missingRequiredFields });
     }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(409).json({ success: false, message: errorMessages.userExists });
+      return res
+        .status(409)
+        .json({ success: false, message: errorMessages.userExists });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ name, email, password: hashedPassword });
     await user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(201).json({ success: true, message: successMessages.registrationSuccess, token });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res
+      .status(201)
+      .json({
+        success: true,
+        message: successMessages.registrationSuccess,
+        token,
+      });
   } catch (error) {
     console.error("Registration error:", error);
-    res.status(500).json({ success: false, message: errorMessages.registrationFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.registrationFailed });
   }
 };
 
@@ -168,14 +182,20 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ success: false, message: errorMessages.invalidCredentials });
+      return res
+        .status(401)
+        .json({ success: false, message: errorMessages.invalidCredentials });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
     res.json({ success: true, message: successMessages.loginSuccess, token });
   } catch (error) {
     console.error("Login error:", error);
-    res.status(500).json({ success: false, message: errorMessages.loginFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.loginFailed });
   }
 };
 
@@ -222,13 +242,21 @@ exports.getProfile = async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ success: false, message: errorMessages.userNotFound });
+      return res
+        .status(404)
+        .json({ success: false, message: errorMessages.userNotFound });
     }
 
-    res.json({ success: true, message: successMessages.profileRetrieved, user });
+    res.json({
+      success: true,
+      message: successMessages.profileRetrieved,
+      user,
+    });
   } catch (error) {
     console.error("Get profile error:", error);
-    res.status(500).json({ success: false, message: errorMessages.profileFetchFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.profileFetchFailed });
   }
 };
 
@@ -276,16 +304,22 @@ exports.getProfile = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     const updateData = req.body;
-    const user = await User.findByIdAndUpdate(req.user.id, updateData, { new: true });
+    const user = await User.findByIdAndUpdate(req.user.id, updateData, {
+      new: true,
+    });
 
     if (!user) {
-      return res.status(404).json({ success: false, message: errorMessages.userNotFound });
+      return res
+        .status(404)
+        .json({ success: false, message: errorMessages.userNotFound });
     }
 
     res.json({ success: true, message: successMessages.profileUpdated, user });
   } catch (error) {
     console.error("Update profile error:", error);
-    res.status(500).json({ success: false, message: errorMessages.updateProfileFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.updateProfileFailed });
   }
 };
 
@@ -331,16 +365,24 @@ exports.updateProfile = async (req, res) => {
 exports.searchProfiles = async (req, res) => {
   try {
     const query = req.query.q;
-    const profiles = await User.find({ name: new RegExp(query, 'i') });
+    const profiles = await User.find({ name: new RegExp(query, "i") });
 
     if (!profiles.length) {
-      return res.status(404).json({ success: false, message: errorMessages.searchProfilesFailed });
+      return res
+        .status(404)
+        .json({ success: false, message: errorMessages.searchProfilesFailed });
     }
 
-    res.json({ success: true, message: successMessages.searchProfilesSuccess, profiles });
+    res.json({
+      success: true,
+      message: successMessages.searchProfilesSuccess,
+      profiles,
+    });
   } catch (error) {
     console.error("Search profiles error:", error);
-    res.status(500).json({ success: false, message: errorMessages.searchProfilesFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.searchProfilesFailed });
   }
 };
 
@@ -396,10 +438,14 @@ exports.createGroup = async (req, res) => {
     const group = new Group({ members, course });
     await group.save();
 
-    res.status(201).json({ success: true, message: successMessages.groupCreated, group });
+    res
+      .status(201)
+      .json({ success: true, message: successMessages.groupCreated, group });
   } catch (error) {
     console.error("Create group error:", error);
-    res.status(500).json({ success: false, message: errorMessages.groupCreationFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.groupCreationFailed });
   }
 };
 
@@ -464,7 +510,9 @@ exports.createSession = async (req, res) => {
     const group = await Group.findById(groupId);
 
     if (!group) {
-      return res.status(404).json({ success: false, message: errorMessages.groupCreationFailed });
+      return res
+        .status(404)
+        .json({ success: false, message: errorMessages.groupCreationFailed });
     }
 
     group.studySessions.push({ date, mood });
@@ -473,7 +521,9 @@ exports.createSession = async (req, res) => {
     res.json({ success: true, message: successMessages.sessionCreated, group });
   } catch (error) {
     console.error("Create session error:", error);
-    res.status(500).json({ success: false, message: errorMessages.sessionCreationFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.sessionCreationFailed });
   }
 };
 
@@ -520,17 +570,22 @@ exports.createSession = async (req, res) => {
  */
 exports.getMusic = async (req, res) => {
   try {
-    const searchTerm = req.query.searchTerm || 'study'; // Use searchTerm instead of emotion
+    const searchTerm = req.query.searchTerm || "study"; // Use searchTerm instead of emotion
     const recommendations = await getMusicRecommendation(searchTerm); // Pass searchTerm instead of emotion
 
     res.json({
       success: true,
       message: successMessages.musicRecommendationSuccess,
-      recommendations
+      recommendations,
     });
   } catch (error) {
     console.error("Get music error:", error);
-    res.status(500).json({ success: false, message: errorMessages.musicRecommendationFailed });
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: errorMessages.musicRecommendationFailed,
+      });
   }
 };
 
@@ -576,10 +631,16 @@ exports.aiChat = async (req, res) => {
     const { sessionId, message } = req.body;
     const aiResponse = await chatWithAI(sessionId, message);
 
-    res.json({ success: true, message: successMessages.aiChatResponseSuccess, response: aiResponse });
+    res.json({
+      success: true,
+      message: successMessages.aiChatResponseSuccess,
+      response: aiResponse,
+    });
   } catch (error) {
     console.error("AI chat error:", error);
-    res.status(500).json({ success: false, message: errorMessages.aiChatFailed });
+    res
+      .status(500)
+      .json({ success: false, message: errorMessages.aiChatFailed });
   }
 };
 
@@ -626,17 +687,22 @@ exports.getWeather = async (req, res) => {
   try {
     const city = req.query.city;
     if (!city) {
-      return res.status(400).json({ success: false, message: "City name is required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "City name is required" });
     }
 
     const apiKey = process.env.OPENWEATHER_API_KEY;
-    const response = await get(`https://api.openweathermap.org/data/2.5/weather`, {
-      params: {
-        q: city,
-        appid: apiKey,
-        units: "metric", // Converts temperature to Celsius
+    const response = await get(
+      `https://api.openweathermap.org/data/2.5/weather`,
+      {
+        params: {
+          q: city,
+          appid: apiKey,
+          units: "metric", // Converts temperature to Celsius
+        },
       },
-    });
+    );
 
     const { name, main, weather } = response.data;
     const weatherData = {
@@ -645,10 +711,16 @@ exports.getWeather = async (req, res) => {
       condition: weather[0].main,
     };
 
-    res.json({ success: true, message: "Weather data retrieved successfully", data: weatherData });
+    res.json({
+      success: true,
+      message: "Weather data retrieved successfully",
+      data: weatherData,
+    });
   } catch (error) {
     console.error("Error fetching weather data:", error.message);
-    res.status(500).json({ success: false, message: "Failed to retrieve weather data" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to retrieve weather data" });
   }
 };
 
@@ -695,19 +767,24 @@ exports.getCitySuggestions = async (req, res) => {
   try {
     const query = req.query.query;
     if (!query || query.length < 2) {
-      return res.status(400).json({ success: false, message: "Query must be at least 2 characters long" });
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Query must be at least 2 characters long",
+        });
     }
 
     const apiKey = process.env.OPENWEATHER_API_KEY;
     const response = await get(`http://api.openweathermap.org/geo/1.0/direct`, {
       params: {
         q: query,
-        limit: 5,           // Limit the number of suggestions returned
+        limit: 5, // Limit the number of suggestions returned
         appid: apiKey,
       },
     });
 
-    const cities = response.data.map(city => ({
+    const cities = response.data.map((city) => ({
       name: city.name,
       country: city.country,
       state: city.state,
@@ -716,6 +793,8 @@ exports.getCitySuggestions = async (req, res) => {
     res.json({ success: true, cities });
   } catch (error) {
     console.error("Error fetching city suggestions:", error.message);
-    res.status(500).json({ success: false, message: "Failed to retrieve city suggestions" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to retrieve city suggestions" });
   }
 };

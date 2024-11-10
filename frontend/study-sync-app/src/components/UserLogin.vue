@@ -3,35 +3,49 @@
     <v-row align="center" justify="center">
       <v-col cols="12" md="6" lg="4">
         <v-card class="pa-5 login-card" elevation="6">
-          <v-card-title class="text-center" style="font-family: 'Poppins', sans-serif;">
+          <v-card-title
+            class="text-center"
+            style="font-family: &quot;Poppins&quot;, sans-serif"
+          >
             <h2 class="login-title">Login</h2>
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="submitLogin">
               <v-text-field
-                  label="Email"
-                  v-model="email"
-                  prepend-icon="mdi-email"
-                  outlined
-                  dense
-                  required
-                  style="font-family: 'Poppins', sans-serif;"
+                label="Email"
+                v-model="email"
+                prepend-icon="mdi-email"
+                outlined
+                dense
+                required
+                style="font-family: &quot;Poppins&quot;, sans-serif"
               />
               <v-text-field
-                  label="Password"
-                  v-model="password"
-                  prepend-icon="mdi-lock"
-                  type="password"
-                  outlined
-                  dense
-                  required
-                  style="font-family: 'Poppins', sans-serif;"
+                label="Password"
+                v-model="password"
+                prepend-icon="mdi-lock"
+                type="password"
+                outlined
+                dense
+                required
+                style="font-family: &quot;Poppins&quot;, sans-serif"
               />
-              <v-btn color="primary" class="mt-4 login-btn" block type="submit" style="font-family: 'Poppins', sans-serif; font-size: 16px">
+              <v-btn
+                color="primary"
+                class="mt-4 login-btn"
+                block
+                type="submit"
+                style="
+                  font-family: &quot;Poppins&quot;, sans-serif;
+                  font-size: 16px;
+                "
+              >
                 Login
               </v-btn>
               <!-- Show error message if login fails -->
-              <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+              <p v-if="errorMessage" class="error-message">
+                {{ errorMessage }}
+              </p>
             </v-form>
           </v-card-text>
         </v-card>
@@ -46,8 +60,8 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       errorMessage: null,
     };
   },
@@ -56,13 +70,14 @@ export default {
     async submitLogin() {
       try {
         // Call the login action from Vuex
-        await this.login({email: this.email, password: this.password});
+        await this.login({ email: this.email, password: this.password });
 
         // Redirect to dashboard on successful login
-        this.$router.push('/');
+        this.$router.push("/");
       } catch (error) {
         // If an error occurs, set the error message
-        this.errorMessage = error.response && error.response.data && error.response.data.message
+        this.errorMessage =
+          error.response && error.response.data && error.response.data.message
             ? error.response.data.message
             : "Invalid email or password";
 
@@ -86,7 +101,9 @@ export default {
 .login-card {
   border-radius: 12px;
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .login-card:hover {
@@ -113,7 +130,9 @@ export default {
   font-size: 1em;
   color: white;
   text-transform: uppercase;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .login-btn:hover {

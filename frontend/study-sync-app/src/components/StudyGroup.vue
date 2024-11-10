@@ -13,7 +13,11 @@
 
       <div v-if="group._id === activeGroupId">
         <form @submit.prevent="addSession(group._id)">
-          <input v-model="sessionDate" type="datetime-local" placeholder="Date & Time" />
+          <input
+            v-model="sessionDate"
+            type="datetime-local"
+            placeholder="Date & Time"
+          />
           <select v-model="sessionMood">
             <option value="study">Study</option>
             <option value="happy">Happy</option>
@@ -28,27 +32,27 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      course: '',
-      sessionDate: '',
-      sessionMood: 'study',
+      course: "",
+      sessionDate: "",
+      sessionMood: "study",
       activeGroupId: null,
     };
   },
   computed: {
-    ...mapState(['groups'])
+    ...mapState(["groups"]),
   },
   methods: {
-    ...mapActions(['createGroup', 'fetchGroups', 'createStudySession']),
+    ...mapActions(["createGroup", "fetchGroups", "createStudySession"]),
 
     async createGroup() {
       try {
         await this.createGroup({ course: this.course });
-        this.course = '';
+        this.course = "";
       } catch (error) {
         console.error("Error creating group:", error);
       }
@@ -63,19 +67,19 @@ export default {
         await this.createStudySession({
           groupId,
           date: this.sessionDate,
-          mood: this.sessionMood
+          mood: this.sessionMood,
         });
-        this.sessionDate = '';
-        this.sessionMood = 'study';
+        this.sessionDate = "";
+        this.sessionMood = "study";
         this.activeGroupId = null;
       } catch (error) {
         console.error("Error adding session:", error);
       }
-    }
+    },
   },
   created() {
     this.fetchGroups();
-  }
+  },
 };
 </script>
 
