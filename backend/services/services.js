@@ -108,7 +108,7 @@ const registerUser = async (userData) => {
 
     // Generate a JWT token for the new user
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "72h",
     });
   } catch (error) {
     console.error("Error registering user:", error.message);

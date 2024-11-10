@@ -40,6 +40,18 @@
               <v-icon class="nav-icon">mdi-home</v-icon> Home
             </v-btn>
             <v-btn
+                text
+                to="/profile"
+                class="nav-btn"
+                :class="{ 'active-link': $route.path === '/profile' }"
+                style="
+                font-family: &quot;Poppins&quot;, sans-serif;
+                font-size: 16px;
+              "
+            >
+              <v-icon class="nav-icon">mdi-account</v-icon> Profile
+            </v-btn>
+            <v-btn
               text
               to="/register"
               class="nav-btn"
@@ -111,6 +123,23 @@
               font-size: 16px;
             "
             >Home</v-list-item-content
+          >
+        </v-list-item>
+
+        <v-list-item
+          to="/profile"
+          @click="closeDrawer"
+          class="mobile-nav-item"
+        >
+          <v-list-item-icon>
+            <v-icon class="mobile-nav-icon">mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content
+            style="
+              font-family: &quot;Poppins&quot;, sans-serif;
+              font-size: 16px;
+            "
+            >Profile</v-list-item-content
           >
         </v-list-item>
 

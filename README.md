@@ -10,7 +10,7 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 - [Tech Stack](#tech-stack)
 - [File Structure](#file-structure)
 - [API Documentation](#api-documentation)
-- [Contributors](#creators)
+- [Contributors](#the-creator)
 
 ## Features
 
@@ -323,9 +323,11 @@ docker compose up --build
 
 This command will build the Docker images for the backend and frontend and run the containers. You can access the app at `http://localhost:8081` after the containers are up and running.
 
-## Creators
+## The Creator
 
 - [Son Nguyen](https://github.com/hoangsonww)
+- [Email](mailto:hoangson091104@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/hoangsonw/)
 
 ---
 
