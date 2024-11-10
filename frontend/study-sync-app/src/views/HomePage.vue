@@ -304,7 +304,7 @@ export default {
         return;
       }
       try {
-        const response = await axios.get(`http://localhost:5000/api/cities?query=${this.city}`);
+        const response = await axios.get(`https://studysync-study-buddy-app.onrender.com/api/cities?query=${this.city}`);
         this.citySuggestions = response.data.cities.map((city) => ({
           displayName: `${city.name}, ${city.state ? city.state + ', ' : ''}${city.country}`,
           fullCity: city,
@@ -329,7 +329,7 @@ export default {
         }
 
         // Make an API request to get the user's profile
-        const response = await axios.get('http://localhost:5000/api/profile', {
+        const response = await axios.get('https://studysync-study-buddy-app.onrender.com/api/profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -444,7 +444,7 @@ export default {
           console.error("No token found");
           return;
         }
-        const response = await axios.get(`http://localhost:5000/api/music?searchTerm=${this.mood}`, {
+        const response = await axios.get(`https://studysync-study-buddy-app.onrender.com/api/music?searchTerm=${this.mood}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (response.data.success) {
@@ -478,7 +478,7 @@ export default {
         }
 
         // Call the backend API for weather data
-        const response = await axios.get(`http://localhost:5000/api/weather?city=${this.city}`);
+        const response = await axios.get(`https://studysync-study-buddy-app.onrender.com/api/weather?city=${this.city}`);
 
         // Check if the response was successful and contains data
         if (response.data.success && response.data.data) {
