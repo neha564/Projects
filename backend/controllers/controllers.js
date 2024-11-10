@@ -3,9 +3,101 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { successMessages, errorMessages } = require('../views/views'); // Import messages
 const { getMusicRecommendation, chatWithAI } = require('../services/services');
-const {get} = require("axios");
+const { get } = require("axios");
 
-// Register new user
+/**
+ * @swagger
+ * tags:
+ *   - name: Authentication
+ *     description: User authentication and management
+ */
+
+/**
+ * @swagger
+ * tags:
+ *  - name: User
+ *    description: User profile and search operations
+ */
+
+/**
+ * @swagger
+ * tags:
+ * - name: Groups
+ *   description: Study group and session operations
+ */
+
+/**
+ * @swagger
+ * tags:
+ * - name: Music
+ *   description: Music recommendation operations
+ */
+
+/**
+ * @swagger
+ * tags:
+ * - name: AI Chat
+ *   description: AI chatbot operations
+ */
+
+/**
+ * @swagger
+ * tags:
+ * - name: Weather
+ *   description: Weather data operations
+ */
+
+/**
+ * @swagger
+ * tags:
+ * - name: Cities
+ *   description: City suggestion operations
+ */
+
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 token:
+ *                   type: string
+ *       400:
+ *         description: Missing required fields
+ *       409:
+ *         description: User already exists
+ *       500:
+ *         description: Server error
+ */
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -31,7 +123,45 @@ exports.register = async (req, res) => {
   }
 };
 
-// Login user
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Login a user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 token:
+ *                   type: string
+ *       401:
+ *         description: Invalid credentials
+ *       500:
+ *         description: Server error
+ */
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -49,7 +179,43 @@ exports.login = async (req, res) => {
   }
 };
 
-// Get user profile
+/**
+ * @swagger
+ * /api/profile/{userId}:
+ *   get:
+ *     summary: Get user profile by userId
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User's unique ID
+ *     responses:
+ *       200:
+ *         description: Profile fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
 exports.getProfile = async (req, res) => {
   try {
     const userId = req.params.userId || req.user.id;
@@ -66,7 +232,47 @@ exports.getProfile = async (req, res) => {
   }
 };
 
-// Update user profile
+/**
+ * @swagger
+ * /api/profile:
+ *   put:
+ *     summary: Update user profile
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
 exports.updateProfile = async (req, res) => {
   try {
     const updateData = req.body;
@@ -83,7 +289,45 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-// Search for profiles
+/**
+ * @swagger
+ * /api/search:
+ *   get:
+ *     summary: Search for profiles by name
+ *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Name query string for searching
+ *     responses:
+ *       200:
+ *         description: Profiles found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 profiles:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *       404:
+ *         description: No profiles found
+ *       500:
+ *         description: Server error
+ */
 exports.searchProfiles = async (req, res) => {
   try {
     const query = req.query.q;
@@ -100,7 +344,52 @@ exports.searchProfiles = async (req, res) => {
   }
 };
 
-// Create a new group
+/**
+ * @swagger
+ * /api/groups:
+ *   post:
+ *     summary: Create a new study group
+ *     tags: [Groups]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - members
+ *               - course
+ *             properties:
+ *               members:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               course:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Group created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 group:
+ *                   type: object
+ *                   properties:
+ *                     members:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     course:
+ *                       type: string
+ *       500:
+ *         description: Server error
+ */
 exports.createGroup = async (req, res) => {
   try {
     const { members, course } = req.body;
@@ -114,7 +403,60 @@ exports.createGroup = async (req, res) => {
   }
 };
 
-// Create a study session within a group
+/**
+ * @swagger
+ * /api/groups/{groupId}/sessions:
+ *   post:
+ *     summary: Create a study session within a group
+ *     tags: [Groups]
+ *     parameters:
+ *       - in: path
+ *         name: groupId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Group ID to create session within
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - date
+ *               - mood
+ *             properties:
+ *               date:
+ *                 type: string
+ *                 format: date
+ *               mood:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Session created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 group:
+ *                   type: object
+ *                   properties:
+ *                     members:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     course:
+ *                       type: string
+ *       404:
+ *         description: Group not found
+ *       500:
+ *         description: Server error
+ */
 exports.createSession = async (req, res) => {
   try {
     const { date, mood } = req.body;
@@ -135,7 +477,47 @@ exports.createSession = async (req, res) => {
   }
 };
 
-// Get music recommendations
+/**
+ * @swagger
+ * /api/music:
+ *   get:
+ *     summary: Get music recommendations based on search term
+ *     tags: [Music]
+ *     parameters:
+ *       - in: query
+ *         name: searchTerm
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Term to search for music recommendations (default is "study")
+ *     responses:
+ *       200:
+ *         description: Music recommendations retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 recommendations:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                       artist:
+ *                         type: string
+ *                       image_url:
+ *                         type: string
+ *                       spotify_url:
+ *                         type: string
+ *       500:
+ *         description: Server error when retrieving music recommendations
+ */
 exports.getMusic = async (req, res) => {
   try {
     const searchTerm = req.query.searchTerm || 'study'; // Use searchTerm instead of emotion
@@ -152,7 +534,43 @@ exports.getMusic = async (req, res) => {
   }
 };
 
-// AI Chat service
+/**
+ * @swagger
+ * /api/ai-chat:
+ *   post:
+ *     summary: Chat with AI service
+ *     tags: [AI Chat]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - sessionId
+ *               - message
+ *             properties:
+ *               sessionId:
+ *                 type: string
+ *               message:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: AI chat response successfully retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 response:
+ *                   type: string
+ *       500:
+ *         description: Server error when interacting with AI
+ */
 exports.aiChat = async (req, res) => {
   try {
     const { sessionId, message } = req.body;
@@ -165,7 +583,45 @@ exports.aiChat = async (req, res) => {
   }
 };
 
-// Get weather data
+/**
+ * @swagger
+ * /api/weather:
+ *   get:
+ *     summary: Get current weather data for a specific city
+ *     tags: [Weather]
+ *     parameters:
+ *       - in: query
+ *         name: city
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Name of the city to get the weather data for
+ *     responses:
+ *       200:
+ *         description: Weather data successfully retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     city:
+ *                       type: string
+ *                     temp:
+ *                       type: number
+ *                     condition:
+ *                       type: string
+ *       400:
+ *         description: Missing city query parameter
+ *       500:
+ *         description: Server error when retrieving weather data
+ */
 exports.getWeather = async (req, res) => {
   try {
     const city = req.query.city;
@@ -196,6 +652,45 @@ exports.getWeather = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /api/cities:
+ *   get:
+ *     summary: Get city suggestions based on a search query
+ *     tags: [Cities]
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Partial name of the city to get suggestions for
+ *     responses:
+ *       200:
+ *         description: City suggestions successfully retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 cities:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                       country:
+ *                         type: string
+ *                       state:
+ *                         type: string
+ *       400:
+ *         description: Query parameter must be at least 2 characters long
+ *       500:
+ *         description: Server error when retrieving city suggestions
+ */
 exports.getCitySuggestions = async (req, res) => {
   try {
     const query = req.query.query;
