@@ -1,4 +1,4 @@
 /backend/.env
 /backend/node_modules
 /node_modules
-/frontend/study-group-matcher/.env
+/frontend/study-sync-app/.env
