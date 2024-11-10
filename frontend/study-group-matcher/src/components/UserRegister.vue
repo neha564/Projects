@@ -39,6 +39,7 @@
                   block
                   type="submit"
                   elevation="2"
+                  style="font-size: 16px"
               >
                 Register
               </v-btn>

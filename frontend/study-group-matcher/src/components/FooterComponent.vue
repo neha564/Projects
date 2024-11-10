@@ -1,5 +1,5 @@
 <template>
-  <v-footer app color="indigo darken-4" dark>
+  <v-footer color="indigo darken-4" dark>
     <v-container>
       <v-row justify="center" align="center" class="footer-content">
         <!-- Footer Text -->
@@ -8,10 +8,18 @@
         </v-col>
         <!-- Social Media Icons -->
         <v-col cols="12" md="6" class="text-center footer-icons">
-          <v-icon small class="footer-icon">mdi-facebook</v-icon>
-          <v-icon small class="footer-icon">mdi-twitter</v-icon>
-          <v-icon small class="footer-icon">mdi-instagram</v-icon>
-          <v-icon small class="footer-icon">mdi-linkedin</v-icon>
+          <a href="https://github.com/hoangsonww" target="_blank" class="footer-icon-link">
+            <v-icon small class="footer-icon">mdi-github</v-icon> <!-- GitHub Icon -->
+          </a>
+          <a href="https://sonnguyenhoang.com" target="_blank" class="footer-icon-link">
+            <v-icon small class="footer-icon">mdi-web</v-icon> <!-- Website Icon -->
+          </a>
+          <a href="mailto:hoangson091104@gmail.com" target="_blank" class="footer-icon-link">
+            <v-icon small class="footer-icon">mdi-email</v-icon> <!-- Email Icon -->
+          </a>
+          <a href="https://www.linkedin.com/in/hoangsonw" target="_blank" class="footer-icon-link">
+            <v-icon small class="footer-icon">mdi-linkedin</v-icon> <!-- LinkedIn Icon -->
+          </a>
         </v-col>
       </v-row>
     </v-container>
@@ -25,11 +33,10 @@
   padding: 1em 0;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   background-color: #3a3a9e;
-  height: 70px;
 }
 
 .footer-content {
-  max-width: 1000px;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -67,10 +74,26 @@
 /* Responsive Adjustments */
 @media (max-width: 600px) {
   .footer-text p {
-    font-size: 0.9em;
+    font-size: 0.9em; /* Make text smaller on small screens */
   }
+
   .footer-icons {
+    gap: 15px; /* Reduce icon gap on smaller screens */
     margin-top: 10px;
+  }
+
+  .footer-icon {
+    font-size: 1.3em; /* Adjust icon size on mobile */
+  }
+}
+
+@media (min-width: 601px) {
+  .footer-text p {
+    font-size: 1em; /* Maintain standard size for larger screens */
+  }
+
+  .footer-icon {
+    font-size: 1.5em; /* Regular icon size */
   }
 }
 </style>

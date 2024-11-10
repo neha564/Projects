@@ -188,6 +188,11 @@
         <button @click="getMotivation" class="action-button">New Quote</button>
       </div>
     </div>
+
+    <!-- Thank you message -->
+    <div class="thank-you">
+      <p style="text-align: center; margin-top: 2em; font-weight: bold">Thank you for using our productivity tools! More features coming soon. 🚀</p>
+    </div>
   </div>
 </template>
 
@@ -242,7 +247,22 @@ export default {
   created() {
     this.fetchUsername();
     this.updateDateTime();
-    this.timerInterval = setInterval(this.updateDateTime, 1000); // Update every second
+    this.timerInterval = setInterval(this.updateDateTime, 1000);
+    if (!this.token) {
+      alert("You need to log in first!");
+      this.$router.push('/login');
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    // Use the next callback with a function to ensure the alert is shown before the redirect
+    next(vm => {
+      if (!vm.token) {
+        alert("You need to log in first!");  // Show alert
+        vm.$router.push('/login');           // Then redirect
+      } else {
+        next();  // Proceed to the route if authenticated
+      }
+    });
   },
   beforeUnmount() {
     clearInterval(this.timerInterval); // Clear interval on component destruction
@@ -1124,4 +1144,9 @@ h2 {
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3); /* Smoother shadow transition */
 }
 
+.thank-you {
+  text-align: center;
+  margin-top: 2em;
+  border-top: 1px solid #ddd;
+}
 </style>
