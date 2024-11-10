@@ -4,10 +4,10 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 
 ## Table of Contents
 - [Features](#features)
+- [UI Screenshots](#ui-screenshots)
 - [Tech Stack](#tech-stack)
 - [File Structure](#file-structure)
 - [API Documentation](#api-documentation)
-- [UI Screenshots](#ui-screenshots)
 - [Setup Instructions](#setup-instructions)
 - [Contributors](#creators)
 
@@ -20,6 +20,41 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 - **Weather Check**: Check the weather for any city using OpenWeather.
 - **Quick Notes**: Take and store quick notes for your studies.
 - **Daily Motivation**: Receive motivational quotes to keep you going.
+- **User Authentication**: Register and login to access personalized features.
+
+## UI Screenshots
+
+Here are some placeholder UI images for the app:
+
+1. **Home Page (Dashboard)**
+   <p align="center">
+     <img src="img/home_ui.png" alt="Home Page UI" width="100%">
+   </p>
+
+2. **Tools List**
+   <p align="center">
+     <img src="img/tools_ui.png" alt="Pomodoro Timer UI" width="100%">
+   </p>
+
+3. **Login Page**
+   <p align="center">
+     <img src="img/login_ui.png" alt="Music Recommendations UI" width="100%">
+   </p>
+
+4. **Register Page**
+    <p align="center">
+      <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
+    </p>
+
+5. **404 Page**
+   <p align="center">
+     <img src="img/404_ui.png" alt="404 Page UI" width="100%">
+   </p>
+
+6. **Footer**
+   <p align="center">
+     <img src="img/footer_ui.png" alt="Footer UI" width="100%">
+   </p>
 
 ## Tech Stack
 - **Frontend**:
@@ -39,6 +74,7 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 - **Others**:
     - GitHub for version control
     - Google Gemini (for AI chat functionality)
+    - OpenWeather API (for weather data)
 
 ## Getting Started
 
@@ -106,6 +142,8 @@ StudySync-Study-Buddy-App/
 ├── backend/                            # Backend (Node.js + Express)
 │   ├── config/                         # Database and configuration files
 │   │   └── db.js                       # Database connection
+│   ├── swagger/                        # Swagger API documentation
+│   │   └── swagger.js                  # Swagger setup
 │   ├── controllers/                    # Controllers handling requests
 │   │   └── controllers.js              # Main controller file
 │   ├── middleware/                     # Middleware for authentication
@@ -184,6 +222,14 @@ StudySync-Study-Buddy-App/
 | `/music`                    | GET        | Fetches music recommendations based on a mood.             |
 | `/ai-chat`                  | POST       | Allows users to chat with the AI for study assistance.     |
 
+### Backend Swagger Documentation
+
+The backend API documentation is available at `http://localhost:5000/api-docs` after starting the backend server. The Swagger UI provides a detailed overview of the API endpoints, request parameters, and response data.
+
+<p align="center">
+  <img src="img/swagger_ui.png" alt="Swagger UI" width="100%">
+</p>
+
 ### Example of calling the Music Recommendation API
 
 ```javascript
@@ -203,40 +249,6 @@ All API endpoints require JWT authentication. Include the token in the `Authoriz
 ```plaintext
 Authorization: Bearer <your-jwt-token>
 ```
-
-## UI Screenshots
-
-Here are some placeholder UI images for the app:
-
-1. **Home Page (Dashboard)**
-   <p align="center">
-     <img src="img/home_ui.png" alt="Home Page UI" width="100%">
-   </p>
-
-2. **Tools List**
-   <p align="center">
-     <img src="img/tools_ui.png" alt="Pomodoro Timer UI" width="100%">
-   </p>
-
-3. **Login Page**
-   <p align="center">
-     <img src="img/login_ui.png" alt="Music Recommendations UI" width="100%">
-   </p>
-
-4. **Register Page**
-    <p align="center">
-      <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
-    </p>
-
-5. **404 Page**
-   <p align="center">
-     <img src="img/404_ui.png" alt="404 Page UI" width="100%">
-   </p>
-
-6. **Footer**
-   <p align="center">
-     <img src="img/footer_ui.png" alt="Footer UI" width="100%">
-   </p>
 
 ## Setup Instructions
 
@@ -291,14 +303,6 @@ Here are some placeholder UI images for the app:
    ```
 
 5. Open your browser and go to `http://localhost:8080` to view the app.
-
-## Backend Swagger Documentation
-
-The backend API documentation is available at `http://localhost:5000/api-docs` after starting the backend server. The Swagger UI provides a detailed overview of the API endpoints, request parameters, and response data.
-
-<p align="center">
-  <img src="img/swagger_ui.png" alt="Swagger UI" width="100%">
-</p>
 
 ## Creators
 
