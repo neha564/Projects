@@ -287,6 +287,42 @@ All API endpoints require JWT authentication. Include the token in the `Authoriz
 Authorization: Bearer <your-jwt-token>
 ```
 
+## NGINX Configuration
+
+The NGINX configuration file for the reverse proxy and load balancer is available in the `nginx` directory. The configuration file is named `nginx.conf` and can be used to set up NGINX for the backend server.
+
+```nginx
+server {
+    listen 80;
+    server_name localhost;
+
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+The NGINX configuration file sets up a reverse proxy to the backend server running on `http://localhost:5000`. It listens on port 80 and forwards all requests to the backend server.
+
+## Docker Configuration
+
+The Docker configuration files for the backend and frontend are available in the `docker` directory. The `Dockerfile` and `docker-compose.yml` files can be used to build and run the Docker containers for the app.
+
+### Building the Docker Containers
+
+To build the Docker containers for the backend and frontend, you can use the following command:
+
+```bash
+docker compose up --build
+```
+
+This command will build the Docker images for the backend and frontend and run the containers. You can access the app at `http://localhost:8081` after the containers are up and running.
+
 ## Creators
 
 - [Son Nguyen](https://github.com/hoangsonww)
