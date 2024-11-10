@@ -1,4 +1,3 @@
-// src/store/index.js
 import { createStore } from 'vuex';
 import api from '../api';
 

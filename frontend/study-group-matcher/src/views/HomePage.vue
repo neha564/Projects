@@ -399,10 +399,15 @@ export default {
           } else {
             this.seconds--;
           }
-          this.elapsed = this.totalTime - (this.minutes * 60 + this.seconds);
+
+          // Update the timeLeft and progress dynamically
           this.timeLeft = `${this.formatTime(this.minutes)}:${this.formatTime(this.seconds)}`;
+          this.progress = this.progressCircleOffset;  // Update the progress value
         }
       }, 1000);
+    },
+    formatTime(time) {
+      return time < 10 ? `0${time}` : time;
     },
     resetTimer() {
       clearInterval(this.interval);
@@ -411,10 +416,7 @@ export default {
       this.seconds = 0;
       this.timeLeft = '25:00';
       this.elapsed = 0;
-      this.progress = 339.292; // Reset progress to full circumference
-    },
-    formatTime(time) {
-      return time < 10 ? `0${time}` : time;
+      this.progress = 339.292;  // Reset progress to full circumference
     },
     addTask() {
       if (this.newTask.trim()) {
@@ -442,7 +444,7 @@ export default {
           console.error("No token found");
           return;
         }
-        const response = await axios.get(`http://localhost:5000/api/music?mood=${this.mood}`, {
+        const response = await axios.get(`http://localhost:5000/api/music?searchTerm=${this.mood}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (response.data.success) {
@@ -601,44 +603,100 @@ h2 {
 
 /* Music Card */
 .music-card {
-  background: linear-gradient(135deg, #3b5998, #8b9dc3);
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
   color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 400px; /* Minimum height to ensure space for content */
+  overflow: hidden; /* Prevent content overflow outside the card */
+}
+
+.music-card h3 {
+  margin-bottom: 1em;
 }
 
 .music-card input {
   width: 100%;
   padding: 10px;
-  margin-top: 1em;
-  border: 0.5px solid #333;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: white;
+  border: 1px solid #fff;
+  color: #333;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+}
+
+.music-card input:focus {
+  background-color: #ffffff; /* Lighter background on focus */
+}
+
+.music-list {
+  width: 100%;
+  margin-top: 2em;
+  max-height: 400px; /* Set a max height to allow for scrolling */
+  overflow-y: auto; /* Enable scrolling if content exceeds max-height */
+  animation: slideIn 1s ease-out; /* Smooth slide-in effect */
 }
 
 .music-track {
   display: flex;
   align-items: center;
-  margin-top: 1em;
+  margin-bottom: 1em;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.music-track:hover {
+  transform: translateY(-5px); /* Slight elevation on hover */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); /* Darker shadow on hover */
 }
 
 .music-image {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
   margin-right: 1em;
+  transition: transform 0.3s ease; /* Smooth animation on image hover */
+}
+
+.music-image:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.track-info h4 {
+  font-size: 1.1em;
+  margin: 0.5em 0;
+  animation: fadeIn 0.8s ease-out; /* Fade-in animation for track title */
+}
+
+.track-info p {
+  color: #aaa;
+  font-size: 0.9em;
 }
 
 .spotify-button {
+  display: inline-block;
   background: #1db954;
   color: #fff;
-  padding: 8px;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border-radius: 20px;
   text-decoration: none;
-  transition: background 0.3s ease;
+  font-size: 0.9em;
+  margin-top: 1em;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .spotify-button:hover {
-  background: #1ed760;
+  background: #1ed760; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 /* Pomodoro Timer */
@@ -710,6 +768,7 @@ h2 {
 .todo-card {
   background: #2ecc71;
   color: #fff;
+  text-align: center;
 }
 
 .todo-card input {
@@ -719,6 +778,7 @@ h2 {
   border: 0.5px solid #333;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .task-item {
@@ -741,6 +801,7 @@ h2 {
 .flashcard-card {
   background: #f1c40f;
   color: #333;
+  text-align: center;
 }
 
 .flashcard-card input {
@@ -750,6 +811,7 @@ h2 {
   border: 0.5px solid #333;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .flashcard {
@@ -800,6 +862,7 @@ h2 {
 .calculator-card {
   background: linear-gradient(135deg, #34495e, #2c3e50);
   color: #fff;
+  text-align: center;
 }
 
 .calculator .display {
@@ -809,6 +872,7 @@ h2 {
   text-align: right;
   border-radius: 8px;
   margin-bottom: 1em;
+  margin-top: 0.5em;
 }
 
 .calculator .buttons {
@@ -850,6 +914,7 @@ h2 {
   background: linear-gradient(135deg, #8e44ad, #c39bd3);
   color: #fff;
   padding: 1em;
+  text-align: center;
 }
 
 .chat-box {
@@ -1023,8 +1088,6 @@ h2 {
   color: #fff;
 }
 
-
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1049,6 +1112,7 @@ h2 {
   background: linear-gradient(135deg, #f39c12, #f1c40f);
   color: #fff;
   padding: 1em;
+  text-align: center;
 }
 
 .notes-card textarea {

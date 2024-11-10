@@ -138,10 +138,14 @@ exports.createSession = async (req, res) => {
 // Get music recommendations
 exports.getMusic = async (req, res) => {
   try {
-    const emotion = req.query.emotion || 'study';
-    const recommendations = await getMusicRecommendation(emotion);
+    const searchTerm = req.query.searchTerm || 'study'; // Use searchTerm instead of emotion
+    const recommendations = await getMusicRecommendation(searchTerm); // Pass searchTerm instead of emotion
 
-    res.json({ success: true, message: successMessages.musicRecommendationSuccess, recommendations });
+    res.json({
+      success: true,
+      message: successMessages.musicRecommendationSuccess,
+      recommendations
+    });
   } catch (error) {
     console.error("Get music error:", error);
     res.status(500).json({ success: false, message: errorMessages.musicRecommendationFailed });

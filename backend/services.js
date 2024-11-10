@@ -7,7 +7,6 @@ require('dotenv').config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_TOKEN);
 
-// Spotify access token retrieval using client credentials
 let spotifyAccessToken = null;
 let spotifyTokenExpiry = null;
 
@@ -41,31 +40,31 @@ const getSpotifyAccessToken = async () => {
 };
 
 // Music recommendation service
-const getMusicRecommendation = async (emotion = 'study') => {
+const getMusicRecommendation = async (searchTerm = 'study') => {
   try {
     const accessToken = await getSpotifyAccessToken();
-    const emotionToGenre = {
-      joy: 'hip-hop', happy: 'happy', sadness: 'sad', anger: 'metal', love: 'romance',
-      fear: 'sad', neutral: 'pop', calm: 'chill', excited: 'party', bored: 'pop',
-      tired: 'chill', relaxed: 'chill', stressed: 'chill', anxious: 'chill'
-    };
-    const genre = emotionToGenre[emotion.toLowerCase()] || 'study';
 
-    const response = await axios.get('https://api.spotify.com/v1/recommendations', {
+    // Use the search endpoint to search for tracks based on the search term
+    const response = await axios.get('https://api.spotify.com/v1/search', {
       headers: { Authorization: `Bearer ${accessToken}` },
-      params: { seed_genres: genre, limit: 10, market: 'US' }
+      params: {
+        q: searchTerm,    // The search term
+        type: 'track',    // Searching for tracks only
+        limit: 10,        // Limit results to 10 tracks
+      }
     });
 
-    return response.data.tracks.map(track => ({
+    // Process the results to match the format used earlier
+    return response.data.tracks.items.map(track => ({
       name: track.name,
-      artist: track.artists[0].name,
-      preview_url: track.preview_url,
-      spotify_url: track.external_urls.spotify,
-      image_url: track.album.images[0]?.url
+      artist: track.artists[0]?.name,  // Get the name of the first artist
+      preview_url: track.preview_url,  // Preview URL of the track
+      spotify_url: track.external_urls.spotify, // Spotify track URL
+      image_url: track.album.images[0]?.url  // Album image (first image)
     }));
   } catch (error) {
-    console.error('Error fetching music recommendations:', error.message, error.response?.data || '');
-    return [];
+    console.error('Error fetching music search results:', error.message, error.response?.data || '');
+    return []; // Return empty array in case of error
   }
 };
 

@@ -1,4 +1,3 @@
-<!-- src/components/ChatAI.vue -->
 <template>
   <div>
     <h2>AI Chat</h2>
