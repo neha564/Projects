@@ -691,7 +691,7 @@ h2 {
     box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  max-height: 1000px; /* Sets max height for the card */
+  max-height: 1000px;
   overflow: hidden;
   min-height: 450px;
 }
@@ -703,7 +703,7 @@ h2 {
 
 .card-content {
   flex: 1;
-  overflow-y: auto; /* Enables vertical scrolling within content area */
+  overflow-y: auto;
   padding: 0.5em 0;
 }
 
