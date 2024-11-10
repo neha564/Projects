@@ -12,8 +12,25 @@
     "backend": "cd backend && npm start"
   },
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangsonww/StudySync-Study-Buddy-App.git"
+  },
+  "keywords": [
+    "StudySync",
+    "Study Buddy",
+    "Study App",
+    "Study Tools"
+  ],
+  "author": "Son Nguyen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoangsonww/StudySync-Study-Buddy-App.git/issues",
+    "email": "hoangson091104@gmail.com"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
+    "@vue/cli-service": "^5.0.8",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",

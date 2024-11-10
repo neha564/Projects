@@ -182,7 +182,7 @@ To get started with **StudySync**, you can follow the setup instructions below. 
      ```bash
      npm run serve
      ```
-   - Open your browser and go to `http://localhost:8081` to view the app.
+   - Open your browser and go to `http://localhost:8081` to view the app. (The URL may vary based on the port used by Vue CLI - check the terminal output for the correct URL.)
 
 4. **Explore the app**:
 
