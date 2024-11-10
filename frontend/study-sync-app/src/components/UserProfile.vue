@@ -9,20 +9,32 @@
 
     <!-- Avatar Section -->
     <div class="avatar-section">
-      <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar-img" />
+      <img
+        :src="user.avatar || defaultAvatar"
+        alt="User Avatar"
+        class="avatar-img"
+      />
       <div class="edit-avatar-container">
         <!-- Edit Avatar button below the Avatar -->
-        <button v-if="!isEditingAvatar" @click="editAvatar" :disabled="isSaving">Edit Avatar</button>
+        <button
+          v-if="!isEditingAvatar"
+          @click="editAvatar"
+          :disabled="isSaving"
+        >
+          Edit Avatar
+        </button>
         <input
-            v-if="isEditingAvatar"
-            type="url"
-            v-model="newAvatar"
-            placeholder="Enter new avatar URL"
-            @blur="saveAvatar"
-            class="avatar-input"
-            :disabled="isSaving"
+          v-if="isEditingAvatar"
+          type="url"
+          v-model="newAvatar"
+          placeholder="Enter new avatar URL"
+          @blur="saveAvatar"
+          class="avatar-input"
+          :disabled="isSaving"
         />
-        <button v-if="isEditingAvatar" @click="saveAvatar" :disabled="isSaving">Save Avatar</button>
+        <button v-if="isEditingAvatar" @click="saveAvatar" :disabled="isSaving">
+          Save Avatar
+        </button>
       </div>
     </div>
 
@@ -32,15 +44,19 @@
       <div class="user-field">
         <label for="name">Name</label>
         <input
-            v-if="isEditingName"
-            v-model="newName"
-            type="text"
-            placeholder="Enter your name"
-            :disabled="isSaving"
+          v-if="isEditingName"
+          v-model="newName"
+          type="text"
+          placeholder="Enter your name"
+          :disabled="isSaving"
         />
         <p v-else>{{ user.name }}</p>
-        <button v-if="!isEditingName" @click="editName" :disabled="isSaving">Edit Name</button>
-        <button v-if="isEditingName" @click="saveName" :disabled="isSaving">Save Name</button>
+        <button v-if="!isEditingName" @click="editName" :disabled="isSaving">
+          Edit Name
+        </button>
+        <button v-if="isEditingName" @click="saveName" :disabled="isSaving">
+          Save Name
+        </button>
       </div>
 
       <!-- Email Field -->
@@ -53,75 +69,123 @@
       <div class="user-field">
         <label for="interests">Interests</label>
         <input
-            v-if="isEditingInterests"
-            v-model="newInterests"
-            type="text"
-            placeholder="Enter interests separated by commas"
-            :disabled="isSaving"
+          v-if="isEditingInterests"
+          v-model="newInterests"
+          type="text"
+          placeholder="Enter interests separated by commas"
+          :disabled="isSaving"
         />
         <p v-else>{{ user.interests.join(", ") || "No interests added" }}</p>
-        <button v-if="!isEditingInterests" @click="editInterests" :disabled="isSaving">Edit Interests</button>
-        <button v-if="isEditingInterests" @click="saveInterests" :disabled="isSaving">Save Interests</button>
+        <button
+          v-if="!isEditingInterests"
+          @click="editInterests"
+          :disabled="isSaving"
+        >
+          Edit Interests
+        </button>
+        <button
+          v-if="isEditingInterests"
+          @click="saveInterests"
+          :disabled="isSaving"
+        >
+          Save Interests
+        </button>
       </div>
 
       <!-- Mood Field -->
       <div class="user-field">
         <label for="mood">Mood</label>
         <input
-            v-if="isEditingMood"
-            v-model="newMood"
-            type="text"
-            placeholder="Enter your mood"
-            :disabled="isSaving"
+          v-if="isEditingMood"
+          v-model="newMood"
+          type="text"
+          placeholder="Enter your mood"
+          :disabled="isSaving"
         />
         <p v-else>{{ user.mood }}</p>
-        <button v-if="!isEditingMood" @click="editMood" :disabled="isSaving">Edit Mood</button>
-        <button v-if="isEditingMood" @click="saveMood" :disabled="isSaving">Save Mood</button>
+        <button v-if="!isEditingMood" @click="editMood" :disabled="isSaving">
+          Edit Mood
+        </button>
+        <button v-if="isEditingMood" @click="saveMood" :disabled="isSaving">
+          Save Mood
+        </button>
       </div>
 
       <!-- Available Times Field -->
       <div class="user-field">
         <label for="availableTimes">Available Times</label>
         <input
-            v-if="isEditingAvailableTimes"
-            v-model="newAvailableTimes"
-            type="text"
-            placeholder="Enter available times separated by commas"
-            :disabled="isSaving"
+          v-if="isEditingAvailableTimes"
+          v-model="newAvailableTimes"
+          type="text"
+          placeholder="Enter available times separated by commas"
+          :disabled="isSaving"
         />
         <p v-else>{{ user.availableTimes.join(", ") || "No times set" }}</p>
-        <button v-if="!isEditingAvailableTimes" @click="editAvailableTimes" :disabled="isSaving">Edit Available Times</button>
-        <button v-if="isEditingAvailableTimes" @click="saveAvailableTimes" :disabled="isSaving">Save Available Times</button>
+        <button
+          v-if="!isEditingAvailableTimes"
+          @click="editAvailableTimes"
+          :disabled="isSaving"
+        >
+          Edit Available Times
+        </button>
+        <button
+          v-if="isEditingAvailableTimes"
+          @click="saveAvailableTimes"
+          :disabled="isSaving"
+        >
+          Save Available Times
+        </button>
       </div>
 
       <!-- Courses Field -->
       <div class="user-field">
         <label for="courses">Courses</label>
         <input
-            v-if="isEditingCourses"
-            v-model="newCourses"
-            type="text"
-            placeholder="Enter courses separated by commas"
-            :disabled="isSaving"
+          v-if="isEditingCourses"
+          v-model="newCourses"
+          type="text"
+          placeholder="Enter courses separated by commas"
+          :disabled="isSaving"
         />
         <p v-else>{{ user.courses.join(", ") || "No courses added" }}</p>
-        <button v-if="!isEditingCourses" @click="editCourses" :disabled="isSaving">Edit Courses</button>
-        <button v-if="isEditingCourses" @click="saveCourses" :disabled="isSaving">Save Courses</button>
+        <button
+          v-if="!isEditingCourses"
+          @click="editCourses"
+          :disabled="isSaving"
+        >
+          Edit Courses
+        </button>
+        <button
+          v-if="isEditingCourses"
+          @click="saveCourses"
+          :disabled="isSaving"
+        >
+          Save Courses
+        </button>
       </div>
 
       <!-- Groups Field -->
       <div class="user-field">
         <label for="groups">Groups</label>
         <input
-            v-if="isEditingGroups"
-            v-model="newGroups"
-            type="text"
-            placeholder="Enter groups separated by commas"
-            :disabled="isSaving"
+          v-if="isEditingGroups"
+          v-model="newGroups"
+          type="text"
+          placeholder="Enter groups separated by commas"
+          :disabled="isSaving"
         />
         <p v-else>{{ user.groups.join(", ") || "No groups added" }}</p>
-        <button v-if="!isEditingGroups" @click="editGroups" :disabled="isSaving">Edit Groups</button>
-        <button v-if="isEditingGroups" @click="saveGroups" :disabled="isSaving">Save Groups</button>
+        <button
+          v-if="!isEditingGroups"
+          @click="editGroups"
+          :disabled="isSaving"
+        >
+          Edit Groups
+        </button>
+        <button v-if="isEditingGroups" @click="saveGroups" :disabled="isSaving">
+          Save Groups
+        </button>
       </div>
     </div>
   </div>
@@ -129,7 +193,7 @@
 
 <script>
 import axios from "axios";
-import { mapState } from 'vuex'; // Ensure you're using Vuex for authentication
+import { mapState } from "vuex"; // Ensure you're using Vuex for authentication
 
 export default {
   data() {
@@ -181,11 +245,14 @@ export default {
       }
 
       try {
-        const { data } = await axios.get("https://studysync-study-buddy-app.onrender.com/api/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const { data } = await axios.get(
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
         this.user = data.user;
         this.isLoading = false;
       } catch (error) {
@@ -204,9 +271,9 @@ export default {
       this.isSaving = true;
       try {
         await axios.put(
-            "https://studysync-study-buddy-app.onrender.com/api/profile",
-            { name: this.newName },
-            { headers: { Authorization: `Bearer ${token}` } }
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          { name: this.newName },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         this.user.name = this.newName;
         this.isEditingName = false;
@@ -225,9 +292,9 @@ export default {
       this.isSaving = true;
       try {
         await axios.put(
-            "https://studysync-study-buddy-app.onrender.com/api/profile",
-            { avatar: this.newAvatar },
-            { headers: { Authorization: `Bearer ${token}` } }
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          { avatar: this.newAvatar },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         this.user.avatar = this.newAvatar;
         this.isEditingAvatar = false;
@@ -244,12 +311,14 @@ export default {
     async saveInterests() {
       const token = localStorage.getItem("token");
       this.isSaving = true;
-      const updatedInterests = this.newInterests.split(",").map((item) => item.trim());
+      const updatedInterests = this.newInterests
+        .split(",")
+        .map((item) => item.trim());
       try {
         await axios.put(
-            "https://studysync-study-buddy-app.onrender.com/api/profile",
-            { interests: updatedInterests },
-            { headers: { Authorization: `Bearer ${token}` } }
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          { interests: updatedInterests },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         this.user.interests = updatedInterests;
         this.isEditingInterests = false;
@@ -268,9 +337,9 @@ export default {
       this.isSaving = true;
       try {
         await axios.put(
-            "https://studysync-study-buddy-app.onrender.com/api/profile",
-            { mood: this.newMood },
-            { headers: { Authorization: `Bearer ${token}` } }
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          { mood: this.newMood },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         this.user.mood = this.newMood;
         this.isEditingMood = false;
@@ -287,12 +356,14 @@ export default {
     async saveAvailableTimes() {
       const token = localStorage.getItem("token");
       this.isSaving = true;
-      const updatedTimes = this.newAvailableTimes.split(",").map((item) => item.trim());
+      const updatedTimes = this.newAvailableTimes
+        .split(",")
+        .map((item) => item.trim());
       try {
         await axios.put(
-            "https://studysync-study-buddy-app.onrender.com/api/profile",
-            { availableTimes: updatedTimes },
-            { headers: { Authorization: `Bearer ${token}` } }
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          { availableTimes: updatedTimes },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         this.user.availableTimes = updatedTimes;
         this.isEditingAvailableTimes = false;
@@ -309,12 +380,14 @@ export default {
     async saveCourses() {
       const token = localStorage.getItem("token");
       this.isSaving = true;
-      const updatedCourses = this.newCourses.split(",").map((item) => item.trim());
+      const updatedCourses = this.newCourses
+        .split(",")
+        .map((item) => item.trim());
       try {
         await axios.put(
-            "https://studysync-study-buddy-app.onrender.com/api/profile",
-            { courses: updatedCourses },
-            { headers: { Authorization: `Bearer ${token}` } }
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          { courses: updatedCourses },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         this.user.courses = updatedCourses;
         this.isEditingCourses = false;
@@ -330,12 +403,14 @@ export default {
     },
     async saveGroups() {
       const token = localStorage.getItem("token");
-      const updatedGroups = this.newGroups.split(",").map((item) => item.trim());
+      const updatedGroups = this.newGroups
+        .split(",")
+        .map((item) => item.trim());
       try {
         await axios.put(
-            "https://studysync-study-buddy-app.onrender.com/api/profile",
-            { groups: updatedGroups },
-            { headers: { Authorization: `Bearer ${token}` } }
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          { groups: updatedGroups },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         this.user.groups = updatedGroups;
         this.isEditingGroups = false;

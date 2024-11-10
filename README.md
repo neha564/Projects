@@ -60,36 +60,43 @@ However, the app may take a while to spin up, which means it may take 2-3 minute
 Here are some placeholder UI images for the app:
 
 ### Home Page (Dashboard)
+
 <p align="center">
  <img src="img/home_ui.png" alt="Home Page UI" width="100%">
 </p>
 
 ### Tools List
+
 <p align="center">
     <img src="img/tools_ui.png" alt="Pomodoro Timer UI" width="100%">
 </p>
 
 ### Login Page
+
 <p align="center">
     <img src="img/login_ui.png" alt="Music Recommendations UI" width="100%">
 </p>
 
 ### Register Page
+
 <p align="center">
     <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
 </p>
 
 ### Profile Page
+
 <p align="center">
     <img src="img/profile_ui.png" alt="Profile Page UI" width="100%">
 </p>
 
 ### 404 Page
+
 <p align="center">
     <img src="img/404_ui.png" alt="404 Page UI" width="100%">
 </p>
 
 ### Footer
+
 <p align="center">
     <img src="img/footer_ui.png" alt="Footer UI" width="100%">
 </p>
@@ -98,37 +105,37 @@ Here are some placeholder UI images for the app:
 
 ### Frontend
 
-  - **Vue.js** (JavaScript Framework)
-  - **Vuetify** (Material Design Components)
-  - **Axios** (HTTP Requests)
-  - **Vuex** (State Management)
-  - Markdown Rendering with `marked` (for AI-generated responses)
-  - **Webpack** (Module Bundler)
-  - **Babel** (JavaScript Compiler)
-  - **ESLint** (Code Linter)
-  - **Prettier** (Code Formatter)
-  - **Vue Router** (Page Navigation)
-  - **Vue CLI** (Vue Command Line Interface)
+- **Vue.js** (JavaScript Framework)
+- **Vuetify** (Material Design Components)
+- **Axios** (HTTP Requests)
+- **Vuex** (State Management)
+- Markdown Rendering with `marked` (for AI-generated responses)
+- **Webpack** (Module Bundler)
+- **Babel** (JavaScript Compiler)
+- **ESLint** (Code Linter)
+- **Prettier** (Code Formatter)
+- **Vue Router** (Page Navigation)
+- **Vue CLI** (Vue Command Line Interface)
 
 ### Backend
 
-  - **Node.js with Express.js**
-  - **MongoDB** (Database)
-  - **JWT** (Authentication)
-  - **Spotify API** (for music recommendations)
-  - **OpenWeather API** (for weather data)
-  - **Gemini API** (for AI chat functionality)
-  - **Swagger** (API Documentation)
-  - **Nginx** (Reverse Proxy & Load Balancer)
+- **Node.js with Express.js**
+- **MongoDB** (Database)
+- **JWT** (Authentication)
+- **Spotify API** (for music recommendations)
+- **OpenWeather API** (for weather data)
+- **Gemini API** (for AI chat functionality)
+- **Swagger** (API Documentation)
+- **Nginx** (Reverse Proxy & Load Balancer)
 
 ### DevOps & Deployment
 
-  - **Git and GitHub** for version control
-  - **Google Gemini** (for AI chat functionality)
-  - **OpenWeather API** (for weather data)
-  - **Docker** (for containerization)
-  - **Jenkins** (for CI/CD)
-  - **Vercel and Render** for deployment
+- **Git and GitHub** for version control
+- **Google Gemini** (for AI chat functionality)
+- **OpenWeather API** (for weather data)
+- **Docker** (for containerization)
+- **Jenkins** (for CI/CD)
+- **Vercel and Render** for deployment
 
 ## Getting Started
 
@@ -267,7 +274,7 @@ StudySync-Study-Buddy-App/
 ### Table of API Endpoints
 
 | **API Endpoint**            | **Method** | **Description**                                            |
-|-----------------------------|------------|------------------------------------------------------------|
+| --------------------------- | ---------- | ---------------------------------------------------------- |
 | `/auth/register`            | POST       | Registers a new user with name, email, and password.       |
 | `/auth/login`               | POST       | Authenticates the user and returns a JWT token.            |
 | `/profile/:userId?`         | GET        | Retrieves the profile data of the authenticated user.      |
@@ -359,6 +366,6 @@ This command will build the Docker images for the backend and frontend and run t
 
 We hope you enjoy using **StudySync**! For any issues or feature requests, feel free to open an issue on the repository. Happy studying! 📚🚀
 
---- 
+---
 
 [Back to top](#studysync---a-productivity-and-study-companion-app)

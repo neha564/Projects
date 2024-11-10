@@ -122,13 +122,11 @@ exports.register = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: successMessages.registrationSuccess,
-        token,
-      });
+    res.status(201).json({
+      success: true,
+      message: successMessages.registrationSuccess,
+      token,
+    });
   } catch (error) {
     console.error("Registration error:", error);
     res
@@ -580,12 +578,10 @@ exports.getMusic = async (req, res) => {
     });
   } catch (error) {
     console.error("Get music error:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: errorMessages.musicRecommendationFailed,
-      });
+    res.status(500).json({
+      success: false,
+      message: errorMessages.musicRecommendationFailed,
+    });
   }
 };
 
@@ -767,12 +763,10 @@ exports.getCitySuggestions = async (req, res) => {
   try {
     const query = req.query.query;
     if (!query || query.length < 2) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Query must be at least 2 characters long",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Query must be at least 2 characters long",
+      });
     }
 
     const apiKey = process.env.OPENWEATHER_API_KEY;

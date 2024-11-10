@@ -4,40 +4,40 @@
       <v-col cols="12" md="6" lg="4">
         <v-card class="pa-5 login-card" elevation="6">
           <v-card-title
-              class="text-center"
-              style="font-family: &quot;Poppins&quot;, sans-serif"
+            class="text-center"
+            style="font-family: &quot;Poppins&quot;, sans-serif"
           >
             <h2 class="login-title">Login</h2>
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="submitLogin">
               <v-text-field
-                  label="Email"
-                  v-model="email"
-                  prepend-icon="mdi-email"
-                  outlined
-                  dense
-                  required
-                  style="font-family: &quot;Poppins&quot;, sans-serif"
+                label="Email"
+                v-model="email"
+                prepend-icon="mdi-email"
+                outlined
+                dense
+                required
+                style="font-family: &quot;Poppins&quot;, sans-serif"
               />
               <v-text-field
-                  label="Password"
-                  v-model="password"
-                  :type="showPassword ? 'text' : 'password'"
-                  prepend-icon="mdi-lock"
-                  outlined
-                  dense
-                  required
-                  style="font-family: &quot;Poppins&quot;, sans-serif"
-                  :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                  @click:append="togglePasswordVisibility"
+                label="Password"
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+                prepend-icon="mdi-lock"
+                outlined
+                dense
+                required
+                style="font-family: &quot;Poppins&quot;, sans-serif"
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="togglePasswordVisibility"
               />
               <v-btn
-                  color="primary"
-                  class="mt-4 login-btn"
-                  block
-                  type="submit"
-                  style="
+                color="primary"
+                class="mt-4 login-btn"
+                block
+                type="submit"
+                style="
                   font-family: &quot;Poppins&quot;, sans-serif;
                   font-size: 16px;
                 "
@@ -83,9 +83,9 @@ export default {
       } catch (error) {
         // If an error occurs, set the error message
         this.errorMessage =
-            error.response && error.response.data && error.response.data.message
-                ? error.response.data.message
-                : "Invalid email or password";
+          error.response && error.response.data && error.response.data.message
+            ? error.response.data.message
+            : "Invalid email or password";
 
         console.error("Login error:", error);
       }
