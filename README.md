@@ -292,6 +292,14 @@ Here are some placeholder UI images for the app:
 
 5. Open your browser and go to `http://localhost:8080` to view the app.
 
+## Backend Swagger Documentation
+
+The backend API documentation is available at `http://localhost:5000/api-docs` after starting the backend server. The Swagger UI provides a detailed overview of the API endpoints, request parameters, and response data.
+
+<p align="center">
+  <img src="img/swagger_ui.png" alt="Swagger UI" width="100%">
+</p>
+
 ## Creators
 
 - [Son Nguyen](https://github.com/hoangsonww)
