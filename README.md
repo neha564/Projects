@@ -7,10 +7,28 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 - [Features](#features)
 - [Live Deployment](#live-deployment)
 - [UI Screenshots](#ui-screenshots)
+  - [Home Page (Dashboard)](#home-page-dashboard)
+  - [Tools List](#tools-list)
+  - [Login Page](#login-page)
+  - [Register Page](#register-page)
+  - [Profile Page](#profile-page)
+  - [404 Page](#404-page)
+  - [Footer](#footer)
 - [Tech Stack](#tech-stack)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+  - [DevOps & Deployment](#devops--deployment)
+- [Getting Started](#getting-started)
 - [File Structure](#file-structure)
 - [API Documentation](#api-documentation)
-- [Contributors](#the-creator)
+  - [Table of API Endpoints](#table-of-api-endpoints)
+  - [Backend Swagger Documentation](#backend-swagger-documentation)
+  - [Example of calling the Music Recommendation API](#example-of-calling-the-music-recommendation-api)
+  - [Authentication](#authentication)
+- [NGINX Configuration](#nginx-configuration)
+- [Docker Configuration](#docker-configuration)
+  - [Building the Docker Containers](#building-the-docker-containers)
+- [The Creator](#the-creator)
 
 ## Features
 
@@ -41,44 +59,44 @@ However, the app may take a while to spin up, which means it may take 2-3 minute
 
 Here are some placeholder UI images for the app:
 
-1. **Home Page (Dashboard)**
-   <p align="center">
-     <img src="img/home_ui.png" alt="Home Page UI" width="100%">
-   </p>
+### Home Page (Dashboard)
+<p align="center">
+ <img src="img/home_ui.png" alt="Home Page UI" width="100%">
+</p>
 
-2. **Tools List**
-   <p align="center">
-     <img src="img/tools_ui.png" alt="Pomodoro Timer UI" width="100%">
-   </p>
+### Tools List
+<p align="center">
+    <img src="img/tools_ui.png" alt="Pomodoro Timer UI" width="100%">
+</p>
 
-3. **Login Page**
-   <p align="center">
-     <img src="img/login_ui.png" alt="Music Recommendations UI" width="100%">
-   </p>
+### Login Page
+<p align="center">
+    <img src="img/login_ui.png" alt="Music Recommendations UI" width="100%">
+</p>
 
-4. **Register Page**
-    <p align="center">
-      <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
-    </p>
+### Register Page
+<p align="center">
+    <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
+</p>
 
-5. **Profile Page**
-   <p align="center">
-     <img src="img/profile_ui.png" alt="Profile Page UI" width="100%">
-   </p>
+### Profile Page
+<p align="center">
+    <img src="img/profile_ui.png" alt="Profile Page UI" width="100%">
+</p>
 
-6. **404 Page**
-   <p align="center">
-     <img src="img/404_ui.png" alt="404 Page UI" width="100%">
-   </p>
+### 404 Page
+<p align="center">
+    <img src="img/404_ui.png" alt="404 Page UI" width="100%">
+</p>
 
-7. **Footer**
-   <p align="center">
-     <img src="img/footer_ui.png" alt="Footer UI" width="100%">
-   </p>
+### Footer
+<p align="center">
+    <img src="img/footer_ui.png" alt="Footer UI" width="100%">
+</p>
 
 ## Tech Stack
 
-- **Frontend**:
+### Frontend
 
   - **Vue.js** (JavaScript Framework)
   - **Vuetify** (Material Design Components)
@@ -92,7 +110,7 @@ Here are some placeholder UI images for the app:
   - **Vue Router** (Page Navigation)
   - **Vue CLI** (Vue Command Line Interface)
 
-- **Backend**:
+### Backend
 
   - **Node.js with Express.js**
   - **MongoDB** (Database)
@@ -103,7 +121,8 @@ Here are some placeholder UI images for the app:
   - **Swagger** (API Documentation)
   - **Nginx** (Reverse Proxy & Load Balancer)
 
-- **Others**:
+### DevOps & Deployment
+
   - **Git and GitHub** for version control
   - **Google Gemini** (for AI chat functionality)
   - **OpenWeather API** (for weather data)
@@ -338,4 +357,8 @@ This command will build the Docker images for the backend and frontend and run t
 
 ---
 
-We hope you enjoy using **StudySync**! For any issues or feature requests, feel free to open an issue on the repository. Happy studying!
+We hope you enjoy using **StudySync**! For any issues or feature requests, feel free to open an issue on the repository. Happy studying! 📚🚀
+
+--- 
+
+[Back to top](#studysync---a-productivity-and-study-companion-app)
