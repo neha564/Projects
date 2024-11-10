@@ -4,7 +4,7 @@
       <v-row justify="center" align="center" class="footer-content">
         <!-- Footer Text -->
         <v-col cols="12" md="6" class="text-center mb-2 footer-text">
-          <p>&copy; 2023 StudySync. All rights reserved.</p>
+          <p>&copy; 2024 StudySync. All rights reserved.</p>
         </v-col>
         <!-- Social Media Icons -->
         <v-col cols="12" md="6" class="text-center footer-icons">
