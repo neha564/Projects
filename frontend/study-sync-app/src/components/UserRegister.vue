@@ -9,37 +9,50 @@
           <v-card-text>
             <v-form @submit.prevent="submitRegister">
               <v-text-field
-                label="Name"
-                v-model="name"
-                prepend-icon="mdi-account"
-                outlined
-                dense
-                required
+                  label="Name"
+                  v-model="name"
+                  prepend-icon="mdi-account"
+                  outlined
+                  dense
+                  required
               />
               <v-text-field
-                label="Email"
-                v-model="email"
-                prepend-icon="mdi-email"
-                outlined
-                dense
-                required
+                  label="Email"
+                  v-model="email"
+                  prepend-icon="mdi-email"
+                  outlined
+                  dense
+                  required
               />
               <v-text-field
-                label="Password"
-                v-model="password"
-                prepend-icon="mdi-lock"
-                type="password"
-                outlined
-                dense
-                required
+                  label="Password"
+                  v-model="password"
+                  :type="showPassword ? 'text' : 'password'"
+                  prepend-icon="mdi-lock"
+                  outlined
+                  dense
+                  required
+                  :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append="togglePasswordVisibility"
+              />
+              <v-text-field
+                  label="Confirm Password"
+                  v-model="confirmPassword"
+                  :type="showConfirmPassword ? 'text' : 'password'"
+                  prepend-icon="mdi-lock"
+                  outlined
+                  dense
+                  required
+                  :append-icon="showConfirmPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append="toggleConfirmPasswordVisibility"
               />
               <v-btn
-                color="primary"
-                class="mt-4 register-btn"
-                block
-                type="submit"
-                elevation="2"
-                style="font-size: 16px"
+                  color="primary"
+                  class="mt-4 register-btn"
+                  block
+                  type="submit"
+                  elevation="2"
+                  style="font-size: 16px"
               >
                 Register
               </v-btn>
@@ -63,12 +76,25 @@ export default {
       name: "",
       email: "",
       password: "",
+      confirmPassword: "",
+      showPassword: false, // State for password visibility toggle
+      showConfirmPassword: false, // State for confirm password visibility toggle
       errorMessage: null,
     };
   },
   methods: {
     ...mapActions(["register"]),
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    },
+    toggleConfirmPasswordVisibility() {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    },
     async submitRegister() {
+      if (this.password !== this.confirmPassword) {
+        this.errorMessage = "Passwords do not match.";
+        return;
+      }
       try {
         // Send registration request (does not log the user in)
         await this.register({
@@ -77,21 +103,14 @@ export default {
           password: this.password,
         });
 
-        // After successful registration, navigate to the login page (do not log in automatically)
+        // After successful registration, navigate to the login page
         this.$router.push("/login");
       } catch (error) {
         // Handle error: Display the message from the backend
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          this.errorMessage = error.response.data.message;
-        } else {
-          // If no error message is provided, use a default message
-          this.errorMessage = "Registration failed. Please try again.";
-        }
-
+        this.errorMessage =
+            error.response && error.response.data && error.response.data.message
+                ? error.response.data.message
+                : "Registration failed. Please try again.";
         console.error("Error during registration:", error);
       }
     },

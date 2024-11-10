@@ -247,6 +247,7 @@ export default {
 .v-app-bar {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .v-app-bar:hover {
