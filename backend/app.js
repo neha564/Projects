@@ -23,8 +23,17 @@ app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });
 
-// Define Swagger UI route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// Define Swagger UI route with custom title
+const options = {
+  customCss: `
+    .swagger-ui .topbar { background-color: #3949ab; }
+    .swagger-ui .topbar-wrapper .link { color: white !important; }
+  `,
+  customSiteTitle: 'StudySync API Documentation',  // Custom Title for Browser Tab
+};
+
+// Define Swagger UI route with custom setup
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, options));
 
 // Define routes
 app.use('/api', routes);
