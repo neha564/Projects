@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.post("/auth/register", controller.register);
 router.post("/auth/login", controller.login);
+router.post("/auth/verify-email", controller.verifyEmail);
+router.post("/auth/reset-password", controller.resetPassword);
 router.get("/profile/:userId?", authMiddleware, controller.getProfile);
 router.put("/profile", authMiddleware, controller.updateProfile);
 router.get("/search", authMiddleware, controller.searchProfiles);

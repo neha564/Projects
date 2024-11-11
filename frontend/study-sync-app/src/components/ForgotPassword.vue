@@ -99,7 +99,7 @@ export default {
     async verifyEmail() {
       try {
         // API call to verify if the email exists
-        const response = await axios.post("https://studysync-study-buddy-app.onrender.com/api/verify-email", {
+        const response = await axios.post("https://studysync-study-buddy-app.onrender.com/api/auth/verify-email", {
           email: this.email,
         });
 
@@ -125,7 +125,7 @@ export default {
 
       try {
         // API call to reset password
-        await axios.post("https://studysync-study-buddy-app.onrender.com/api/reset-password", {
+        await axios.post("https://studysync-study-buddy-app.onrender.com/api/auth/reset-password", {
           email: this.email,
           newPassword: this.newPassword,
         });
