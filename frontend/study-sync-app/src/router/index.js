@@ -6,6 +6,7 @@ import UserProfile from "../components/UserProfile.vue";
 import store from "../store";
 import NotFound from "@/components/NotFound.vue";
 import LandingPage from "@/components/LandingPage.vue";
+import ForgotPassword from "@/components/ForgotPassword.vue";
 
 const routes = [
   { path: "/", component: HomePage, meta: { requiresAuth: true } },
@@ -13,6 +14,7 @@ const routes = [
   { path: "/login", component: UserLogin },
   { path: "/profile", component: UserProfile, meta: { requiresAuth: true } },
   { path: "/landing", component: LandingPage },
+  { path: "/forgot-password", component: ForgotPassword },
   { path: "/:catchAll(.*)", component: NotFound },
 ];
 
