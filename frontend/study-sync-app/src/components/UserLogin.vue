@@ -138,7 +138,7 @@ export default {
 .forgot-password-link a {
   color: #3949ab;
   font-family: "Poppins", sans-serif;
-  font-size: 0.9em;
+  font-size: 1em;
   text-decoration: none;
 }
 

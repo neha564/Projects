@@ -89,6 +89,12 @@ Here are some placeholder UI images for the app:
     <img src="img/register_ui.png" alt="Weather Check UI" width="100%">
 </p>
 
+### Forgot Password Page
+
+<p align="center">
+    <img src="img/forgot_ui.png" alt="Forgot Password UI" width="100%">
+</p>
+
 ### Profile Page
 
 <p align="center">

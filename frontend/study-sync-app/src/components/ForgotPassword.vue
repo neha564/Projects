@@ -7,7 +7,8 @@
             <h2 class="forgot-password-title">Forgot Password</h2>
           </v-card-title>
           <v-card-text>
-            <v-form @submit.prevent="handleForgotPassword">
+            <!-- Prevent form submission and page reload with @submit.prevent -->
+            <v-form @submit.prevent>
               <!-- Email Input -->
               <v-text-field
                   label="Email"
@@ -16,6 +17,7 @@
                   outlined
                   dense
                   required
+                  @keydown.enter="verifyEmail"
               />
 
               <!-- Show verification message or proceed to password reset -->
@@ -41,6 +43,7 @@
                   required
                   :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
                   @click:append="togglePasswordVisibility"
+                  @keydown.enter="handleForgotPassword"
               />
               <v-text-field
                   v-if="emailVerified"
@@ -53,15 +56,16 @@
                   required
                   :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
                   @click:append="togglePasswordVisibility"
+                  @keydown.enter="handleForgotPassword"
               />
 
-              <!-- Submit Button for Password Reset -->
+              <!-- Submit Button for Password Reset, directly bound to the reset method -->
               <v-btn
                   v-if="emailVerified"
                   color="primary"
                   class="mt-4 reset-btn"
                   block
-                  type="submit"
+                  @click="handleForgotPassword"
               >
                 Reset Password
               </v-btn>
@@ -98,17 +102,15 @@ export default {
     },
     async verifyEmail() {
       try {
-        // API call to verify if the email exists
-        const response = await axios.post("https://studysync-study-buddy-app.onrender.com/api/auth/verify-email", {
-          email: this.email,
-        });
+        const response = await axios.post(
+            "https://studysync-study-buddy-app.onrender.com/api/auth/verify-email",
+            { email: this.email }
+        );
 
         if (response.data.exists) {
-          // If email exists, proceed to reset password
           this.emailVerified = true;
           this.errorMessage = null;
         } else {
-          // Display error if email does not exist
           this.errorMessage = "Email not found. Please check and try again.";
           this.emailVerified = false;
         }
@@ -124,15 +126,18 @@ export default {
       }
 
       try {
-        // API call to reset password
-        await axios.post("https://studysync-study-buddy-app.onrender.com/api/auth/reset-password", {
-          email: this.email,
-          newPassword: this.newPassword,
-        });
+        await axios.post(
+            "https://studysync-study-buddy-app.onrender.com/api/auth/reset-password",
+            { email: this.email, newPassword: this.newPassword }
+        );
 
-        // Show success message
-        this.successMessage = "Password reset successfully. You can now log in.";
+        this.successMessage = "Password reset successfully. Redirecting to login...";
         this.errorMessage = null;
+
+        // Delay before redirecting to login
+        setTimeout(() => {
+          this.$router.push("/login");
+        }, 2000); // 2-second delay for user to read the success message
       } catch (error) {
         console.error("Error resetting password:", error);
         this.errorMessage = "Failed to reset password. Please try again.";
@@ -142,7 +147,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 .forgot-password-container {
@@ -155,9 +160,7 @@ export default {
 .forgot-password-card {
   border-radius: 12px;
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
-  transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .forgot-password-card:hover {
@@ -173,10 +176,10 @@ export default {
   font-size: 1.8em;
 }
 
-.v-text-field label {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  color: #6a6a6a;
+.v-application .v-text-field .v-label,
+.v-application .v-text-field input,
+.v-application .v-text-field textarea {
+  font-family: "Poppins", sans-serif !important;
 }
 
 .verify-btn,
@@ -185,9 +188,7 @@ export default {
   font-size: 1em;
   color: white;
   text-transform: uppercase;
-  transition:
-      background-color 0.3s ease,
-      transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .verify-btn:hover,

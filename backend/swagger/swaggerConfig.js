@@ -13,10 +13,10 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "https://studysync-study-buddy-app.onrender.com/api",
+      url: "https://studysync-study-buddy-app.onrender.com/",
     },
     {
-      url: "http://localhost:5000/api",
+      url: "http://localhost:5000/",
     },
   ],
 };
