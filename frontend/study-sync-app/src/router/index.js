@@ -5,12 +5,14 @@ import UserLogin from "../components/UserLogin.vue";
 import UserProfile from "../components/UserProfile.vue";
 import store from "../store";
 import NotFound from "@/components/NotFound.vue";
+import LandingPage from "@/components/LandingPage.vue";
 
 const routes = [
   { path: "/", component: HomePage, meta: { requiresAuth: true } },
   { path: "/register", component: UserRegister },
   { path: "/login", component: UserLogin },
   { path: "/profile", component: UserProfile, meta: { requiresAuth: true } },
+  { path: "/landing", component: LandingPage },
   { path: "/:catchAll(.*)", component: NotFound },
 ];
 
@@ -23,9 +25,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated;
   if (to.meta.requiresAuth && !isAuthenticated) {
-    next("/login");
-  } else if (to.path === "/login" && isAuthenticated) {
-    next("/login");
+    next("/landing");
   } else {
     next();
   }
