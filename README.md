@@ -73,6 +73,10 @@ Here are some placeholder UI images for the app:
 
 ### Landing Page
 
+<p align="center">
+    <img src="img/landing_ui.png" alt="Landing Page UI" width="100%">
+</p>
+
 ### Login Page
 
 <p align="center">
