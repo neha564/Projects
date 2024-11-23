@@ -9,52 +9,63 @@
           <v-card-text>
             <v-form @submit.prevent="submitRegister">
               <v-text-field
-                label="Name"
-                v-model="name"
-                prepend-icon="mdi-account"
-                outlined
-                dense
-                required
+                  label="Name"
+                  v-model="name"
+                  prepend-icon="mdi-account"
+                  outlined
+                  dense
+                  required
               />
               <v-text-field
-                label="Email"
-                v-model="email"
-                prepend-icon="mdi-email"
-                outlined
-                dense
-                required
+                  label="Email"
+                  v-model="email"
+                  prepend-icon="mdi-email"
+                  outlined
+                  dense
+                  required
               />
               <v-text-field
-                label="Password"
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'"
-                prepend-icon="mdi-lock"
-                outlined
-                dense
-                required
-                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                @click:append="togglePasswordVisibility"
+                  label="Password"
+                  v-model="password"
+                  :type="showPassword ? 'text' : 'password'"
+                  prepend-icon="mdi-lock"
+                  outlined
+                  dense
+                  required
+                  :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append="togglePasswordVisibility"
               />
               <v-text-field
-                label="Confirm Password"
-                v-model="confirmPassword"
-                :type="showConfirmPassword ? 'text' : 'password'"
-                prepend-icon="mdi-lock"
-                outlined
-                dense
-                required
-                :append-icon="showConfirmPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                @click:append="toggleConfirmPasswordVisibility"
+                  label="Confirm Password"
+                  v-model="confirmPassword"
+                  :type="showConfirmPassword ? 'text' : 'password'"
+                  prepend-icon="mdi-lock"
+                  outlined
+                  dense
+                  required
+                  :append-icon="showConfirmPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append="toggleConfirmPasswordVisibility"
               />
               <v-btn
-                color="primary"
-                class="mt-4 register-btn"
-                block
-                type="submit"
-                elevation="2"
-                style="font-size: 16px"
+                  color="primary"
+                  class="mt-4 register-btn"
+                  block
+                  type="submit"
+                  elevation="2"
+                  :loading="isLoading"
+                  :disabled="isLoading"
+                  style="font-size: 16px"
               >
-                Register
+                <template v-if="!isLoading">Register</template>
+                <template v-else>
+                  <v-progress-circular
+                      indeterminate
+                      color="white"
+                      size="20"
+                      class="mr-2"
+                  />
+                  Loading...
+                </template>
               </v-btn>
               <p v-if="errorMessage" class="error-message">
                 {{ errorMessage }}
@@ -79,6 +90,7 @@ export default {
       confirmPassword: "",
       showPassword: false, // State for password visibility toggle
       showConfirmPassword: false, // State for confirm password visibility toggle
+      isLoading: false, // Loading state for register button
       errorMessage: null,
     };
   },
@@ -95,6 +107,8 @@ export default {
         this.errorMessage = "Passwords do not match.";
         return;
       }
+      this.isLoading = true; // Set loading state
+      this.errorMessage = null; // Clear previous error
       try {
         // Send registration request (does not log the user in)
         await this.register({
@@ -108,10 +122,12 @@ export default {
       } catch (error) {
         // Handle error: Display the message from the backend
         this.errorMessage =
-          error.response && error.response.data && error.response.data.message
-            ? error.response.data.message
-            : "Registration failed. Please try again.";
+            error.response && error.response.data && error.response.data.message
+                ? error.response.data.message
+                : "Registration failed. Please try again.";
         console.error("Error during registration:", error);
+      } finally {
+        this.isLoading = false; // Reset loading state
       }
     },
   },
@@ -132,9 +148,8 @@ export default {
   font-family: "Poppins", sans-serif;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease,
+  box-shadow 0.2s ease;
 }
 
 .register-card:hover {

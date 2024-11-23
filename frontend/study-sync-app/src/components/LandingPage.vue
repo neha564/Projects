@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     navigateToApp() {
-      this.$router.push("/home");
+      this.$router.push("/login");
     },
   },
 };

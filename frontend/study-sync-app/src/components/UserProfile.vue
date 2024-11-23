@@ -431,9 +431,10 @@ export default {
   padding: 20px;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   font-family: "Poppins", sans-serif;
   text-align: center;
+  max-width: 450px;
 }
 
 h2 {
