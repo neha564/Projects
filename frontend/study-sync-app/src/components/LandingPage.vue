@@ -17,6 +17,12 @@
       </div>
     </section>
 
+    <footer>
+      <p>
+        <strong>Note: You must be logged in to access the app. Click <a href="/login">here</a> to login.</strong>
+      </p>
+    </footer>
+
     <!-- Horizontal Line -->
     <div style="margin-top: 2em; border-top: 1px solid #ddd"></div>
 
@@ -178,6 +184,15 @@ footer {
   margin-top: 2em;
   font-size: 1em;
   color: #777;
+}
+
+footer a {
+  color: #3949ab;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 @keyframes fadeIn {

@@ -4,51 +4,62 @@
       <v-col cols="12" md="6" lg="4">
         <v-card class="pa-5 login-card" elevation="6">
           <v-card-title
-            class="text-center"
-            style="font-family: &quot;Poppins&quot;, sans-serif"
+              class="text-center"
+              style="font-family: &quot;Poppins&quot;, sans-serif"
           >
             <h2 class="login-title">Login</h2>
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="submitLogin">
               <v-text-field
-                label="Email"
-                v-model="email"
-                prepend-icon="mdi-email"
-                outlined
-                dense
-                required
-                style="font-family: &quot;Poppins&quot;, sans-serif"
+                  label="Email"
+                  v-model="email"
+                  prepend-icon="mdi-email"
+                  outlined
+                  dense
+                  required
+                  style="font-family: &quot;Poppins&quot;, sans-serif"
               />
               <v-text-field
-                label="Password"
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'"
-                prepend-icon="mdi-lock"
-                outlined
-                dense
-                required
-                style="font-family: &quot;Poppins&quot;, sans-serif"
-                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                @click:append="togglePasswordVisibility"
+                  label="Password"
+                  v-model="password"
+                  :type="showPassword ? 'text' : 'password'"
+                  prepend-icon="mdi-lock"
+                  outlined
+                  dense
+                  required
+                  style="font-family: &quot;Poppins&quot;, sans-serif"
+                  :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append="togglePasswordVisibility"
               />
               <!-- Forgot Password Link -->
               <div class="forgot-password-link" style="text-align: center">
                 <a @click.prevent="navigateToForgotPassword"
-                  >Forgot Password?</a
+                >Forgot Password?</a
                 >
               </div>
               <v-btn
-                color="primary"
-                class="mt-4 login-btn"
-                block
-                type="submit"
-                style="
+                  color="primary"
+                  class="mt-4 login-btn"
+                  block
+                  type="submit"
+                  style="
                   font-family: &quot;Poppins&quot;, sans-serif;
                   font-size: 16px;
                 "
+                  :loading="isLoading"
+                  :disabled="isLoading"
               >
-                Login
+                <template v-if="!isLoading">Login</template>
+                <template v-else>
+                  <v-progress-circular
+                      indeterminate
+                      color="white"
+                      size="20"
+                      class="mr-2"
+                  />
+                  Loading...
+                </template>
               </v-btn>
               <!-- Show error message if login fails -->
               <p v-if="errorMessage" class="error-message">
@@ -71,6 +82,7 @@ export default {
       email: "",
       password: "",
       showPassword: false, // State to toggle password visibility
+      isLoading: false, // Loading state
       errorMessage: null,
     };
   },
@@ -80,6 +92,8 @@ export default {
       this.showPassword = !this.showPassword;
     },
     async submitLogin() {
+      this.isLoading = true; // Set loading state
+      this.errorMessage = null; // Clear previous error
       try {
         // Call the login action from Vuex
         await this.login({ email: this.email, password: this.password });
@@ -89,11 +103,13 @@ export default {
       } catch (error) {
         // If an error occurs, set the error message
         this.errorMessage =
-          error.response && error.response.data && error.response.data.message
-            ? error.response.data.message
-            : "Invalid email or password";
+            error.response && error.response.data && error.response.data.message
+                ? error.response.data.message
+                : "Invalid email or password";
 
         console.error("Login error:", error);
+      } finally {
+        this.isLoading = false; // Reset loading state
       }
     },
     navigateToForgotPassword() {
@@ -117,8 +133,8 @@ export default {
   border-radius: 12px;
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
 }
 
 .login-card:hover {
@@ -163,8 +179,8 @@ export default {
   color: white;
   text-transform: uppercase;
   transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
+      background-color 0.3s ease,
+      transform 0.2s ease;
 }
 
 .login-btn:hover {
