@@ -286,7 +286,7 @@ StudySync-Study-Buddy-App/
 ### Table of API Endpoints
 
 | **API Endpoint**            | **Method** | **Description**                                            |
-|-----------------------------|------------|------------------------------------------------------------|
+| --------------------------- | ---------- | ---------------------------------------------------------- |
 | `/auth/register`            | POST       | Registers a new user with name, email, and password.       |
 | `/auth/login`               | POST       | Authenticates the user and returns a JWT token.            |
 | `/profile/:userId?`         | GET        | Retrieves the profile data of the authenticated user.      |

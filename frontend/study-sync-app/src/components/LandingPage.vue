@@ -2,7 +2,10 @@
   <div class="landing-page">
     <header>
       <h1>Welcome to StudySync</h1>
-      <p>Your ultimate productivity companion. Organize, focus, and achieve your goals.</p>
+      <p>
+        Your ultimate productivity companion. Organize, focus, and achieve your
+        goals.
+      </p>
       <button @click="navigateToApp">Get Started</button>
     </header>
 
@@ -15,10 +18,12 @@
     </section>
 
     <!-- Horizontal Line -->
-    <div style="margin-top: 2em; border-top: 1px solid #ddd;"></div>
+    <div style="margin-top: 2em; border-top: 1px solid #ddd"></div>
 
     <footer>
-      <p><strong>StudySync - Empowering your productivity journey. 🚀</strong></p>
+      <p>
+        <strong>StudySync - Empowering your productivity journey. 🚀</strong>
+      </p>
     </footer>
   </div>
 </template>
@@ -28,22 +33,61 @@ export default {
   data() {
     return {
       features: [
-        { title: 'Music Recommendations', description: 'Find the perfect soundtrack for your study sessions based on your mood.' },
-        { title: 'Pomodoro Timer', description: 'Stay focused with timed intervals that maximize productivity.' },
-        { title: 'To-Do List', description: 'Keep track of tasks and stay on top of your responsibilities.' },
-        { title: 'Flashcards', description: 'Review key concepts and boost your memory with interactive flashcards.' },
-        { title: 'AI Chat', description: 'Get answers, tips, and motivation from our AI-powered chat assistant.' },
-        { title: 'Weather', description: 'Plan your day better with accurate, location-based weather updates.' },
-        { title: 'Quick Notes', description: 'Jot down quick notes and thoughts to stay organized.' },
-        { title: 'Calculator', description: 'A full-featured calculator to handle all your quick calculations.' },
-        { title: 'Study Tips', description: 'Get daily study tips to enhance your learning efficiency.' },
-        { title: 'Daily Motivation', description: 'Start your day with a dose of motivation to stay inspired.' }
-      ]
+        {
+          title: "Music Recommendations",
+          description:
+            "Find the perfect soundtrack for your study sessions based on your mood.",
+        },
+        {
+          title: "Pomodoro Timer",
+          description:
+            "Stay focused with timed intervals that maximize productivity.",
+        },
+        {
+          title: "To-Do List",
+          description:
+            "Keep track of tasks and stay on top of your responsibilities.",
+        },
+        {
+          title: "Flashcards",
+          description:
+            "Review key concepts and boost your memory with interactive flashcards.",
+        },
+        {
+          title: "AI Chat",
+          description:
+            "Get answers, tips, and motivation from our AI-powered chat assistant.",
+        },
+        {
+          title: "Weather",
+          description:
+            "Plan your day better with accurate, location-based weather updates.",
+        },
+        {
+          title: "Quick Notes",
+          description: "Jot down quick notes and thoughts to stay organized.",
+        },
+        {
+          title: "Calculator",
+          description:
+            "A full-featured calculator to handle all your quick calculations.",
+        },
+        {
+          title: "Study Tips",
+          description:
+            "Get daily study tips to enhance your learning efficiency.",
+        },
+        {
+          title: "Daily Motivation",
+          description:
+            "Start your day with a dose of motivation to stay inspired.",
+        },
+      ],
     };
   },
   methods: {
     navigateToApp() {
-      this.$router.push('/home');
+      this.$router.push("/home");
     },
   },
 };
@@ -87,7 +131,9 @@ header button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1em;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
 }
 
 header button:hover {
@@ -109,7 +155,9 @@ header button:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 2em;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   animation: popIn 0.5s ease-out;
   animation-delay: calc(var(--index) * 0.1s);
   opacity: 0;

@@ -11,68 +11,72 @@
             <v-form @submit.prevent>
               <!-- Email Input -->
               <v-text-field
-                  label="Email"
-                  v-model="email"
-                  prepend-icon="mdi-email"
-                  outlined
-                  dense
-                  required
-                  @keydown.enter="verifyEmail"
+                label="Email"
+                v-model="email"
+                prepend-icon="mdi-email"
+                outlined
+                dense
+                required
+                @keydown.enter="verifyEmail"
               />
 
               <!-- Show verification message or proceed to password reset -->
               <v-btn
-                  v-if="!emailVerified"
-                  color="primary"
-                  class="mt-4 verify-btn"
-                  block
-                  @click="verifyEmail"
+                v-if="!emailVerified"
+                color="primary"
+                class="mt-4 verify-btn"
+                block
+                @click="verifyEmail"
               >
                 Verify Email
               </v-btn>
 
               <!-- Password Reset Fields -->
               <v-text-field
-                  v-if="emailVerified"
-                  label="New Password"
-                  v-model="newPassword"
-                  :type="showPassword ? 'text' : 'password'"
-                  prepend-icon="mdi-lock"
-                  outlined
-                  dense
-                  required
-                  :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                  @click:append="togglePasswordVisibility"
-                  @keydown.enter="handleForgotPassword"
+                v-if="emailVerified"
+                label="New Password"
+                v-model="newPassword"
+                :type="showPassword ? 'text' : 'password'"
+                prepend-icon="mdi-lock"
+                outlined
+                dense
+                required
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="togglePasswordVisibility"
+                @keydown.enter="handleForgotPassword"
               />
               <v-text-field
-                  v-if="emailVerified"
-                  label="Confirm Password"
-                  v-model="confirmPassword"
-                  :type="showPassword ? 'text' : 'password'"
-                  prepend-icon="mdi-lock-check"
-                  outlined
-                  dense
-                  required
-                  :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                  @click:append="togglePasswordVisibility"
-                  @keydown.enter="handleForgotPassword"
+                v-if="emailVerified"
+                label="Confirm Password"
+                v-model="confirmPassword"
+                :type="showPassword ? 'text' : 'password'"
+                prepend-icon="mdi-lock-check"
+                outlined
+                dense
+                required
+                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="togglePasswordVisibility"
+                @keydown.enter="handleForgotPassword"
               />
 
               <!-- Submit Button for Password Reset, directly bound to the reset method -->
               <v-btn
-                  v-if="emailVerified"
-                  color="primary"
-                  class="mt-4 reset-btn"
-                  block
-                  @click="handleForgotPassword"
+                v-if="emailVerified"
+                color="primary"
+                class="mt-4 reset-btn"
+                block
+                @click="handleForgotPassword"
               >
                 Reset Password
               </v-btn>
 
               <!-- Error or Success Messages -->
-              <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-              <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+              <p v-if="errorMessage" class="error-message">
+                {{ errorMessage }}
+              </p>
+              <p v-if="successMessage" class="success-message">
+                {{ successMessage }}
+              </p>
             </v-form>
           </v-card-text>
         </v-card>
@@ -103,8 +107,8 @@ export default {
     async verifyEmail() {
       try {
         const response = await axios.post(
-            "https://studysync-study-buddy-app.onrender.com/api/auth/verify-email",
-            { email: this.email }
+          "https://studysync-study-buddy-app.onrender.com/api/auth/verify-email",
+          { email: this.email },
         );
 
         if (response.data.exists) {
@@ -127,11 +131,12 @@ export default {
 
       try {
         await axios.post(
-            "https://studysync-study-buddy-app.onrender.com/api/auth/reset-password",
-            { email: this.email, newPassword: this.newPassword }
+          "https://studysync-study-buddy-app.onrender.com/api/auth/reset-password",
+          { email: this.email, newPassword: this.newPassword },
         );
 
-        this.successMessage = "Password reset successfully. Redirecting to login...";
+        this.successMessage =
+          "Password reset successfully. Redirecting to login...";
         this.errorMessage = null;
 
         // Delay before redirecting to login
@@ -160,7 +165,9 @@ export default {
 .forgot-password-card {
   border-radius: 12px;
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .forgot-password-card:hover {
@@ -188,7 +195,9 @@ export default {
   font-size: 1em;
   color: white;
   text-transform: uppercase;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .verify-btn:hover,
