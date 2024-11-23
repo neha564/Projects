@@ -10,6 +10,7 @@ import ForgotPassword from "@/components/ForgotPassword.vue";
 
 const routes = [
   { path: "/", component: HomePage, meta: { requiresAuth: true } },
+  { path: "/home", component: HomePage, meta: { requiresAuth: true } },
   { path: "/register", component: UserRegister },
   { path: "/login", component: UserLogin },
   { path: "/profile", component: UserProfile, meta: { requiresAuth: true } },

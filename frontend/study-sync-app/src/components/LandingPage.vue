@@ -19,7 +19,10 @@
 
     <footer>
       <p>
-        <strong>Note: You must be logged in to access the app. Click <a href="/login">here</a> to login.</strong>
+        <strong
+          >Note: You must be logged in to access the app. Click
+          <a href="/login">here</a> to login.</strong
+        >
       </p>
     </footer>
 
