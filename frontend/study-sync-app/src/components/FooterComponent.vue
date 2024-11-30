@@ -4,7 +4,7 @@
       <v-row justify="center" align="center" class="footer-content">
         <!-- Footer Text -->
         <v-col cols="12" md="6" class="text-center mb-2 footer-text">
-          <p>&copy; 2024 StudySync. All rights reserved.</p>
+          <p>&copy; {{ currentYear }} StudySync. All rights reserved.</p>
         </v-col>
         <!-- Social Media Icons -->
         <v-col cols="12" md="6" class="text-center footer-icons">
@@ -45,6 +45,17 @@
     </v-container>
   </v-footer>
 </template>
+
+<script>
+export default {
+  name: "FooterComponent",
+  data() {
+    return {
+      currentYear: new Date().getFullYear(), // Dynamically fetch the current year
+    };
+  },
+};
+</script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
