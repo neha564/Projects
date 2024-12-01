@@ -12,29 +12,37 @@
       <div class="tool-card music-card">
         <h3>Music Recommendations</h3>
         <input
-          v-model="mood"
-          type="text"
-          placeholder="Enter mood or search a song..."
-          @keyup.enter="getMusicRecommendations"
+            v-model="mood"
+            type="text"
+            placeholder="Enter mood or search a song..."
+            @keyup.enter="getMusicRecommendations"
         />
         <button @click="getMusicRecommendations" class="action-button">
           Get Recommendations
         </button>
-        <div v-if="musicRecommendations.length" class="music-list">
+
+        <!-- Display loading spinner while fetching recommendations -->
+        <div v-if="isLoadingMusic" class="loading-container">
+          <span class="loading-spinner"></span>
+          <p>Fetching recommendations...</p>
+        </div>
+
+        <!-- Display recommendations once loaded -->
+        <div v-if="musicRecommendations.length && !isLoadingMusic" class="music-list">
           <div
-            class="music-track"
-            v-for="(track, index) in musicRecommendations"
-            :key="index"
+              class="music-track"
+              v-for="(track, index) in musicRecommendations"
+              :key="index"
           >
             <img :src="track.image_url" alt="Track Image" class="music-image" />
             <div class="track-info">
               <h4>{{ track.name }}</h4>
               <p>{{ track.artist }}</p>
               <a
-                :href="track.spotify_url"
-                target="_blank"
-                class="spotify-button"
-                >Listen on Spotify</a
+                  :href="track.spotify_url"
+                  target="_blank"
+                  class="spotify-button"
+              >Listen on Spotify</a
               >
             </div>
           </div>
@@ -172,15 +180,22 @@
         <div class="card-content">
           <div class="chat-box">
             <div
-              v-for="(message, index) in chatMessages"
-              :key="index"
-              :class="[
-                'chat-message',
-                message.isUser ? 'user-message' : 'ai-message',
-              ]"
+                v-for="(message, index) in chatMessages"
+                :key="index"
+                :class="[
+                  'chat-message',
+                  message.isUser ? 'user-message' : 'ai-message',
+                ]"
             >
               <p v-if="message.isUser">{{ message.text }}</p>
               <p v-else v-html="message.htmlText"></p>
+            </div>
+
+            <!-- Show a loading spinner if the AI is processing -->
+            <div v-if="isLoadingAI" class="chat-message ai-message">
+              <p>
+                <span class="loading-spinner"></span> AI is thinking...
+              </p>
             </div>
           </div>
         </div>
@@ -197,20 +212,20 @@
         <div class="input-suggestions-container">
           <!-- Input Field for City -->
           <input
-            v-model="city"
-            type="text"
-            placeholder="Enter city"
-            @input="fetchCitySuggestions"
-            @keyup.enter="getWeather"
-            required
+              v-model="city"
+              type="text"
+              placeholder="Enter city"
+              @input="fetchCitySuggestions"
+              @keyup.enter="getWeather"
+              required
           />
 
           <!-- City Suggestions Dropdown -->
           <ul v-if="citySuggestions.length" class="suggestions-list">
             <li
-              v-for="(suggestion, index) in citySuggestions"
-              :key="index"
-              @click="selectCity(suggestion)"
+                v-for="(suggestion, index) in citySuggestions"
+                :key="index"
+                @click="selectCity(suggestion)"
             >
               {{ suggestion.displayName }}
             </li>
@@ -218,7 +233,14 @@
         </div>
         <button @click="getWeather" class="action-button">Check Weather</button>
 
-        <div v-if="weather && weather.city" class="weather-info">
+        <!-- Show loading spinner while fetching weather -->
+        <div v-if="isLoadingWeather" class="loading-container">
+          <span class="loading-spinner"></span>
+          <p>Loading weather data...</p>
+        </div>
+
+        <!-- Display weather details -->
+        <div v-if="weather && weather.city && !isLoadingWeather" class="weather-info">
           <!-- Render SVG weather icon based on condition -->
           <div class="weather-icon">
             <svg width="50" height="50" viewBox="0 0 24 24">
@@ -320,6 +342,9 @@ export default {
       motivationalQuote: "",
       weather: null,
       savedNotes: [],
+      isLoadingAI: false,
+      isLoadingMusic: false,
+      isLoadingWeather: false,
     };
   },
   computed: {
@@ -449,6 +474,7 @@ export default {
       if (this.userMessage.trim()) {
         // Add the user's message to the chat history
         this.chatMessages.push({ text: this.userMessage, isUser: true });
+        this.isLoadingAI = true;
 
         try {
           // Make the API call to get the AI's response
@@ -480,6 +506,8 @@ export default {
             text: "Error: Could not connect to the AI service.",
             isUser: false,
           });
+        } finally {
+          this.isLoadingAI = false; // Reset loading state
         }
 
         this.userMessage = ""; // Clear input after sending
@@ -551,6 +579,8 @@ export default {
     },
     async getMusicRecommendations() {
       try {
+        this.isLoadingMusic = true;
+
         const token = localStorage.getItem("token");
         if (!token) {
           console.error("No token found");
@@ -569,6 +599,8 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching music recommendations:", error);
+      } finally {
+        this.isLoadingMusic = false;
       }
     },
     getWeatherIcon(condition) {
@@ -587,6 +619,8 @@ export default {
     },
     async getWeather() {
       try {
+        this.isLoadingWeather = true;
+
         if (!this.city) {
           alert("Please enter a city name");
           return;
@@ -613,6 +647,8 @@ export default {
         alert(
           "Failed to retrieve weather data. Please check your city name and try again.",
         );
+      } finally {
+        this.isLoadingWeather = false;
       }
     },
     saveNote() {
@@ -630,9 +666,77 @@ export default {
         "Success is not final, failure is not fatal: It is the courage to continue that counts.",
         "Hardships often prepare ordinary people for an extraordinary destiny.",
         "Don't watch the clock; do what it does. Keep going.",
+        "The only limit to our realization of tomorrow will be our doubts of today.",
+        "It always seems impossible until it’s done.",
+        "Dream big and dare to fail.",
+        "Act as if what you do makes a difference. It does.",
+        "The future depends on what you do today.",
+        "You are never too old to set another goal or to dream a new dream.",
+        "Keep your face always toward the sunshine—and shadows will fall behind you.",
+        "Start where you are. Use what you have. Do what you can.",
+        "Success is stumbling from failure to failure with no loss of enthusiasm.",
+        "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+        "Opportunities don't happen. You create them.",
+        "The harder the conflict, the greater the triumph.",
+        "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
+        "Happiness is not something ready-made. It comes from your own actions.",
+        "Life is 10% what happens to us and 90% how we react to it.",
+        "Do something today that your future self will thank you for.",
+        "Courage doesn’t always roar. Sometimes it’s the quiet voice at the end of the day saying, ‘I will try again tomorrow.’",
+        "The way to get started is to quit talking and begin doing.",
+        "Don't let yesterday take up too much of today.",
+        "You don’t have to be great to start, but you have to start to be great.",
+        "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
+        "If you want something you’ve never had, you must be willing to do something you’ve never done.",
+        "Challenges are what make life interesting, and overcoming them is what makes life meaningful.",
+        "You are braver than you believe, stronger than you seem, and smarter than you think.",
+        "The best way to predict the future is to create it.",
+        "Success is not the key to happiness. Happiness is the key to success.",
+        "Small steps in the right direction can turn out to be the biggest step of your life.",
+        "A journey of a thousand miles begins with a single step.",
+        "Failure is the opportunity to begin again, this time more intelligently.",
+        "Great things never come from comfort zones.",
+        "Strive for progress, not perfection.",
+        "Doubt kills more dreams than failure ever will.",
+        "Your limitation—it’s only your imagination.",
+        "Push yourself, because no one else is going to do it for you.",
+        "Dream it. Wish it. Do it.",
+        "It’s going to be hard, but hard does not mean impossible.",
+        "Don’t stop when you’re tired. Stop when you’re done.",
+        "Wake up with determination. Go to bed with satisfaction.",
+        "Do something today that will make your future self proud.",
+        "Little things make big days.",
+        "Don’t wait for opportunity. Create it.",
+        "Failure is not the opposite of success; it’s part of success.",
+        "We don’t grow when things are easy; we grow when we face challenges.",
+        "Work hard in silence. Let your success be your noise.",
+        "If it doesn’t challenge you, it won’t change you.",
+        "Success usually comes to those who are too busy to be looking for it.",
+        "Never give up on a dream just because of the time it will take to accomplish it. The time will pass anyway.",
+        "The secret of getting ahead is getting started.",
+        "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+        "The expert in anything was once a beginner.",
+        "Don’t be afraid to give up the good to go for the great.",
+        "Your time is limited, so don’t waste it living someone else’s life.",
+        "I am not a product of my circumstances. I am a product of my decisions.",
+        "Do what you can with all you have, wherever you are.",
+        "Perseverance is not a long race; it is many short races one after the other.",
+        "Success is how high you bounce when you hit bottom.",
+        "Don’t count the days; make the days count.",
+        "Strength doesn’t come from what you can do. It comes from overcoming the things you once thought you couldn’t.",
+        "You miss 100% of the shots you don’t take.",
+        "In the middle of every difficulty lies opportunity.",
+        "Be so good they can’t ignore you.",
+        "Believe in the power of yet: ‘I don’t understand this… yet.’",
+        "Hustle until your haters ask if you’re hiring.",
+        "Fall seven times, stand up eight.",
+        "You are capable of amazing things.",
+        "Success isn’t about how much money you make; it’s about the difference you make in people’s lives.",
+        "Start each day with a positive thought and a grateful heart.",
+        "Focus on being productive instead of busy.",
+        "The best way to achieve your dreams is to wake up."
       ];
-      this.motivationalQuote =
-        quotes[Math.floor(Math.random() * quotes.length)];
+      this.motivationalQuote = quotes[Math.floor(Math.random() * quotes.length)];
     },
     generateStudyTip() {
       const tips = [
@@ -641,6 +745,89 @@ export default {
         "Practice active recall for better retention.",
         "Set realistic study goals and stick to them.",
         "Teach what you've learned to others.",
+        "Use mnemonic devices to remember complex information.",
+        "Organize your study space to minimize distractions.",
+        "Set specific times for studying and stick to a schedule.",
+        "Review your notes within 24 hours to reinforce learning.",
+        "Break down large tasks into smaller, manageable steps.",
+        "Use flashcards for quick review and memorization.",
+        "Study in intervals with the Pomodoro technique (25 mins work, 5 mins break).",
+        "Test yourself frequently to gauge your understanding.",
+        "Summarize what you’ve learned in your own words.",
+        "Use visualization techniques to connect concepts.",
+        "Group similar topics together to improve understanding.",
+        "Listen to instrumental music or white noise to stay focused.",
+        "Create mind maps to visually organize information.",
+        "Turn off notifications on your phone to stay focused.",
+        "Reward yourself after completing study sessions.",
+        "Experiment with different learning techniques to find what works best for you.",
+        "Get enough sleep to consolidate what you’ve learned.",
+        "Stay positive and remind yourself of your goals.",
+        "Study with a friend or in a group for collaborative learning.",
+        "Use digital tools like apps and websites to stay organized.",
+        "Keep a dedicated notebook or folder for each subject.",
+        "Color-code your notes for better visual recall.",
+        "Set daily, weekly, and monthly goals to track your progress.",
+        "Revise your notes regularly to reinforce learning.",
+        "Practice past exams to get familiar with the question format.",
+        "Avoid multitasking—focus on one topic at a time.",
+        "Use spaced repetition to retain information longer.",
+        "Record yourself explaining a topic and play it back to review.",
+        "Read aloud while studying to enhance memory.",
+        "Relate what you're studying to real-world examples.",
+        "Study the hardest subjects first when your energy is high.",
+        "Use apps like Quizlet or Anki to create digital flashcards.",
+        "Set timers to avoid burnout and stay disciplined.",
+        "Turn complex topics into simple analogies to better understand them.",
+        "Keep a study journal to reflect on your progress.",
+        "Sit in a chair and desk instead of studying on your bed.",
+        "Use diagrams and charts to simplify complex ideas.",
+        "Break your notes into bullet points for easier review.",
+        "Find online lectures or tutorials for difficult topics.",
+        "Join a study group to share ideas and learn collaboratively.",
+        "Use positive affirmations to boost your confidence.",
+        "Take handwritten notes instead of typing—they improve retention.",
+        "Visualize your goals to stay motivated.",
+        "Take a short walk after studying to clear your mind.",
+        "Ask questions if you're struggling to understand something.",
+        "Use a to-do list to prioritize your study tasks.",
+        "Avoid caffeine late at night to ensure quality sleep.",
+        "Review your syllabus or curriculum to stay aligned with objectives.",
+        "Use sticky notes to highlight key points in your study space.",
+        "Divide long study sessions into themed blocks.",
+        "Find a study buddy to stay accountable.",
+        "Use a whiteboard to brainstorm and connect ideas.",
+        "Keep your study sessions distraction-free by using website blockers.",
+        "Review material just before sleeping—it helps with retention.",
+        "Learn by teaching—explain topics to someone else.",
+        "Use acronyms or rhymes to memorize lists.",
+        "Create summaries for every chapter or topic you cover.",
+        "Alternate subjects to keep your brain engaged.",
+        "Stay consistent by studying at the same time each day.",
+        "Keep healthy snacks like nuts or fruits nearby for quick energy.",
+        "Study in a quiet, well-lit environment for better focus.",
+        "Take deep breaths to stay calm during stressful sessions.",
+        "Learn the meanings behind concepts instead of rote memorization.",
+        "Experiment with different seating arrangements for comfort.",
+        "Find motivational quotes and keep them visible in your study area.",
+        "Reward yourself with small treats after finishing a session.",
+        "Avoid overloading your schedule; give yourself time to relax.",
+        "Identify your peak productivity hours and study during that time.",
+        "Reduce screen time before bed to improve sleep quality.",
+        "Try different learning styles—visual, auditory, or kinesthetic.",
+        "Stay curious and ask, 'Why does this work?' to deepen understanding.",
+        "Avoid procrastination by setting firm deadlines.",
+        "Work on improving your weak areas first.",
+        "Break study topics into small, digestible chunks.",
+        "Use online resources like YouTube or Khan Academy for tutorials.",
+        "Mix up your study environment to prevent monotony.",
+        "Maintain a balance between study, exercise, and social time.",
+        "Create a positive association with studying by making it enjoyable.",
+        "Write practice questions to test yourself later.",
+        "Revise frequently to move information to long-term memory.",
+        "Switch between high-effort and low-effort tasks to prevent burnout.",
+        "Limit social media usage during study hours.",
+        "Identify and eliminate bad study habits."
       ];
       this.studyTip = tips[Math.floor(Math.random() * tips.length)];
     },
@@ -810,6 +997,34 @@ h2 {
 .track-info p {
   color: #aaa;
   font-size: 0.9em;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #3498db;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spotify-button {
@@ -1051,11 +1266,11 @@ h2 {
 
 .chat-box {
   background: rgba(255, 255, 255, 0.1);
-  min-height: 300px; /* Set a minimum height */
-  max-height: 600px; /* Limit the max height */
+  min-height: 300px;
+  max-height: 600px;
   padding: 10px;
   overflow-y: auto;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -1073,30 +1288,31 @@ h2 {
 }
 
 .chat-message {
-  max-width: 100%; /* Ensure message does not exceed box width */
+  max-width: 100%;
   overflow-wrap: break-word;
-  word-break: break-word; /* Break long words to prevent overflow */
-  white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+  word-break: break-word;
+  white-space: pre-wrap;
   padding: 8px 12px;
   border-radius: 8px;
 }
 
 .chat-message p {
   margin: 0;
-  white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+  white-space: pre-wrap;
 }
 
 .user-message {
   align-self: flex-end;
   background-color: #34495e;
-  max-width: 100%; /* Limit user message width */
+  max-width: 100%;
 }
 
 .ai-message {
   align-self: flex-start;
   background-color: #27ae60;
   color: #fff;
-  max-width: 100%; /* Limit AI message width */
+  max-width: 100%;
+  text-align: start;
 }
 
 .chat-message,

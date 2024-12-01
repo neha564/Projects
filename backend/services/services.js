@@ -93,11 +93,11 @@ const registerUser = async (userData) => {
   }
 
   try {
-    // Create a new user instance with provided data, store plain password
+    // Create a new user instance with provided data
     const user = new User({
       name,
       email,
-      password, // Storing plain password here
+      password,
       interests, // Optional
       availableTimes, // Optional
       courses, // Optional
