@@ -2,50 +2,48 @@
   <div class="profile-page">
     <h2>User Profile</h2>
 
-    <!-- Loading Indicator (if profile is being fetched or saved) -->
-    <div v-if="isLoading" class="loading-container">
-      <div class="loading-spinner">Loading...</div>
+    <!-- Loading Indicator -->
+    <div v-if="isLoading" class="loading-spinner-container">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading...</div>
     </div>
 
-    <!-- Avatar Section -->
-    <div class="avatar-section">
-      <img
-        :src="user.avatar || defaultAvatar"
-        alt="User Avatar"
-        class="avatar-img"
-      />
-      <div class="edit-avatar-container">
-        <!-- Edit Avatar button below the Avatar -->
-        <button
-          v-if="!isEditingAvatar"
-          @click="editAvatar"
-          :disabled="isSaving"
-        >
-          Edit Avatar
-        </button>
-        <input
-          v-if="isEditingAvatar"
-          type="url"
-          v-model="newAvatar"
-          placeholder="Enter new avatar URL"
-          @blur="saveAvatar"
-          class="avatar-input"
-          :disabled="isSaving"
+    <div v-else>
+      <!-- Avatar Section -->
+      <div class="avatar-section">
+        <img
+          :src="user.avatar || defaultAvatar"
+          alt="User Avatar"
+          class="avatar-img"
         />
-        <p v-if="isEditingAvatar" style="font-size: 14px; margin-top: 10px">
-          Tip: You can use a service like Gravatar to set a custom avatar based
-          on your email, or simply search on Google for an image you like and
-          select "Copy Image Address" to use as your avatar.
-        </p>
-        <button v-if="isEditingAvatar" @click="saveAvatar" :disabled="isSaving">
-          Save Avatar
-        </button>
+        <div class="edit-avatar-container">
+          <button
+            v-if="!isEditingAvatar"
+            @click="editAvatar"
+            :disabled="isSaving"
+          >
+            Edit Avatar
+          </button>
+          <input
+            v-if="isEditingAvatar"
+            type="url"
+            v-model="newAvatar"
+            placeholder="Enter new avatar URL"
+            class="avatar-input"
+            :disabled="isSaving"
+          />
+          <button
+            v-if="isEditingAvatar"
+            @click="saveAvatar"
+            :disabled="isSaving"
+          >
+            <div v-if="isSaving" class="small-spinner"></div>
+            <span v-else>Save Avatar</span>
+          </button>
+        </div>
       </div>
-    </div>
 
-    <!-- User Info Section -->
-    <div class="user-info">
-      <!-- Name Field -->
+      <!-- Name Section -->
       <div class="user-field">
         <label for="name">Name</label>
         <input
@@ -60,17 +58,12 @@
           Edit Name
         </button>
         <button v-if="isEditingName" @click="saveName" :disabled="isSaving">
-          Save Name
+          <div v-if="isSaving" class="small-spinner"></div>
+          <span v-else>Save Name</span>
         </button>
       </div>
 
-      <!-- Email Field -->
-      <div class="user-field">
-        <label for="email">Email</label>
-        <p>{{ user.email }}</p>
-      </div>
-
-      <!-- Interests Field -->
+      <!-- Interests Section -->
       <div class="user-field">
         <label for="interests">Interests</label>
         <input
@@ -93,11 +86,12 @@
           @click="saveInterests"
           :disabled="isSaving"
         >
-          Save Interests
+          <div v-if="isSaving" class="small-spinner"></div>
+          <span v-else>Save Interests</span>
         </button>
       </div>
 
-      <!-- Mood Field -->
+      <!-- Mood Section -->
       <div class="user-field">
         <label for="mood">Mood</label>
         <input
@@ -112,11 +106,12 @@
           Edit Mood
         </button>
         <button v-if="isEditingMood" @click="saveMood" :disabled="isSaving">
-          Save Mood
+          <div v-if="isSaving" class="small-spinner"></div>
+          <span v-else>Save Mood</span>
         </button>
       </div>
 
-      <!-- Available Times Field -->
+      <!-- Available Times Section -->
       <div class="user-field">
         <label for="availableTimes">Available Times</label>
         <input
@@ -139,11 +134,12 @@
           @click="saveAvailableTimes"
           :disabled="isSaving"
         >
-          Save Available Times
+          <div v-if="isSaving" class="small-spinner"></div>
+          <span v-else>Save Times</span>
         </button>
       </div>
 
-      <!-- Courses Field -->
+      <!-- Courses Section -->
       <div class="user-field">
         <label for="courses">Courses</label>
         <input
@@ -166,30 +162,8 @@
           @click="saveCourses"
           :disabled="isSaving"
         >
-          Save Courses
-        </button>
-      </div>
-
-      <!-- Groups Field -->
-      <div class="user-field">
-        <label for="groups">Groups</label>
-        <input
-          v-if="isEditingGroups"
-          v-model="newGroups"
-          type="text"
-          placeholder="Enter groups separated by commas"
-          :disabled="isSaving"
-        />
-        <p v-else>{{ user.groups.join(", ") || "No groups added" }}</p>
-        <button
-          v-if="!isEditingGroups"
-          @click="editGroups"
-          :disabled="isSaving"
-        >
-          Edit Groups
-        </button>
-        <button v-if="isEditingGroups" @click="saveGroups" :disabled="isSaving">
-          Save Groups
+          <div v-if="isSaving" class="small-spinner"></div>
+          <span v-else>Save Courses</span>
         </button>
       </div>
     </div>
@@ -198,7 +172,7 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "vuex"; // Ensure you're using Vuex for authentication
+import { mapState } from "vuex";
 
 export default {
   data() {
@@ -229,11 +203,14 @@ export default {
       newGroups: "",
       defaultAvatar: "OIP.jpg", // Default avatar file
       isLoading: true,
-      isSaving: false, // Flag to track if data is being saved
+      isSaving: false,
+      isSavingName: false,
+      isSavingAvatar: false,
+      isSavingInterests: false,
     };
   },
   computed: {
-    ...mapState(["token"]), // Assuming token is stored in Vuex
+    ...mapState(["token"]),
   },
   methods: {
     // Redirect to login if no token is available
@@ -520,13 +497,49 @@ button:hover {
   background-color: #e53935;
 }
 
-.loading-container {
+.loading-spinner-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 100vh;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e0e0e0;
+  border-top: 5px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+.loading-text {
   font-size: 20px;
   font-family: "Poppins", sans-serif;
+  color: #4caf50;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.small-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e0e0e0;
+  border-top: 2px solid #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 
 .edit-avatar-container {

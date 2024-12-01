@@ -262,8 +262,12 @@ export default {
 
       // Check if the user is already on the login page
       if (this.$route.path !== "/login") {
-        console.log("Redirecting to login...");
-        this.$router.replace("/login"); // Use Vue Router for SPA navigation
+        if (this.$route.path === "/home" || this.$route.path === "/profile") {
+          console.log("Redirecting to login...");
+          this.$router.replace("/login"); // Use Vue Router for SPA navigation
+        } else {
+          console.log("User is not on /home or /profile. No redirect.");
+        }
       } else {
         console.log("Already on login page.");
       }
