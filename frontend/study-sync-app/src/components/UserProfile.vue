@@ -32,6 +32,11 @@
           class="avatar-input"
           :disabled="isSaving"
         />
+        <p v-if="isEditingAvatar" style="font-size: 14px; margin-top: 10px">
+          Tip: You can use a service like Gravatar to set a custom avatar based
+          on your email, or simply search on Google for an image you like and
+          select "Copy Image Address" to use as your avatar.
+        </p>
         <button v-if="isEditingAvatar" @click="saveAvatar" :disabled="isSaving">
           Save Avatar
         </button>

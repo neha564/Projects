@@ -12,10 +12,10 @@
       <div class="tool-card music-card">
         <h3>Music Recommendations</h3>
         <input
-            v-model="mood"
-            type="text"
-            placeholder="Enter mood or search a song..."
-            @keyup.enter="getMusicRecommendations"
+          v-model="mood"
+          type="text"
+          placeholder="Enter mood or search a song..."
+          @keyup.enter="getMusicRecommendations"
         />
         <button @click="getMusicRecommendations" class="action-button">
           Get Recommendations
@@ -28,21 +28,24 @@
         </div>
 
         <!-- Display recommendations once loaded -->
-        <div v-if="musicRecommendations.length && !isLoadingMusic" class="music-list">
+        <div
+          v-if="musicRecommendations.length && !isLoadingMusic"
+          class="music-list"
+        >
           <div
-              class="music-track"
-              v-for="(track, index) in musicRecommendations"
-              :key="index"
+            class="music-track"
+            v-for="(track, index) in musicRecommendations"
+            :key="index"
           >
             <img :src="track.image_url" alt="Track Image" class="music-image" />
             <div class="track-info">
               <h4>{{ track.name }}</h4>
               <p>{{ track.artist }}</p>
               <a
-                  :href="track.spotify_url"
-                  target="_blank"
-                  class="spotify-button"
-              >Listen on Spotify</a
+                :href="track.spotify_url"
+                target="_blank"
+                class="spotify-button"
+                >Listen on Spotify</a
               >
             </div>
           </div>
@@ -159,6 +162,9 @@
             <button @click="calculateResult">=</button>
             <button @click="pressButton('+')">+</button>
             <button @click="clearDisplay">C</button>
+            <button @click="pressButton('%')">%</button>
+            <button @click="calculateSquareRoot">√</button>
+            <button @click="pressButton('^')">^</button>
           </div>
         </div>
       </div>
@@ -180,12 +186,12 @@
         <div class="card-content">
           <div class="chat-box">
             <div
-                v-for="(message, index) in chatMessages"
-                :key="index"
-                :class="[
-                  'chat-message',
-                  message.isUser ? 'user-message' : 'ai-message',
-                ]"
+              v-for="(message, index) in chatMessages"
+              :key="index"
+              :class="[
+                'chat-message',
+                message.isUser ? 'user-message' : 'ai-message',
+              ]"
             >
               <p v-if="message.isUser">{{ message.text }}</p>
               <p v-else v-html="message.htmlText"></p>
@@ -193,9 +199,7 @@
 
             <!-- Show a loading spinner if the AI is processing -->
             <div v-if="isLoadingAI" class="chat-message ai-message">
-              <p>
-                <span class="loading-spinner"></span> AI is thinking...
-              </p>
+              <p><span class="loading-spinner"></span> AI is thinking...</p>
             </div>
           </div>
         </div>
@@ -212,20 +216,20 @@
         <div class="input-suggestions-container">
           <!-- Input Field for City -->
           <input
-              v-model="city"
-              type="text"
-              placeholder="Enter city"
-              @input="fetchCitySuggestions"
-              @keyup.enter="getWeather"
-              required
+            v-model="city"
+            type="text"
+            placeholder="Enter city"
+            @input="fetchCitySuggestions"
+            @keyup.enter="getWeather"
+            required
           />
 
           <!-- City Suggestions Dropdown -->
           <ul v-if="citySuggestions.length" class="suggestions-list">
             <li
-                v-for="(suggestion, index) in citySuggestions"
-                :key="index"
-                @click="selectCity(suggestion)"
+              v-for="(suggestion, index) in citySuggestions"
+              :key="index"
+              @click="selectCity(suggestion)"
             >
               {{ suggestion.displayName }}
             </li>
@@ -240,7 +244,10 @@
         </div>
 
         <!-- Display weather details -->
-        <div v-if="weather && weather.city && !isLoadingWeather" class="weather-info">
+        <div
+          v-if="weather && weather.city && !isLoadingWeather"
+          class="weather-info"
+        >
           <!-- Render SVG weather icon based on condition -->
           <div class="weather-icon">
             <svg width="50" height="50" viewBox="0 0 24 24">
@@ -734,9 +741,10 @@ export default {
         "Success isn’t about how much money you make; it’s about the difference you make in people’s lives.",
         "Start each day with a positive thought and a grateful heart.",
         "Focus on being productive instead of busy.",
-        "The best way to achieve your dreams is to wake up."
+        "The best way to achieve your dreams is to wake up.",
       ];
-      this.motivationalQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      this.motivationalQuote =
+        quotes[Math.floor(Math.random() * quotes.length)];
     },
     generateStudyTip() {
       const tips = [
@@ -827,22 +835,49 @@ export default {
         "Revise frequently to move information to long-term memory.",
         "Switch between high-effort and low-effort tasks to prevent burnout.",
         "Limit social media usage during study hours.",
-        "Identify and eliminate bad study habits."
+        "Identify and eliminate bad study habits.",
       ];
       this.studyTip = tips[Math.floor(Math.random() * tips.length)];
     },
     pressButton(value) {
-      this.calcDisplay += value;
+      this.calcDisplay += value; // Append the button's value to the display
     },
     calculateResult() {
       try {
-        this.calcDisplay = eval(this.calcDisplay).toString();
+        // Replace `^` with `**` for exponentiation
+        let expression = this.calcDisplay.replace(/\^/g, "**");
+
+        // Handle percentages: Replace "number%" with "number / 100"
+        expression = expression.replace(/(\d+)%/g, "($1/100)");
+
+        // Use Function constructor to safely evaluate the expression
+        const result = Function(`"use strict"; return (${expression})`)();
+
+        // Check if the result is a valid number
+        if (!isNaN(result)) {
+          this.calcDisplay = result.toString();
+        } else {
+          this.calcDisplay = "Error";
+        }
       } catch (e) {
-        this.calcDisplay = "Error";
+        this.calcDisplay = "Error"; // Handle errors gracefully
       }
     },
     clearDisplay() {
-      this.calcDisplay = "";
+      this.calcDisplay = ""; // Clear the display
+    },
+    calculateSquareRoot() {
+      try {
+        // Parse the current display value and calculate its square root
+        const value = parseFloat(this.calcDisplay);
+        if (!isNaN(value)) {
+          this.calcDisplay = Math.sqrt(value).toString(); // Update display with the square root
+        } else {
+          this.calcDisplay = "Error"; // Handle invalid input
+        }
+      } catch (e) {
+        this.calcDisplay = "Error"; // Handle unexpected errors
+      }
     },
   },
 };

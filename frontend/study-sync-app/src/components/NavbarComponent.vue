@@ -206,28 +206,81 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import axios from "axios"; // Assuming Axios is used for HTTP requests
 
 export default {
   data() {
     return {
-      drawer: false,
+      drawer: false, // For controlling the mobile menu drawer
+      tokenCheckInterval: null, // For managing the periodic validation interval
     };
   },
   computed: {
-    ...mapGetters(["isAuthenticated"]),
+    ...mapGetters(["isAuthenticated"]), // Gets authentication state from Vuex
   },
   methods: {
     goHome() {
-      this.$router.push("/"); // Use this.$router to navigate to home
+      this.$router.push("/"); // Navigate to the home page
     },
-    ...mapActions(["logout"]),
+    ...mapActions(["logout"]), // Vuex action for logging out
     closeDrawer() {
-      this.drawer = false;
+      this.drawer = false; // Close the navigation drawer
     },
     logoutAndCloseDrawer() {
-      this.logout();
-      this.drawer = false;
+      this.logout(); // Log out and update state
+      this.drawer = false; // Close the drawer
     },
+    async fetchUserProfile() {
+      const token = localStorage.getItem("token"); // Retrieve the token
+      if (!token) {
+        this.forceLogout();
+        return;
+      }
+
+      try {
+        const { data } = await axios.get(
+          "https://studysync-study-buddy-app.onrender.com/api/profile",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+
+        console.log("Token is valid. User profile fetched:", data.user);
+      } catch (error) {
+        console.error("Token validation failed:", error.message);
+
+        // Clear token and redirect
+        this.forceLogout();
+      }
+    },
+
+    forceLogout() {
+      // Clear the token
+      localStorage.removeItem("token");
+
+      this.logout(); // Log out to update the state
+
+      // Check if the user is already on the login page
+      if (this.$route.path !== "/login") {
+        console.log("Redirecting to login...");
+        this.$router.replace("/login"); // Use Vue Router for SPA navigation
+      } else {
+        console.log("Already on login page.");
+      }
+    },
+  },
+  created() {
+    // Perform initial token validation
+    this.fetchUserProfile();
+
+    // Set up periodic validation every 5 seconds
+    this.tokenCheckInterval = setInterval(this.fetchUserProfile, 5000);
+  },
+  beforeUnmount() {
+    // Clear the interval to prevent memory leaks
+    if (this.tokenCheckInterval) {
+      clearInterval(this.tokenCheckInterval);
+    }
   },
 };
 </script>
