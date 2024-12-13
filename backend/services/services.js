@@ -52,19 +52,19 @@ const getMusicRecommendation = async (searchTerm = "study") => {
     const response = await axios.get("https://api.spotify.com/v1/search", {
       headers: { Authorization: `Bearer ${accessToken}` },
       params: {
-        q: searchTerm, // The search term
-        type: "track", // Searching for tracks only
-        limit: 10, // Limit results to 10 tracks
+        q: searchTerm,
+        type: "track",
+        limit: 10,
       },
     });
 
     // Process the results to match the format used earlier
     return response.data.tracks.items.map((track) => ({
       name: track.name,
-      artist: track.artists[0]?.name, // Get the name of the first artist
-      preview_url: track.preview_url, // Preview URL of the track
-      spotify_url: track.external_urls.spotify, // Spotify track URL
-      image_url: track.album.images[0]?.url, // Album image (first image)
+      artist: track.artists[0]?.name,
+      preview_url: track.preview_url,
+      spotify_url: track.external_urls.spotify,
+      image_url: track.album.images[0]?.url,
     }));
   } catch (error) {
     console.error(
@@ -72,7 +72,7 @@ const getMusicRecommendation = async (searchTerm = "study") => {
       error.message,
       error.response?.data || "",
     );
-    return []; // Return empty array in case of error
+    return [];
   }
 };
 
@@ -98,9 +98,9 @@ const registerUser = async (userData) => {
       name,
       email,
       password,
-      interests, // Optional
-      availableTimes, // Optional
-      courses, // Optional
+      interests,
+      availableTimes,
+      courses,
     });
 
     // Save the new user
@@ -243,7 +243,7 @@ const clearSessionHistory = (sessionId) => {
 // Weather service
 const getWeather = async (city) => {
   try {
-    const apiKey = process.env.OPENWEATHER_API_KEY; // Fetch the API key from the environment variable
+    const apiKey = process.env.OPENWEATHER_API_KEY;
 
     // Ensure city name is provided
     if (!city) {
@@ -257,7 +257,7 @@ const getWeather = async (city) => {
         params: {
           q: city,
           appid: apiKey,
-          units: "metric", // Convert temperature to Celsius
+          units: "metric",
         },
       },
     );
