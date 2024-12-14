@@ -1,5 +1,3 @@
-// views.js
-
 const successMessages = {
   registrationSuccess: "Registration successful",
   loginSuccess: "Login successful",

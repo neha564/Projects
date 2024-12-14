@@ -1,7 +1,7 @@
 const { User, Group } = require("../models/models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { successMessages, errorMessages } = require("../views/views"); // Import messages
+const { successMessages, errorMessages } = require("../views/views");
 const { getMusicRecommendation, chatWithAI } = require("../services/services");
 const { get } = require("axios");
 

@@ -3,8 +3,8 @@ const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 const routes = require("./routes/routes");
 const cors = require("cors");
-const swaggerUi = require("swagger-ui-express"); // Import Swagger UI
-const swaggerSpec = require("./swagger/swaggerConfig"); // Import Swagger config
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger/swaggerConfig");
 
 // Load environment variables at the start
 require("dotenv").config();
