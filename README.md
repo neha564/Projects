@@ -23,6 +23,7 @@ Welcome to **StudySync**! StudySync is a productivity and study tool designed to
 - [API Documentation](#api-documentation)
   - [Table of API Endpoints](#table-of-api-endpoints)
   - [Backend Swagger Documentation](#backend-swagger-documentation)
+  - [OpenAPI Specification](#openapi-specification)
   - [Example of calling the Music Recommendation API](#example-of-calling-the-music-recommendation-api)
   - [Authentication](#authentication)
 - [NGINX Configuration](#nginx-configuration)
@@ -138,6 +139,7 @@ Here are some placeholder UI images for the app:
 - **OpenWeather API** (for weather data)
 - **Gemini API** (for AI chat functionality)
 - **Swagger** (API Documentation)
+- **OpenAPI** (API Specification)
 - **Nginx** (Reverse Proxy & Load Balancer)
 
 ### DevOps & Deployment
@@ -306,6 +308,56 @@ The backend API documentation is available at `http://localhost:5000/api-docs` a
 <p align="center">
   <img src="img/swagger_ui.png" alt="Swagger UI" width="100%">
 </p>
+
+### OpenAPI Specification
+
+#### Using the `openapi.yaml` File
+
+1. **View the API Documentation**
+  - Open [Swagger Editor](https://editor.swagger.io/).
+  - Upload the `openapi.yaml` file or paste its content.
+  - Visualize and interact with the API documentation.
+
+2. **Test the API**
+  - Import `openapi.yaml` into [Postman](https://www.postman.com/):
+    - Open Postman → Import → Select `openapi.yaml`.
+    - Test the API endpoints directly from Postman.
+  - Or use [Swagger UI](https://swagger.io/tools/swagger-ui/):
+    - Provide the file URL or upload it to view and test endpoints.
+
+3. **Generate Client Libraries**
+  - Install OpenAPI Generator:
+    ```bash
+    npm install @openapitools/openapi-generator-cli -g
+    ```
+  - Generate a client library:
+    ```bash
+    openapi-generator-cli generate -i openapi.yaml -g <language> -o ./client
+    ```
+  - Replace `<language>` with the desired programming language.
+
+4. **Generate Server Stubs**
+  - Generate a server stub:
+    ```bash
+    openapi-generator-cli generate -i openapi.yaml -g <framework> -o ./server
+    ```
+  - Replace `<framework>` with the desired framework.
+
+5. **Run a Mock Server**
+  - Install Prism:
+    ```bash
+    npm install -g @stoplight/prism-cli
+    ```
+  - Start the mock server:
+    ```bash
+    prism mock openapi.yaml
+    ```
+
+6. **Validate the OpenAPI File**
+  - Use [Swagger Validator](https://validator.swagger.io/):
+    - Upload `openapi.yaml` or paste its content to check for errors.
+
+This guide enables you to view, test, and utilize the API.
 
 ### Example of calling the Music Recommendation API
 
