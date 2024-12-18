@@ -2,7 +2,6 @@
   "name": "studysync-app",
   "version": "1.0.0",
   "description": "StudySync is a suite of tools that help students study more effectively.",
-  "main": "index.js",
   "scripts": {
     "start": "cd frontend/study-sync-app && npm run serve",
     "dev": "cd frontend/study-sync-app && npm run serve",
