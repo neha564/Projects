@@ -19,11 +19,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
       responses:
-        '201':
+        "201":
           description: User registered successfully
-        '400':
+        "400":
           description: Bad request
   /api/auth/login:
     post:
@@ -35,11 +35,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: "#/components/schemas/User"
       responses:
-        '200':
+        "200":
           description: Login successful
-        '401':
+        "401":
           description: Invalid credentials
   /api/auth/verify-email:
     post:
@@ -56,9 +56,9 @@ paths:
                 email:
                   type: string
       responses:
-        '200':
+        "200":
           description: Email exists
-        '404':
+        "404":
           description: Email not found
   /api/auth/reset-password:
     post:
@@ -77,9 +77,9 @@ paths:
                 newPassword:
                   type: string
       responses:
-        '200':
+        "200":
           description: Password reset successfully
-        '400':
+        "400":
           description: Invalid request
   /api/profile/{userId}:
     get:
@@ -93,9 +93,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: User profile retrieved
-        '404':
+        "404":
           description: User not found
   /api/profile:
     put:
@@ -107,9 +107,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserProfile'
+              $ref: "#/components/schemas/UserProfile"
       responses:
-        '200':
+        "200":
           description: Profile updated successfully
   /api/search:
     get:
@@ -123,9 +123,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Profiles found
-        '404':
+        "404":
           description: No profiles found
   /api/groups:
     post:
@@ -144,7 +144,7 @@ paths:
                 description:
                   type: string
       responses:
-        '201':
+        "201":
           description: Group created successfully
   /api/groups/{groupId}/sessions:
     post:
@@ -169,7 +169,7 @@ paths:
                 description:
                   type: string
       responses:
-        '201':
+        "201":
           description: Session created successfully
   /api/music:
     get:
@@ -183,9 +183,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Music recommendations retrieved
-        '404':
+        "404":
           description: No recommendations found
   /api/ai-chat:
     post:
@@ -202,7 +202,7 @@ paths:
                 message:
                   type: string
       responses:
-        '200':
+        "200":
           description: AI response generated
   /api/weather:
     get:
@@ -216,9 +216,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Weather data retrieved
-        '404':
+        "404":
           description: City not found
   /api/cities:
     get:
@@ -232,9 +232,9 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: City suggestions retrieved
-        '404':
+        "404":
           description: No cities found
 components:
   schemas:
