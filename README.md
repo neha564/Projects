@@ -357,24 +357,7 @@ The backend API documentation is available at `http://localhost:5000/api-docs` a
   - Use [Swagger Validator](https://validator.swagger.io/):
     - Upload `openapi.yaml` or paste its content to check for errors.
 
-This guide enables you to view, test, and utilize the API.
-
-### Example of calling the Music Recommendation API
-
-```javascript
-axios
-  .get("http://localhost:5000/api/music?emotion=happy", {
-    headers: {
-      Authorization: `Bearer ${your_token}`,
-    },
-  })
-  .then((response) => {
-    console.log(response.data.recommendations); // Process music recommendations
-  })
-  .catch((error) => {
-    console.error("Error fetching music:", error);
-  });
-```
+This guide enables you to view, test, and utilize the API. You can generate client libraries, server stubs, and run mock servers using the OpenAPI specification.
 
 ### Authentication
 
