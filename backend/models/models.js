@@ -27,3 +27,4 @@ const User = mongoose.model("User", userSchema);
 const Group = mongoose.model("Group", groupSchema);
 
 module.exports = { User, Group };
+
